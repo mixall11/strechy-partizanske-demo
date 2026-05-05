@@ -434,3 +434,261 @@ h1,h2,h3,h4 { margin: 0 0 8px; line-height: 1.2; }
 }
 .exit-bar b { color: var(--yellow); }
 .exit-bar a { color: var(--yellow); margin-left: 8px; font-weight: 700; }
+
+/* ============================================== */
+/* ============ THEME SWITCH (topbar) =========== */
+/* ============================================== */
+.theme-switch { display: inline-flex; gap: 4px; margin-left: 14px; vertical-align: middle; }
+.theme-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+  cursor: pointer;
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  font-family: inherit;
+  transition: background .15s;
+}
+.theme-btn:hover { background: rgba(255,255,255,0.18); }
+.theme-btn.active { background: var(--yellow); border-color: var(--yellow); }
+
+/* ============================================== */
+/* ============ THEME: DARK ===================== */
+/* ============================================== */
+[data-theme="dark"] {
+  --red: #d96a3f;
+  --red-dark: #b8542d;
+  --orange: #d97a45;
+  --green: #6b9460;
+  --green-light: #1f2a1c;
+  --yellow: #e0b563;
+}
+[data-theme="dark"] body { background: #14110f; color: #f0ebe5; }
+
+/* Logo + cart akcent na tmavom */
+[data-theme="dark"] .logo strong { color: #f0ebe5; }
+[data-theme="dark"] .cart-btn { background: #2d4a26; }
+
+/* Hlavné povrchy (cards) */
+[data-theme="dark"] .header,
+[data-theme="dark"] .bundle,
+[data-theme="dark"] .trust-card,
+[data-theme="dark"] .welcome-popup,
+[data-theme="dark"] .prod,
+[data-theme="dark"] .tier,
+[data-theme="dark"] .club-progress-card,
+[data-theme="dark"] .review {
+  background: #1f1c19;
+  border-color: #3a3530;
+}
+[data-theme="dark"] .header { border-bottom-color: #3a3530; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+[data-theme="dark"] .section-grey { background: #1a1714; }
+[data-theme="dark"] .hero { background: linear-gradient(135deg, #2a201a 0%, #14110f 70%); }
+[data-theme="dark"] .shipbar { background: #1a1714; border-top-color: #3a3530; }
+[data-theme="dark"] .shipbar-progress { background: #2a2522; }
+
+/* Search */
+[data-theme="dark"] .search input { background: #14110f; color: #f0ebe5; border-color: #3a3530; }
+[data-theme="dark"] .search input:focus { border-color: var(--yellow); }
+[data-theme="dark"] .search-tags a { background: #2a2522; color: #b8aea3; }
+[data-theme="dark"] .search-tags a:hover { background: var(--red); color: #fff; }
+
+/* Header actions */
+[data-theme="dark"] .ha { color: #b8aea3; }
+
+/* Product cards */
+[data-theme="dark"] .prod:hover { border-color: var(--red); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+[data-theme="dark"] .prod-img { background: #14110f; }
+[data-theme="dark"] .prod h3 { color: #f0ebe5; }
+[data-theme="dark"] .prod small,
+[data-theme="dark"] .prod-stars { color: #b8aea3; }
+[data-theme="dark"] .prod-stars b { color: #f0ebe5; }
+[data-theme="dark"] .prod-live { background: #2a201a; color: #f0ebe5; border-left-color: var(--yellow); }
+[data-theme="dark"] .prod-price s { color: #6b6258; }
+[data-theme="dark"] .prod-price span { color: #b8aea3; }
+
+/* Search-tags zarovnanie pod input (aby neplavali na border do shipbaru) */
+[data-theme="dark"] .search-tags,
+[data-theme="eco"] .search-tags { top: calc(100% + 4px); padding-top: 0; }
+
+/* Bundles */
+[data-theme="dark"] .bundle:hover { border-color: var(--yellow); }
+[data-theme="dark"] .bundle h4 { color: #f0ebe5; }
+[data-theme="dark"] .bundle li,
+[data-theme="dark"] .bundle-price small { color: #b8aea3; }
+[data-theme="dark"] .bundle-best { border-color: var(--red); box-shadow: 0 12px 30px rgba(217,106,63,0.35); }
+
+/* Trust cards */
+[data-theme="dark"] .trust-card { border-left-color: var(--yellow); }
+[data-theme="dark"] .trust-card h4 { color: var(--yellow); }
+[data-theme="dark"] .trust-card-green { border-left-color: var(--green); }
+[data-theme="dark"] .trust-card-green h4 { color: var(--green); }
+[data-theme="dark"] .trust-card p,
+[data-theme="dark"] .trust-card small { color: #b8aea3; }
+
+/* Welcome popup */
+[data-theme="dark"] .welcome-popup { box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+[data-theme="dark"] .welcome-popup h3 { color: #f0ebe5; }
+[data-theme="dark"] .welcome-popup p,
+[data-theme="dark"] .welcome-popup small { color: #b8aea3; }
+[data-theme="dark"] .wp-form input { background: #14110f; color: #f0ebe5; border-color: #3a3530; }
+[data-theme="dark"] .wp-close { color: #b8aea3; }
+
+/* Tiers / club */
+[data-theme="dark"] .tier b { color: var(--yellow); }
+[data-theme="dark"] .tier small,
+[data-theme="dark"] .lead { color: #b8aea3; }
+[data-theme="dark"] .tier-active { background: #2a201a; border-color: var(--orange); }
+[data-theme="dark"] .tier-active b { color: var(--orange); }
+[data-theme="dark"] .club-progress-card { border-color: var(--orange); }
+[data-theme="dark"] .club-progress-card h4 { color: #b8aea3; }
+[data-theme="dark"] .cp-bar { background: #2a2522; }
+[data-theme="dark"] .cp-perks span { color: #b8aea3; }
+[data-theme="dark"] .club-progress-card small { color: #b8aea3; }
+
+/* Reviews */
+[data-theme="dark"] .review p { color: #f0ebe5; }
+[data-theme="dark"] .review small { color: #b8aea3; }
+
+/* Headings + sekcie */
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4,
+[data-theme="dark"] .section-head h2,
+[data-theme="dark"] .section-title { color: #f0ebe5; }
+[data-theme="dark"] .section-sub { color: #b8aea3; }
+[data-theme="dark"] .hero-old { color: #b8aea3; }
+
+/* Buttons */
+[data-theme="dark"] .btn-outline { background: transparent; color: #f0ebe5; border-color: #3a3530; }
+[data-theme="dark"] .btn-outline:hover { background: #f0ebe5; color: #1f1c19; border-color: #f0ebe5; }
+
+/* Theme switch active visibility */
+[data-theme="dark"] .theme-btn { background: rgba(255,255,255,0.06); }
+
+/* ============================================== */
+/* ============ THEME: ECO (true black) ========= */
+/* ============================================== */
+[data-theme="eco"] {
+  --red: #e07b4d;
+  --red-dark: #d96a3f;
+  --orange: #e08850;
+  --green: #7da670;
+  --green-light: #142010;
+  --yellow: #e8be73;
+}
+
+/* Vypnutie všetkých animácií / tieňov / gradientov pre OLED + batériu */
+[data-theme="eco"] *,
+[data-theme="eco"] *:before,
+[data-theme="eco"] *:after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+[data-theme="eco"] body { background: #000; color: #f0ebe5; }
+
+/* Logo + cart na pravej čiernej */
+[data-theme="eco"] .logo strong { color: #f0ebe5; }
+[data-theme="eco"] .cart-btn { background: #1a3514; }
+
+/* Povrchy = #0a0a0a, hranice #1a1a1a */
+[data-theme="eco"] .header,
+[data-theme="eco"] .bundle,
+[data-theme="eco"] .trust-card,
+[data-theme="eco"] .welcome-popup,
+[data-theme="eco"] .prod,
+[data-theme="eco"] .tier,
+[data-theme="eco"] .club-progress-card,
+[data-theme="eco"] .review {
+  background: #0a0a0a;
+  border-color: #1a1a1a;
+}
+[data-theme="eco"] .header { border-bottom-color: #1a1a1a; }
+[data-theme="eco"] .topbar { background: #000; }
+[data-theme="eco"] .footer { background: #000; }
+[data-theme="eco"] .footer-bottom { border-top-color: #1a1a1a; }
+[data-theme="eco"] .mainnav { background: #0a0a0a; }
+[data-theme="eco"] .usp-bar { background: #000; }
+[data-theme="eco"] .section-grey { background: #050505; }
+
+/* Gradienty → solid náhrady (aby zostala identita) */
+[data-theme="eco"] .topstrip { background: var(--red); }
+[data-theme="eco"] .hero { background: #000; }
+[data-theme="eco"] .shipbar { background: #0a0a0a; border-top-color: #1a1a1a; }
+[data-theme="eco"] .shipbar-progress { background: #1a1a1a; }
+[data-theme="eco"] .shipbar-fill { background: var(--green); }
+[data-theme="eco"] .bundle-banner { background: #0a0a0a; }
+[data-theme="eco"] .newsletter-cta { background: var(--yellow); }
+[data-theme="eco"] .cp-fill { background: var(--orange); }
+
+/* Search */
+[data-theme="eco"] .search input { background: #000; color: #f0ebe5; border-color: #1a1a1a; }
+[data-theme="eco"] .search input:focus { border-color: var(--yellow); }
+[data-theme="eco"] .search-tags a { background: #1a1a1a; color: #b8aea3; }
+[data-theme="eco"] .search-tags a:hover { background: var(--red); color: #fff; }
+
+/* Header actions */
+[data-theme="eco"] .ha { color: #b8aea3; }
+
+/* Products */
+[data-theme="eco"] .prod-img { background: #000; }
+[data-theme="eco"] .prod h3 { color: #f0ebe5; }
+[data-theme="eco"] .prod small,
+[data-theme="eco"] .prod-stars { color: #b8aea3; }
+[data-theme="eco"] .prod-stars b { color: #f0ebe5; }
+[data-theme="eco"] .prod-live { background: #1a1208; color: #f0ebe5; border-left-color: var(--yellow); }
+[data-theme="eco"] .prod-price s { color: #555; }
+[data-theme="eco"] .prod-price span { color: #b8aea3; }
+
+/* Bundles */
+[data-theme="eco"] .bundle h4 { color: #f0ebe5; }
+[data-theme="eco"] .bundle li,
+[data-theme="eco"] .bundle-price small { color: #b8aea3; }
+[data-theme="eco"] .bundle-best { border-color: var(--red); transform: none; }
+
+/* Trust */
+[data-theme="eco"] .trust-card { border-left-color: var(--yellow); }
+[data-theme="eco"] .trust-card h4 { color: var(--yellow); }
+[data-theme="eco"] .trust-card-green { border-left-color: var(--green); }
+[data-theme="eco"] .trust-card-green h4 { color: var(--green); }
+[data-theme="eco"] .trust-card p,
+[data-theme="eco"] .trust-card small { color: #b8aea3; }
+
+/* Welcome popup */
+[data-theme="eco"] .welcome-popup h3 { color: #f0ebe5; }
+[data-theme="eco"] .welcome-popup p,
+[data-theme="eco"] .welcome-popup small { color: #b8aea3; }
+[data-theme="eco"] .wp-form input { background: #000; color: #f0ebe5; border-color: #1a1a1a; }
+[data-theme="eco"] .wp-close { color: #b8aea3; }
+
+/* Tiers / club */
+[data-theme="eco"] .tier b { color: var(--yellow); }
+[data-theme="eco"] .tier small,
+[data-theme="eco"] .lead { color: #b8aea3; }
+[data-theme="eco"] .tier-active { background: #1a1208; border-color: var(--orange); }
+[data-theme="eco"] .tier-active b { color: var(--orange); }
+[data-theme="eco"] .club-progress-card { border-color: var(--orange); }
+[data-theme="eco"] .club-progress-card h4 { color: #b8aea3; }
+[data-theme="eco"] .cp-bar { background: #1a1a1a; }
+[data-theme="eco"] .cp-perks span { color: #b8aea3; }
+[data-theme="eco"] .club-progress-card small { color: #b8aea3; }
+
+/* Reviews */
+[data-theme="eco"] .review p { color: #f0ebe5; }
+[data-theme="eco"] .review small { color: #b8aea3; }
+
+/* Headings */
+[data-theme="eco"] h1, [data-theme="eco"] h2, [data-theme="eco"] h3, [data-theme="eco"] h4,
+[data-theme="eco"] .section-head h2,
+[data-theme="eco"] .section-title { color: #f0ebe5; }
+[data-theme="eco"] .section-sub { color: #b8aea3; }
+[data-theme="eco"] .hero-old { color: #b8aea3; }
+
+/* Buttons */
+[data-theme="eco"] .btn-outline { background: transparent; color: #f0ebe5; border-color: #1a1a1a; }
+[data-theme="eco"] .btn-outline:hover { background: #f0ebe5; color: #000; border-color: #f0ebe5; }
+
+[data-theme="eco"] .theme-btn { background: rgba(255,255,255,0.06); }

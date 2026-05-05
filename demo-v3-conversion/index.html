@@ -25,6 +25,11 @@
       <a href="#">⭐ 4,8/5 (4 213 hodnotení Heureka)</a> ·
       <a href="#">Sledovanie balíka</a> ·
       <a href="#">Prihlásiť</a>
+      <span class="theme-switch" role="group" aria-label="Voľba motívu">
+        <button class="theme-btn" data-theme="light" aria-label="Bledá téma" title="Bledá">☀</button>
+        <button class="theme-btn" data-theme="dark" aria-label="Tmavá téma" title="Tmavá">🌙</button>
+        <button class="theme-btn" data-theme="eco" aria-label="Úsporná téma" title="Úsporná (šetrí baterku)">🌿</button>
+      </span>
     </span>
   </div>
 </div>
@@ -373,6 +378,32 @@
 <aside class="exit-bar" aria-label="Exit bar">
   ⏰ Akcia <b>−35 %</b> končí o <b>14:32:08</b> · <a href="#">Pozrieť ponuky →</a>
 </aside>
+
+<!-- ======= THEME SWITCHER ======= -->
+<script>
+(() => {
+  const KEY = 'sp-theme';
+  const root = document.documentElement;
+  function apply(t) {
+    root.setAttribute('data-theme', t);
+    localStorage.setItem(KEY, t);
+    document.querySelectorAll('.theme-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.theme === t));
+  }
+  const saved = localStorage.getItem(KEY);
+  const initial = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  apply(initial);
+  if ('getBattery' in navigator && !saved) {
+    navigator.getBattery().then(bat => {
+      if (!bat.charging && bat.level < 0.3) apply('eco');
+    }).catch(() => {});
+  }
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.theme-btn');
+    if (btn) apply(btn.dataset.theme);
+  });
+})();
+</script>
 
 </body>
 </html>
