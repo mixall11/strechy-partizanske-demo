@@ -75,8 +75,8 @@ h1,h2,h3,h4 { margin: 0 0 8px; line-height: 1.2; }
   cursor: pointer; font-size: 14px;
 }
 .search-tags {
-  position: absolute; top: 100%; left: 0; right: 50px;
-  display: flex; gap: 8px; flex-wrap: wrap; padding: 6px 0; font-size: 12px;
+  position: absolute; top: calc(100% + 10px); left: 0; right: 50px;
+  display: flex; gap: 8px; flex-wrap: wrap; padding: 4px 0 6px; font-size: 12px;
 }
 .search-tags a { background: var(--grey-50); padding: 2px 8px; border-radius: 99px; color: var(--grey-700); }
 .search-tags a:hover { background: var(--red); color: #fff; }
