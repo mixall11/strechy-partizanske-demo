@@ -126,12 +126,39 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
    PRE-HEADLINE BAR
    ============================================================ */
 .prebar {
-  background: linear-gradient(90deg, var(--blue-deep) 0%, var(--blue) 50%, var(--red) 100%);
+  /* --p (0..1) nastavuje JS podľa pomeru elapsed/total kampane.
+     p=0 → skoro celá modrá (kampaň práve začala)
+     p=1 → skoro celá červená (kampaň končí)
+     Hranica sa posúva sprava doľava, soft 10% prechod. */
+  --p: 0;
+  background: linear-gradient(
+    90deg,
+    var(--blue-deep) 0%,
+    var(--blue) calc((1 - var(--p)) * 100% - 5%),
+    var(--red) calc((1 - var(--p)) * 100% + 5%),
+    var(--red-dark) 100%
+  );
   color: #fff;
   padding: 10px 0;
   font-size: 13.5px;
   font-weight: 500;
+  transition: background 1.5s ease;
+  position: relative;
 }
+/* Subtle pulzujúce tlmené žiarenie cez celú lištu pre vizuálnu pozornosť */
+.prebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  animation: prebar-shimmer 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes prebar-shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+.prebar-inner { position: relative; z-index: 1; }
 .prebar-inner {
   display: flex;
   flex-wrap: wrap;

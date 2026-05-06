@@ -518,19 +518,33 @@
 </div>
 
 <script>
-// Countdown — odpočet do polnoci
-function updateCountdown() {
+// Akciová kampaň — gradient progress + countdown
+const CAMPAIGN_START = new Date('2026-05-01T00:00:00');
+const CAMPAIGN_END   = new Date('2026-05-15T23:59:59');
+const TOTAL = CAMPAIGN_END - CAMPAIGN_START;
+const prebar = document.querySelector('.prebar');
+const cdEl = document.getElementById('countdown');
+
+function tick() {
   const now = new Date();
-  const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-  const diff = end - now;
-  const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-  const m = String(Math.floor(diff / 60000) % 60).padStart(2, '0');
-  const s = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
-  const el = document.getElementById('countdown');
-  if (el) el.textContent = h + ':' + m + ':' + s;
+  const elapsed = now - CAMPAIGN_START;
+  const remaining = CAMPAIGN_END - now;
+
+  // Progress 0..1 → modrá zľava ujedaná červenou sprava
+  const p = Math.max(0, Math.min(1, elapsed / TOTAL));
+  if (prebar) prebar.style.setProperty('--p', p.toFixed(4));
+
+  // Countdown — dni + hh:mm:ss (ak posledný deň → len hh:mm:ss)
+  if (!cdEl) return;
+  if (remaining <= 0) { cdEl.textContent = 'KONIEC'; return; }
+  const d = Math.floor(remaining / 86400000);
+  const h = String(Math.floor(remaining / 3600000) % 24).padStart(2, '0');
+  const m = String(Math.floor(remaining / 60000) % 60).padStart(2, '0');
+  const s = String(Math.floor(remaining / 1000) % 60).padStart(2, '0');
+  cdEl.textContent = d > 0 ? `${d}d ${h}:${m}:${s}` : `${h}:${m}:${s}`;
 }
-setInterval(updateCountdown, 1000);
-updateCountdown();
+tick();
+setInterval(tick, 1000);
 
 // Form preventDefault — demo only, vyžaduje napojenie na Shoptet / form provider
 document.querySelector('.calc')?.addEventListener('submit', e => {
