@@ -1,0 +1,18 @@
+/*
+Theme Name: Strechy Partizánske
+Theme URI: https://strechy-partizanske.sk
+Author: Michal Raffay
+Author URI: https://raffay.sk
+Description: WooCommerce eshop pre strešný / klampiarsky sortiment. Modrá + biela + červená paleta podľa loga, sticky topbar s logom, prebar s časovou osou a 24h denným countdownom (osobná zľava cez meno z localStorage, víkendová univerzálna). Postavený na základe HTML demo z mixall11.github.io/strechy-partizanske-demo/eshop/.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: strechy-partizanske
+Tags: woocommerce, e-commerce, custom-colors, custom-logo, custom-menu, sticky-header, threaded-comments, translation-ready
+*/
+
+/* Hlavné CSS je v assets/css/main.css (enqueued cez functions.php).
+   Tento súbor obsahuje len Theme header pre WP rozpoznanie. */
