@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strechy Partizánske — demos + funnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f8fafc;
+    color: #15191f;
+    line-height: 1.5;
+    padding: 60px 20px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  .head { text-align: center; margin-bottom: 50px; }
+  .head img { width: 88px; height: auto; margin-bottom: 18px; }
+  h1 { font-size: 32px; margin: 0 0 10px; font-weight: 800; color: #1565C0; }
+  .head p { color: #4a5560; font-size: 16px; max-width: 620px; margin: 0 auto; }
+
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    background: #fff;
+    border: 1px solid #d8dee5;
+    border-radius: 10px;
+    padding: 26px;
+    text-decoration: none;
+    color: inherit;
+    transition: all .15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card:hover { border-color: #1565C0; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(15,30,60,0.1); }
+  .card-tag {
+    display: inline-block;
+    background: #eef2f6;
+    color: #4a5560;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 99px;
+    align-self: flex-start;
+  }
+  .card-tag.funnel { background: #1565C0; color: #fff; }
+  .card-tag.eshop  { background: #D32F2F; color: #fff; }
+  .card h2 { margin: 4px 0 4px; font-size: 20px; font-weight: 800; }
+  .card p { margin: 0; color: #4a5560; font-size: 14px; }
+  .card-link { margin-top: 10px; font-size: 13px; font-weight: 700; color: #1565C0; }
+
+  .flow {
+    margin-top: 50px;
+    padding: 30px;
+    background: linear-gradient(135deg, #1565C0 0%, #0a3578 100%);
+    color: #fff;
+    border-radius: 12px;
+  }
+  .flow h3 { margin: 0 0 14px; font-size: 18px; }
+  .flow ol { padding-left: 20px; margin: 0; font-size: 14.5px; line-height: 1.7; }
+  .flow b { color: #FBC02D; }
+
+  footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #a8b2bc;
+    font-size: 12px;
+  }
+  footer a { color: #4a5560; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="head">
+    <img src="funnel-v1/logo.svg" alt="Strechy Partizánske">
+    <h1>Strechy Partizánske — náhľady</h1>
+    <p>5 dizajnových verzií + marketingový funnel. Funnel privádza návštevníka, eshop dokončí objednávku.</p>
+  </div>
+
+  <div class="grid">
+
+    <a class="card" href="funnel-v1/">
+      <span class="card-tag funnel">↓ Marketingový funnel</span>
+      <h2>Funnel v1 · NEW</h2>
+      <p>Long-form landing page s kalkulačkou — bolesť, sľub, case studies, bonusy, záruka, FAQ. Vedie do eshopu.</p>
+      <span class="card-link">Otvoriť funnel →</span>
+    </a>
+
+    <a class="card" href="demo-v1-classic/">
+      <span class="card-tag eshop">🛒 Eshop · odporúčaný</span>
+      <h2>v1 — Classic</h2>
+      <p>Maslen-like baseline eshop. Plný sortiment, klasický shop layout. Funnel z neho ťahá konverziu.</p>
+      <span class="card-link">Otvoriť eshop →</span>
+    </a>
+
+    <a class="card" href="demo-v2-authority/">
+      <span class="card-tag">Premium B2B</span>
+      <h2>v2 — Authority</h2>
+      <p>Lindab/Manufactum positioning. Sépia + serif Playfair. Pre stavebné firmy a projektantov.</p>
+      <span class="card-link">Otvoriť →</span>
+    </a>
+
+    <a class="card" href="demo-v3-conversion/">
+      <span class="card-tag">Max CR</span>
+      <h2>v3 — Conversion King</h2>
+      <p>Notino/Alza-style. Countdown + scarcity + bundles + 3 témy (light/dark/eco). Maximálna CR.</p>
+      <span class="card-link">Otvoriť →</span>
+    </a>
+
+    <a class="card" href="demo-v4-editorial/">
+      <span class="card-tag">Brand-first</span>
+      <h2>v4 — Editorial</h2>
+      <p>Apple/heritage. Cream + Cormorant Garamond. Pre architektov a prémiový segment.</p>
+      <span class="card-link">Otvoriť →</span>
+    </a>
+
+  </div>
+
+  <div class="flow">
+    <h3>Ako spolupracuje funnel s eshopom</h3>
+    <ol>
+      <li>Návštevník príde z Google Ads / FB Ads / Heureka na <b>funnel-v1</b>.</li>
+      <li>Vyplní kalkulačku → email do CRM (Shoptet / HubSpot / Resend).</li>
+      <li>Dostane PDF s cenou + kupón <b>WELCOME5</b> na 5 % v eshope.</li>
+      <li>Klikne v emaili / na funneli → <b>eshop</b> (demo-v1-classic).</li>
+      <li>5-step welcome sekvencia ďalej tlačí návrat do eshopu.</li>
+    </ol>
+  </div>
+
+  <footer>
+    Repo: <a href="https://github.com/mixall11/strechy-partizanske-demo">github.com/mixall11/strechy-partizanske-demo</a>
+  </footer>
+</div>
+
+</body>
+</html>
