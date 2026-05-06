@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" role="img" aria-label="Strechy Partizánske">
+  <rect width="220" height="180" fill="#1565C0"/>
+  <!-- horný šíp -->
+  <path d="M30 78 L110 28 L190 78 L172 92 L110 52 L48 92 Z" fill="#D32F2F"/>
+  <!-- spodný šíp -->
+  <path d="M30 108 L110 58 L190 108 L172 122 L110 82 L48 122 Z" fill="#D32F2F"/>
+  <!-- text -->
+  <text x="110" y="148" text-anchor="middle" fill="#FFFFFF" font-family="'Inter',sans-serif" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
+  <text x="110" y="170" text-anchor="middle" fill="#FFFFFF" font-family="'Inter',sans-serif" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
+</svg>
