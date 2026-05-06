@@ -16,7 +16,8 @@
 <div class="ann">
   <div class="container ann-inner">
     <span>🚚 Doprava ZDARMA nad 500 € · 60 km od Partizánskeho</span>
-    <span>📞 +421 38 749 12 34 · po–pia 8:00–17:00</span>
+    <span>🕐 Teraz <b id="now">11:36</b> · <span id="cutoff">Objednaj do <b>14:00</b> → expedícia DNES</span></span>
+    <span class="ann-tel">📞 +421 38 749 12 34</span>
   </div>
 </div>
 
@@ -439,6 +440,53 @@
     <a href="../funnel-v1/" class="btn btn-primary">📐 Kalkulačka →</a>
   </div>
 </div>
+
+<script>
+// Živé hodiny v announcement bare + delivery cutoff messaging
+const nowEl = document.getElementById('now');
+const cutoffEl = document.getElementById('cutoff');
+
+function clockTick() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  if (nowEl) nowEl.textContent = `${hh}:${mm}`;
+
+  if (!cutoffEl) return;
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const dow = now.getDay(); // 0 = nedeľa, 6 = sobota
+
+  // Víkend
+  if (dow === 0 || dow === 6) {
+    cutoffEl.innerHTML = '⚠ Víkend · expedícia <b>v pondelok</b>';
+    cutoffEl.classList.add('expired');
+    return;
+  }
+
+  // Pracovný deň
+  if (h < 8) {
+    cutoffEl.innerHTML = 'Otvárame o <b>8:00</b> · expedícia ešte DNES';
+    cutoffEl.classList.remove('expired');
+  } else if (h < 14) {
+    // Stále v okne pre dnešnú expedíciu — počíta sa do 14:00
+    const minToCutoff = (14 - h) * 60 - m;
+    const ch = Math.floor(minToCutoff / 60);
+    const cm = minToCutoff % 60;
+    const remain = ch > 0 ? `${ch} h ${cm} min` : `${cm} min`;
+    cutoffEl.innerHTML = `Objednaj do <b>14:00</b> (zostáva ${remain}) → expedícia DNES`;
+    cutoffEl.classList.remove('expired');
+  } else if (h < 17) {
+    cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
+    cutoffEl.classList.add('expired');
+  } else {
+    cutoffEl.innerHTML = 'Otvárame zajtra o <b>8:00</b> · expedícia zajtra';
+    cutoffEl.classList.add('expired');
+  }
+}
+clockTick();
+setInterval(clockTick, 1000);
+</script>
 
 </body>
 </html>

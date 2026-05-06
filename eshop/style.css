@@ -60,8 +60,12 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
 }
-@media (max-width: 700px) { .ann-inner span:nth-child(2) { display: none; } }
+.ann b { color: #FBC02D; font-weight: 700; }
+.ann #cutoff.expired b { color: #ef9a9a; }
+@media (max-width: 900px) { .ann-tel { display: none; } }
+@media (max-width: 700px) { .ann-inner span:first-child { display: none; } }
 
 /* ============================================================
    TOPBAR (logo + search + actions)
