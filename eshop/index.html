@@ -17,8 +17,8 @@
   <div class="prebar">
     <div class="prebar-marker"></div>
     <div class="container prebar-inner">
-      <span class="prebar-pill">🕐 <b id="now">11:51</b> · <span id="cutoff">Cutoff DNES o 18:00 — expedícia ešte dnes</span></span>
-      <span class="prebar-end">Zľava klesá · zostáva <b id="countdown">02:24:00</b></span>
+      <span class="prebar-pill">🕐 <b id="now">11:51</b> · <span id="cutoff">Akcia DNES — končí o polnoci, zľava klesá každú hodinu</span></span>
+      <span class="prebar-end">Do polnoci zostáva <b id="countdown">12:09:00</b></span>
     </div>
   </div>
   <a href="#akcie" class="prebar-pin" id="pricepin" title="Aktuálna zľava klesá každú minútu — klikni a pozri akciový komplet">
@@ -452,14 +452,17 @@
 </div>
 
 <script>
-// Živé hodiny + delivery cutoff messaging + časová os pre cutoff window
+// 24h denný cyklus 00:00 → 23:59:59 — IDENTICKÁ logika na funneli aj eshope.
+// Obe stránky ukazujú vždy ten istý progress, marker a zľavu pri rovnakom čase dňa.
+// Resetuje sa o polnoci.
 const nowEl = document.getElementById('now');
 const cutoffEl = document.getElementById('cutoff');
 const cdEl = document.getElementById('countdown');
 const pinEl = document.getElementById('pinPct');
 
-const DISC_MAX = 25;  // % na začiatku cutoff okna (8:00)
-const DISC_MIN = 5;   // % na konci (14:00)
+const DISC_MAX = 25;
+const DISC_MIN = 5;
+const DAY_SEC  = 86400;
 
 function tick() {
   const now = new Date();
@@ -470,38 +473,22 @@ function tick() {
   const h = now.getHours();
   const m = now.getMinutes();
   const s = now.getSeconds();
-  const dow = now.getDay();
+  const nowSec = h * 3600 + m * 60 + s;
 
-  // === Cutoff messaging v prebar pill ===
+  const p = nowSec / DAY_SEC;
+
   if (cutoffEl) {
-    if (dow === 0 || dow === 6) {
-      cutoffEl.innerHTML = '⚠ Víkend · expedícia <b>v pondelok</b>';
-      cutoffEl.classList.add('expired');
-    } else if (h < 8) {
-      cutoffEl.innerHTML = 'Otvárame o <b>8:00</b> · expedícia ešte DNES';
-      cutoffEl.classList.remove('expired');
-    } else if (h < 18) {
-      const minToCutoff = (18 - h) * 60 - m;
-      const ch = Math.floor(minToCutoff / 60);
-      const cm = minToCutoff % 60;
-      const remain = ch > 0 ? `${ch} h ${cm} min` : `${cm} min`;
-      cutoffEl.innerHTML = `Cutoff <b>18:00</b> · zostáva ${remain} → expedícia DNES`;
+    const remainingSec = DAY_SEC - nowSec;
+    const rh = Math.floor(remainingSec / 3600);
+    const rm = Math.floor(remainingSec / 60) % 60;
+    if (rh >= 1) {
+      cutoffEl.innerHTML = `Akcia DNES — končí o <b>polnoci</b>, zostáva ${rh} h ${rm} min`;
       cutoffEl.classList.remove('expired');
     } else {
-      cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
+      cutoffEl.innerHTML = `⚠ Posledná hodina — končí o <b>polnoci</b> (${rm} min)`;
       cutoffEl.classList.add('expired');
     }
   }
-
-  // === Časová os: 8:00 → 18:00 dnes (10 h = 600 min) ===
-  const startSec  = 8 * 3600;
-  const endSec    = 18 * 3600;
-  const totalSec  = endSec - startSec;
-  const nowSec    = h * 3600 + m * 60 + s;
-  let p;
-  if (nowSec < startSec)        p = 0;          // pred otvorením
-  else if (nowSec >= endSec)    p = 1;          // po cutoffe
-  else                          p = (nowSec - startSec) / totalSec;
 
   const pinPos = Math.max(0.06, Math.min(0.94, p));
   document.documentElement.style.setProperty('--p', p.toFixed(4));
@@ -510,28 +497,14 @@ function tick() {
   const discount = DISC_MAX - p * (DISC_MAX - DISC_MIN);
   if (pinEl) pinEl.textContent = `−${discount.toFixed(0)} %`;
 
-  // Countdown do cutoffu (14:00). Pred 8:00 → odpočet do 8:00. Po 14:00 → do zajtra 8:00.
   if (cdEl) {
-    let remainingSec;
-    if (nowSec < startSec) {
-      remainingSec = startSec - nowSec;
-      cdEl.textContent = `${pad(remainingSec)} (do 8:00)`;
-    } else if (nowSec < endSec) {
-      remainingSec = endSec - nowSec;
-      cdEl.textContent = pad(remainingSec);
-    } else {
-      cdEl.textContent = 'CUTOFF UKONČENÝ';
-    }
+    const remainingSec = DAY_SEC - nowSec;
+    const rh = String(Math.floor(remainingSec / 3600)).padStart(2, '0');
+    const rm = String(Math.floor(remainingSec / 60) % 60).padStart(2, '0');
+    const rs = String(remainingSec % 60).padStart(2, '0');
+    cdEl.textContent = `${rh}:${rm}:${rs}`;
   }
 }
-
-function pad(sec) {
-  const h = String(Math.floor(sec / 3600)).padStart(2, '0');
-  const m = String(Math.floor(sec / 60) % 60).padStart(2, '0');
-  const s = String(sec % 60).padStart(2, '0');
-  return `${h}:${m}:${s}`;
-}
-
 tick();
 setInterval(tick, 1000);
 </script>

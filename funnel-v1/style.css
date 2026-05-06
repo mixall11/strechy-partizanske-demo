@@ -257,6 +257,10 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   .prebar-wrap { margin-bottom: 50px; }
 }
 
+/* Cutoff state — keď cutoff prešiel, mierne stlmenie */
+#cutoff.expired { opacity: 0.85; }
+#cutoff.expired b { color: #ef9a9a; }
+
 /* Disclaimer pri kalkulačke (dáva sa pri "objednávke") */
 .calc-disclaimer {
   margin: 18px 0 0;
