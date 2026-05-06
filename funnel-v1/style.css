@@ -287,6 +287,20 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   border-radius: 99px;
   font-weight: 600;
 }
+.prebar-pill .name-cta,
+.prebar-pill .name-edit {
+  color: var(--yellow);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(251,192,45,0.4);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.prebar-pill .name-cta:hover,
+.prebar-pill .name-edit:hover {
+  text-decoration-color: var(--yellow);
+}
+.prebar-pill .name-edit { font-size: 11px; opacity: 0.85; }
 .prebar-end b { font-weight: 800; }
 #countdown {
   background: rgba(0,0,0,0.25);
