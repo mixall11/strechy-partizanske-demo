@@ -345,6 +345,25 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
 .cta-block { display: flex; width: 100%; margin-top: 30px; }
 .cta-sm { padding: 10px 18px; font-size: 14px; box-shadow: none; }
 
+.cta-shop {
+  background: var(--blue);
+  box-shadow: 0 6px 16px rgba(21,101,192,0.3);
+}
+.cta-shop:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 10px 22px rgba(21,101,192,0.4);
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+@media (max-width: 600px) {
+  .hero-cta-row .cta { width: 100%; }
+}
+
 /* ============================================================
    LOGO BAR
    ============================================================ */
