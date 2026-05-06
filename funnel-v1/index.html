@@ -33,13 +33,23 @@
 </header>
 
 <!-- ====================================================== -->
-<!-- 0 · PRE-HEADLINE STRIP — kvalifikuje publikum + naliehavosť -->
+<!-- 0 · PRE-HEADLINE STRIP — gradient + price pin -->
 <!-- ====================================================== -->
-<div class="prebar">
-  <div class="container prebar-inner">
-    <span class="prebar-pill">Pre majiteľov rodinných domov v okrese Partizánske</span>
-    <span class="prebar-end">Akciová cena platí do <b id="enddate">15. mája 2026</b> · zostáva <b id="countdown">09:14:32</b></span>
+<div class="prebar-wrap">
+  <div class="prebar">
+    <div class="prebar-marker"></div>
+    <div class="container prebar-inner">
+      <span class="prebar-pill">Pre majiteľov rodinných domov v okrese Partizánske</span>
+      <span class="prebar-end">Akciová cena platí do <b id="enddate">15. mája 2026</b> · zostáva <b id="countdown">09:14:32</b></span>
+    </div>
   </div>
+  <a href="../eshop/" class="prebar-pin" id="pricepin" title="Aktuálna zľava klesá každý deň — klikni a uložíme ti cenu">
+    <span class="pin-pct" id="pinPct">−25 %</span>
+    <span class="pin-meta">
+      <small>Aktuálna zľava</small>
+      <b>Zachytiť cenu →</b>
+    </span>
+  </a>
 </div>
 
 <!-- ====================================================== -->
@@ -518,23 +528,32 @@
 </div>
 
 <script>
-// Akciová kampaň — gradient progress + countdown
+// Akciová kampaň — gradient + marker + price pin + countdown
 const CAMPAIGN_START = new Date('2026-05-01T00:00:00');
 const CAMPAIGN_END   = new Date('2026-05-15T23:59:59');
 const TOTAL = CAMPAIGN_END - CAMPAIGN_START;
-const prebar = document.querySelector('.prebar');
-const cdEl = document.getElementById('countdown');
+const DISC_MAX = 25; // % na začiatku
+const DISC_MIN = 5;  // % na konci
+
+const cdEl  = document.getElementById('countdown');
+const pinEl = document.getElementById('pinPct');
 
 function tick() {
   const now = new Date();
   const elapsed = now - CAMPAIGN_START;
   const remaining = CAMPAIGN_END - now;
-
-  // Progress 0..1 → modrá zľava ujedaná červenou sprava
   const p = Math.max(0, Math.min(1, elapsed / TOTAL));
-  if (prebar) prebar.style.setProperty('--p', p.toFixed(4));
 
-  // Countdown — dni + hh:mm:ss (ak posledný deň → len hh:mm:ss)
+  // CSS premenné — gradient + pozícia markera + pozícia pinu (clamp 6—94 %)
+  const pinPos = Math.max(0.06, Math.min(0.94, p));
+  document.documentElement.style.setProperty('--p', p.toFixed(4));
+  document.documentElement.style.setProperty('--pin', pinPos.toFixed(4));
+
+  // Aktuálna zľava klesá z DISC_MAX (start) na DISC_MIN (end)
+  const discount = DISC_MAX - p * (DISC_MAX - DISC_MIN);
+  if (pinEl) pinEl.textContent = `−${discount.toFixed(0)} %`;
+
+  // Countdown
   if (!cdEl) return;
   if (remaining <= 0) { cdEl.textContent = 'KONIEC'; return; }
   const d = Math.floor(remaining / 86400000);

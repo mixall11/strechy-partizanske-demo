@@ -125,17 +125,22 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
 /* ============================================================
    PRE-HEADLINE BAR
    ============================================================ */
+/* ============================================================
+   PREBAR + PRICE PIN — časová os kampane
+   --p   (0..1) celkový progress, riadi gradient + marker
+   --pin (0..1) clamped 6—94 %, riadi pozíciu floating pinu
+   Obe nastavuje JS na :root.
+   ============================================================ */
+.prebar-wrap {
+  position: relative;
+  margin-bottom: 56px; /* miesto pre visiaci pin */
+}
 .prebar {
-  /* --p (0..1) nastavuje JS podľa pomeru elapsed/total kampane.
-     p=0 → skoro celá modrá (kampaň práve začala)
-     p=1 → skoro celá červená (kampaň končí)
-     Hranica sa posúva sprava doľava, soft 10% prechod. */
-  --p: 0;
   background: linear-gradient(
     90deg,
     var(--blue-deep) 0%,
-    var(--blue) calc((1 - var(--p)) * 100% - 5%),
-    var(--red) calc((1 - var(--p)) * 100% + 5%),
+    var(--blue) calc((1 - var(--p, 0)) * 100% - 5%),
+    var(--red) calc((1 - var(--p, 0)) * 100% + 5%),
     var(--red-dark) 100%
   );
   color: #fff;
@@ -144,13 +149,13 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   font-weight: 500;
   transition: background 1.5s ease;
   position: relative;
+  overflow: visible;
 }
-/* Subtle pulzujúce tlmené žiarenie cez celú lištu pre vizuálnu pozornosť */
 .prebar::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
   animation: prebar-shimmer 6s ease-in-out infinite;
   pointer-events: none;
 }
@@ -159,6 +164,98 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   50% { opacity: 0.8; }
 }
 .prebar-inner { position: relative; z-index: 1; }
+
+/* Žltý vertikálny marker na hranici */
+.prebar-marker {
+  position: absolute;
+  top: -2px; bottom: -2px;
+  left: calc(var(--p, 0) * 0% + (1 - var(--p, 0)) * 100%);
+  width: 3px;
+  background: var(--yellow);
+  box-shadow: 0 0 12px rgba(251,192,45,0.95), 0 0 4px #fff;
+  transition: left 1.5s ease;
+  z-index: 3;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.prebar-marker::before,
+.prebar-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 11px; height: 11px;
+  background: var(--yellow);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px rgba(251,192,45,0.9);
+}
+.prebar-marker::before { top: -5px; }
+.prebar-marker::after  { bottom: -5px; }
+
+/* Floating price pin — visí pod prebarom na pozícii markera */
+.prebar-pin {
+  position: absolute;
+  top: 100%;
+  left: calc(var(--pin, 0) * 0% + (1 - var(--pin, 0)) * 100%);
+  transform: translateX(-50%);
+  background: var(--yellow);
+  color: var(--grey-900);
+  padding: 10px 18px 11px 16px;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  font-family: inherit;
+  white-space: nowrap;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  z-index: 35;
+  transition: left 1.5s ease, transform 0.2s, background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border-top: 4px solid var(--yellow);
+}
+.prebar-pin::before {
+  /* malé "kotvové" háčiky doľava+doprava aby pin sedel na čiare */
+  content: '';
+  position: absolute;
+  top: -4px; left: 0; right: 0;
+  height: 4px;
+  background: var(--yellow);
+  border-radius: 0;
+}
+.prebar-pin:hover {
+  background: #f9b21a;
+  transform: translateX(-50%) translateY(2px);
+  box-shadow: 0 18px 32px rgba(0,0,0,0.28);
+}
+
+.pin-pct {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--red-dark);
+  line-height: 1;
+}
+.pin-meta { display: flex; flex-direction: column; line-height: 1.2; }
+.pin-meta small {
+  font-size: 10px;
+  color: var(--grey-700);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.pin-meta b {
+  font-size: 13.5px;
+  color: var(--grey-900);
+  font-weight: 800;
+}
+
+@media (max-width: 600px) {
+  .prebar-pin { padding: 8px 12px 9px; gap: 10px; }
+  .pin-pct { font-size: 19px; }
+  .pin-meta small { font-size: 9px; }
+  .pin-meta b { font-size: 12px; }
+  .prebar-wrap { margin-bottom: 50px; }
+}
 .prebar-inner {
   display: flex;
   flex-wrap: wrap;
