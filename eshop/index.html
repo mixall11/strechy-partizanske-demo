@@ -21,6 +21,24 @@
   </div>
 </div>
 
+<!-- ====== PREBAR — časová os: cutoff 8:00 → 14:00 ====== -->
+<div class="prebar-wrap">
+  <div class="prebar">
+    <div class="prebar-marker"></div>
+    <div class="container prebar-inner">
+      <span class="prebar-pill">📦 Cutoff DNES · zľava klesá s pribúdajúcim časom</span>
+      <span class="prebar-end">Do cutoffu zostáva <b id="countdown">02:24:00</b></span>
+    </div>
+  </div>
+  <a href="#akcie" class="prebar-pin" id="pricepin" title="Aktuálna zľava klesá každú minútu — klikni a pozri akciový komplet">
+    <span class="pin-pct" id="pinPct">−18 %</span>
+    <span class="pin-meta">
+      <small>Cutoff zľava</small>
+      <b>Zachytiť cenu →</b>
+    </span>
+  </a>
+</div>
+
 <header class="topbar">
   <div class="container topbar-inner">
     <a href="./" class="brand">
@@ -314,7 +332,7 @@
 </section>
 
 <!-- ====== BUNDLE BANNER ====== -->
-<section class="section">
+<section class="section" id="akcie">
   <div class="container">
     <div class="bundle">
       <div>
@@ -442,50 +460,91 @@
 </div>
 
 <script>
-// Živé hodiny v announcement bare + delivery cutoff messaging
+// Živé hodiny + delivery cutoff messaging + časová os pre cutoff window
 const nowEl = document.getElementById('now');
 const cutoffEl = document.getElementById('cutoff');
+const cdEl = document.getElementById('countdown');
+const pinEl = document.getElementById('pinPct');
 
-function clockTick() {
+const DISC_MAX = 25;  // % na začiatku cutoff okna (8:00)
+const DISC_MIN = 5;   // % na konci (14:00)
+
+function tick() {
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
   const mm = String(now.getMinutes()).padStart(2, '0');
   if (nowEl) nowEl.textContent = `${hh}:${mm}`;
 
-  if (!cutoffEl) return;
   const h = now.getHours();
   const m = now.getMinutes();
-  const dow = now.getDay(); // 0 = nedeľa, 6 = sobota
+  const s = now.getSeconds();
+  const dow = now.getDay();
 
-  // Víkend
-  if (dow === 0 || dow === 6) {
-    cutoffEl.innerHTML = '⚠ Víkend · expedícia <b>v pondelok</b>';
-    cutoffEl.classList.add('expired');
-    return;
+  // === Cutoff messaging v announcement bare ===
+  if (cutoffEl) {
+    if (dow === 0 || dow === 6) {
+      cutoffEl.innerHTML = '⚠ Víkend · expedícia <b>v pondelok</b>';
+      cutoffEl.classList.add('expired');
+    } else if (h < 8) {
+      cutoffEl.innerHTML = 'Otvárame o <b>8:00</b> · expedícia ešte DNES';
+      cutoffEl.classList.remove('expired');
+    } else if (h < 14) {
+      const minToCutoff = (14 - h) * 60 - m;
+      const ch = Math.floor(minToCutoff / 60);
+      const cm = minToCutoff % 60;
+      const remain = ch > 0 ? `${ch} h ${cm} min` : `${cm} min`;
+      cutoffEl.innerHTML = `Objednaj do <b>14:00</b> (zostáva ${remain}) → expedícia DNES`;
+      cutoffEl.classList.remove('expired');
+    } else if (h < 17) {
+      cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
+      cutoffEl.classList.add('expired');
+    } else {
+      cutoffEl.innerHTML = 'Otvárame zajtra o <b>8:00</b> · expedícia zajtra';
+      cutoffEl.classList.add('expired');
+    }
   }
 
-  // Pracovný deň
-  if (h < 8) {
-    cutoffEl.innerHTML = 'Otvárame o <b>8:00</b> · expedícia ešte DNES';
-    cutoffEl.classList.remove('expired');
-  } else if (h < 14) {
-    // Stále v okne pre dnešnú expedíciu — počíta sa do 14:00
-    const minToCutoff = (14 - h) * 60 - m;
-    const ch = Math.floor(minToCutoff / 60);
-    const cm = minToCutoff % 60;
-    const remain = ch > 0 ? `${ch} h ${cm} min` : `${cm} min`;
-    cutoffEl.innerHTML = `Objednaj do <b>14:00</b> (zostáva ${remain}) → expedícia DNES`;
-    cutoffEl.classList.remove('expired');
-  } else if (h < 17) {
-    cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
-    cutoffEl.classList.add('expired');
-  } else {
-    cutoffEl.innerHTML = 'Otvárame zajtra o <b>8:00</b> · expedícia zajtra';
-    cutoffEl.classList.add('expired');
+  // === Časová os: 8:00 → 14:00 dnes (6 h = 360 min) ===
+  const startSec  = 8 * 3600;
+  const endSec    = 14 * 3600;
+  const totalSec  = endSec - startSec;
+  const nowSec    = h * 3600 + m * 60 + s;
+  let p;
+  if (nowSec < startSec)        p = 0;          // pred otvorením
+  else if (nowSec >= endSec)    p = 1;          // po cutoffe
+  else                          p = (nowSec - startSec) / totalSec;
+
+  const pinPos = Math.max(0.06, Math.min(0.94, p));
+  document.documentElement.style.setProperty('--p', p.toFixed(4));
+  document.documentElement.style.setProperty('--pin', pinPos.toFixed(4));
+
+  const discount = DISC_MAX - p * (DISC_MAX - DISC_MIN);
+  if (pinEl) pinEl.textContent = `−${discount.toFixed(0)} %`;
+
+  // Countdown do cutoffu (14:00). Pred 8:00 → odpočet do 8:00. Po 14:00 → do zajtra 8:00.
+  if (cdEl) {
+    let remainingSec;
+    if (nowSec < startSec) {
+      remainingSec = startSec - nowSec;
+      cdEl.textContent = `${pad(remainingSec)} (do 8:00)`;
+    } else if (nowSec < endSec) {
+      remainingSec = endSec - nowSec;
+      cdEl.textContent = pad(remainingSec);
+    } else {
+      cdEl.textContent = 'CUTOFF UKONČENÝ';
+    }
   }
 }
-clockTick();
-setInterval(clockTick, 1000);
+
+function pad(sec) {
+  const h = String(Math.floor(sec / 3600)).padStart(2, '0');
+  const m = String(Math.floor(sec / 60) % 60).padStart(2, '0');
+  const s = String(sec % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+tick();
+setInterval(tick, 1000);
 </script>
 
 </body>
