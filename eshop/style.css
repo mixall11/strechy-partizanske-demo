@@ -45,27 +45,9 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
 
 .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
 
-/* ============================================================
-   ANNOUNCEMENT BAR
-   ============================================================ */
-.ann {
-  background: var(--blue-deep);
-  color: #fff;
-  font-size: 12.5px;
-  padding: 8px 0;
-  font-weight: 500;
-}
-.ann-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-.ann b { color: #FBC02D; font-weight: 700; }
-.ann #cutoff.expired b { color: #ef9a9a; }
-@media (max-width: 900px) { .ann-tel { display: none; } }
-@media (max-width: 700px) { .ann-inner span:first-child { display: none; } }
+/* Cutoff state — keď cutoff prešiel, červenkasté zvýraznenie */
+#cutoff.expired { opacity: 0.85; }
+#cutoff.expired b { color: #ef9a9a; }
 
 /* ============================================================
    PREBAR + PRICE PIN — časová os cutoff window 8:00 → 14:00
