@@ -17,7 +17,7 @@
   <div class="prebar">
     <div class="prebar-marker"></div>
     <div class="container prebar-inner">
-      <span class="prebar-pill">🕐 <b id="now">11:36</b> · <span id="cutoff">Cutoff DNES o 14:00 — expedícia ešte dnes</span></span>
+      <span class="prebar-pill">🕐 <b id="now">11:51</b> · <span id="cutoff">Cutoff DNES o 18:00 — expedícia ešte dnes</span></span>
       <span class="prebar-end">Zľava klesá · zostáva <b id="countdown">02:24:00</b></span>
     </div>
   </div>
@@ -471,7 +471,7 @@ function tick() {
   const s = now.getSeconds();
   const dow = now.getDay();
 
-  // === Cutoff messaging v announcement bare ===
+  // === Cutoff messaging v prebar pill ===
   if (cutoffEl) {
     if (dow === 0 || dow === 6) {
       cutoffEl.innerHTML = '⚠ Víkend · expedícia <b>v pondelok</b>';
@@ -479,25 +479,22 @@ function tick() {
     } else if (h < 8) {
       cutoffEl.innerHTML = 'Otvárame o <b>8:00</b> · expedícia ešte DNES';
       cutoffEl.classList.remove('expired');
-    } else if (h < 14) {
-      const minToCutoff = (14 - h) * 60 - m;
+    } else if (h < 18) {
+      const minToCutoff = (18 - h) * 60 - m;
       const ch = Math.floor(minToCutoff / 60);
       const cm = minToCutoff % 60;
       const remain = ch > 0 ? `${ch} h ${cm} min` : `${cm} min`;
-      cutoffEl.innerHTML = `Objednaj do <b>14:00</b> (zostáva ${remain}) → expedícia DNES`;
+      cutoffEl.innerHTML = `Cutoff <b>18:00</b> · zostáva ${remain} → expedícia DNES`;
       cutoffEl.classList.remove('expired');
-    } else if (h < 17) {
-      cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
-      cutoffEl.classList.add('expired');
     } else {
-      cutoffEl.innerHTML = 'Otvárame zajtra o <b>8:00</b> · expedícia zajtra';
+      cutoffEl.innerHTML = '⏱ Cutoff prešiel · expedícia <b>zajtra ráno</b>';
       cutoffEl.classList.add('expired');
     }
   }
 
-  // === Časová os: 8:00 → 14:00 dnes (6 h = 360 min) ===
+  // === Časová os: 8:00 → 18:00 dnes (10 h = 600 min) ===
   const startSec  = 8 * 3600;
-  const endSec    = 14 * 3600;
+  const endSec    = 18 * 3600;
   const totalSec  = endSec - startSec;
   const nowSec    = h * 3600 + m * 60 + s;
   let p;
