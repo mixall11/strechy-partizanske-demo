@@ -39,14 +39,14 @@
   <div class="prebar">
     <div class="prebar-marker"></div>
     <div class="container prebar-inner">
-      <span class="prebar-pill">Pre majiteľov rodinných domov v okrese Partizánske</span>
-      <span class="prebar-end">Akciová cena platí do <b id="enddate">15. mája 2026</b> · zostáva <b id="countdown">09:14:32</b></span>
+      <span class="prebar-pill">🎯 Tvoja akciová cena · platí 24 hodín od prvej návštevy</span>
+      <span class="prebar-end">Vyprší o <b id="countdown">23:59:59</b></span>
     </div>
   </div>
-  <a href="../eshop/" class="prebar-pin" id="pricepin" title="Aktuálna zľava klesá každý deň — klikni a uložíme ti cenu">
+  <a href="../eshop/" class="prebar-pin" id="pricepin" title="Tvoja zľava klesá každú minútu — klikni a uložíme ti cenu pred vypršaním 24 h">
     <span class="pin-pct" id="pinPct">−25 %</span>
     <span class="pin-meta">
-      <small>Aktuálna zľava</small>
+      <small>Tvoja zľava</small>
       <b>Zachytiť cenu →</b>
     </span>
   </a>
@@ -528,39 +528,46 @@
 </div>
 
 <script>
-// Akciová kampaň — gradient + marker + price pin + countdown
-const CAMPAIGN_START = new Date('2026-05-01T00:00:00');
-const CAMPAIGN_END   = new Date('2026-05-15T23:59:59');
-const TOTAL = CAMPAIGN_END - CAMPAIGN_START;
+// Personálny 24-hodinový countdown — každý návštevník má svoju vlastnú časovú os
+// Štart sa uloží do localStorage pri prvej návšteve, drží 1440 minút (24 h).
+const DURATION_MIN = 1440;                     // 1440 min = 24 h
+const DURATION_MS  = DURATION_MIN * 60 * 1000;
+const STORAGE_KEY  = 'sp_visitor_start';
 const DISC_MAX = 25; // % na začiatku
-const DISC_MIN = 5;  // % na konci
+const DISC_MIN = 5;  // % na konci 24 h
+
+let visitorStart = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+if (!visitorStart || isNaN(visitorStart)) {
+  visitorStart = Date.now();
+  try { localStorage.setItem(STORAGE_KEY, String(visitorStart)); } catch(e) {}
+}
+const visitorEnd = visitorStart + DURATION_MS;
 
 const cdEl  = document.getElementById('countdown');
 const pinEl = document.getElementById('pinPct');
 
 function tick() {
-  const now = new Date();
-  const elapsed = now - CAMPAIGN_START;
-  const remaining = CAMPAIGN_END - now;
-  const p = Math.max(0, Math.min(1, elapsed / TOTAL));
+  const now = Date.now();
+  const elapsed = now - visitorStart;
+  const remaining = visitorEnd - now;
+  const p = Math.max(0, Math.min(1, elapsed / DURATION_MS));
 
   // CSS premenné — gradient + pozícia markera + pozícia pinu (clamp 6—94 %)
   const pinPos = Math.max(0.06, Math.min(0.94, p));
   document.documentElement.style.setProperty('--p', p.toFixed(4));
   document.documentElement.style.setProperty('--pin', pinPos.toFixed(4));
 
-  // Aktuálna zľava klesá z DISC_MAX (start) na DISC_MIN (end)
+  // Aktuálna zľava klesá z DISC_MAX (0 h) na DISC_MIN (24 h)
   const discount = DISC_MAX - p * (DISC_MAX - DISC_MIN);
   if (pinEl) pinEl.textContent = `−${discount.toFixed(0)} %`;
 
-  // Countdown
+  // Countdown vo formáte hh:mm:ss
   if (!cdEl) return;
-  if (remaining <= 0) { cdEl.textContent = 'KONIEC'; return; }
-  const d = Math.floor(remaining / 86400000);
-  const h = String(Math.floor(remaining / 3600000) % 24).padStart(2, '0');
+  if (remaining <= 0) { cdEl.textContent = 'EXPIROVANÉ'; return; }
+  const h = String(Math.floor(remaining / 3600000)).padStart(2, '0');
   const m = String(Math.floor(remaining / 60000) % 60).padStart(2, '0');
   const s = String(Math.floor(remaining / 1000) % 60).padStart(2, '0');
-  cdEl.textContent = d > 0 ? `${d}d ${h}:${m}:${s}` : `${h}:${m}:${s}`;
+  cdEl.textContent = `${h}:${m}:${s}`;
 }
 tick();
 setInterval(tick, 1000);
