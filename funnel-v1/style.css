@@ -256,6 +256,18 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   .pin-meta b { font-size: 12px; }
   .prebar-wrap { margin-bottom: 50px; }
 }
+
+/* Discount disclaimer pruh — pod prebar-wrap */
+.discount-note {
+  background: #fff8e1;
+  color: #6b5d2e;
+  font-size: 12.5px;
+  padding: 9px 0;
+  text-align: center;
+  border-bottom: 1px solid #f0e0a8;
+  letter-spacing: 0.1px;
+}
+.discount-note b { color: #946b00; font-weight: 700; }
 .prebar-inner {
   display: flex;
   flex-wrap: wrap;
