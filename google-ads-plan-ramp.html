@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Google Ads Ramp Plán — Strechy Partizánske</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-center {
+      content: "Strana " counter(page) " / " counter(pages);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 9pt;
+      color: #999;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    color: #1a2332;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* COVER */
+  .cover {
+    page-break-after: always;
+    min-height: 250mm;
+    padding: 50mm 10mm 10mm 10mm;
+    background: linear-gradient(135deg, #1B3A57 0%, #2c4f70 100%);
+    color: white;
+    margin: -18mm -16mm;
+    padding-left: 26mm;
+    padding-right: 26mm;
+  }
+  .cover .label {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 10pt;
+    color: #B5472E;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-size: 34pt;
+    line-height: 1.05;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .cover h2 {
+    font-size: 15pt;
+    font-weight: 300;
+    color: #c8d4e0;
+    margin: 0 0 40px 0;
+  }
+
+  /* RAMP CHART */
+  .ramp-chart {
+    margin: 30px 0;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 20px 16px;
+  }
+  .ramp-chart .title {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #c8d4e0;
+    margin-bottom: 16px;
+  }
+  .ramp-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 80px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .ramp-row .mlabel {
+    font-size: 9pt;
+    color: #c8d4e0;
+    font-weight: 600;
+  }
+  .ramp-row .bar-wrap {
+    background: rgba(255,255,255,0.08);
+    height: 22px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .ramp-row .bar {
+    height: 100%;
+    background: linear-gradient(90deg, #B5472E 0%, #ff7e54 100%);
+    border-radius: 3px;
+  }
+  .ramp-row .price {
+    text-align: right;
+    color: white;
+    font-weight: 700;
+    font-size: 11pt;
+  }
+
+  .cover .meta {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 18px;
+    margin-top: 30px;
+    font-size: 10pt;
+    color: #c8d4e0;
+  }
+  .cover .meta strong { color: white; }
+  .cover .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin-top: 10px;
+  }
+
+  /* GLOBAL TYPOGRAPHY */
+  h1 { font-size: 22pt; color: #1B3A57; border-bottom: 3px solid #B5472E; padding-bottom: 8px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #1B3A57; margin-top: 26px; margin-bottom: 10px; }
+  h3 { font-size: 12pt; color: #1B3A57; margin-top: 18px; margin-bottom: 6px; }
+  h4 { font-size: 10.5pt; color: #1B3A57; margin: 12px 0 4px 0; }
+
+  .section-banner {
+    page-break-before: always;
+    background: #1B3A57;
+    color: white;
+    padding: 14px 20px;
+    margin: 0 -16mm 22px -16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-banner.tech { background: #2a2a2a; }
+  .section-banner .num {
+    font-size: 28pt;
+    font-weight: 700;
+    line-height: 1;
+    color: #B5472E;
+  }
+  .section-banner h1 {
+    color: white; border: none; margin: 0; padding: 0; font-size: 20pt;
+  }
+  .section-banner .subtitle {
+    font-size: 9pt; text-transform: uppercase; letter-spacing: 2px;
+    color: #c8d4e0; margin-top: 4px;
+  }
+  .section-banner.tech .subtitle { color: #aaa; }
+
+  /* BOXES */
+  .box {
+    background: #f5f7fa;
+    border-left: 4px solid #B5472E;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .box.info { border-left-color: #1B3A57; background: #eef4f9; }
+  .box.warn { border-left-color: #d9822b; background: #fdf6ed; }
+  .box.critical { border-left-color: #c0392b; background: #fce9e6; }
+  .box.success { border-left-color: #4a7c59; background: #ecf3ee; }
+  .box .label {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #B5472E;
+    margin-bottom: 4px;
+  }
+  .box.info .label { color: #1B3A57; }
+  .box.warn .label { color: #b56f1c; }
+  .box.critical .label { color: #c0392b; }
+  .box.success .label { color: #4a7c59; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9.5pt;
+  }
+  th {
+    background: #1B3A57; color: white;
+    padding: 8px 10px; text-align: left;
+    font-weight: 600; border: 1px solid #1B3A57;
+  }
+  td {
+    padding: 7px 10px; border: 1px solid #d0d7de; vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* MONTH CARDS */
+  .month-card {
+    page-break-inside: avoid;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    margin: 18px 0;
+    overflow: hidden;
+  }
+  .month-card .head {
+    background: #1B3A57;
+    color: white;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  .month-card .head .num {
+    font-size: 26pt; font-weight: 700;
+    line-height: 1; color: #ff9d6c;
+    text-align: center;
+  }
+  .month-card .head .num small {
+    display: block;
+    font-size: 8pt;
+    color: #c8d4e0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .month-card .head .title {
+    font-size: 14pt; font-weight: 700;
+  }
+  .month-card .head .subtitle {
+    font-size: 9pt; color: #c8d4e0; margin-top: 2px;
+  }
+  .month-card .head .budget {
+    background: #B5472E;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 16pt;
+    font-weight: 700;
+    text-align: center;
+    min-width: 80px;
+  }
+  .month-card .head .budget small {
+    display: block;
+    font-size: 7.5pt;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .month-card .body {
+    padding: 14px 16px;
+    background: white;
+  }
+  .month-card .body .row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 10pt;
+  }
+  .month-card .body .row .k {
+    font-weight: 700;
+    color: #1B3A57;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 9pt;
+    padding-top: 2px;
+  }
+  .month-card .gate {
+    background: #fdf6ed;
+    border-top: 1px solid #f0d6a8;
+    padding: 10px 16px;
+    font-size: 9.5pt;
+  }
+  .month-card .gate .lbl {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #b56f1c;
+    margin-right: 8px;
+  }
+
+  /* CHECKLIST */
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li {
+    padding-left: 24px; position: relative; margin-bottom: 5px;
+  }
+  ul.check li::before {
+    content: '☐'; position: absolute; left: 0;
+    color: #1B3A57; font-size: 13pt; top: -2px;
+  }
+
+  /* TECH ZONE */
+  .tech-zone {
+    background: #fafafa;
+    color: #1a2332;
+    margin: 0 -16mm;
+    padding: 24px 16mm;
+    border-top: 4px solid #2a2a2a;
+  }
+  .tech-zone h2, .tech-zone h3 { color: #2a2a2a; }
+  .tech-zone .code-block {
+    background: #1e1e1e;
+    color: #e6e6e6;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    margin: 10px 0;
+    overflow-wrap: break-word;
+  }
+  .tech-zone .code-block .kw { color: #ffb86c; }
+  .tech-zone .code-block .neg { color: #ff6b6b; }
+  .tech-zone .code-block .url { color: #8be9fd; }
+  .tech-zone .code-block .cmnt { color: #6272a4; font-style: italic; }
+
+  /* MISC */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    background: #1B3A57;
+    color: white;
+    margin-right: 4px;
+  }
+  .tag.new { background: #4a7c59; }
+  .tag.scale { background: #d9822b; }
+  .tag.continue { background: #6c7a89; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+
+  .footnote {
+    font-size: 8.5pt; color: #6c7a89;
+    font-style: italic; margin-top: 4px;
+  }
+
+  hr {
+    border: none; border-top: 1px solid #d0d7de; margin: 20px 0;
+  }
+
+  /* CUMULATIVE STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .stat {
+    background: #eef4f9;
+    border: 1px solid #c8d4e0;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 18pt; font-weight: 700; color: #1B3A57; line-height: 1;
+  }
+  .stat .lbl {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6c7a89;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="label">Marketingový plán · 2026</div>
+  <h1>Google Ads<br>so škálovaným<br>rozpočtom</h1>
+  <h2>Strechy Partizánske — 6-mesačný ramp od 100 € po 1 000 €</h2>
+
+  <div class="ramp-chart">
+    <div class="title">Mesačný rozpočet — postupne podľa výsledkov</div>
+
+    <div class="ramp-row">
+      <div class="mlabel">M1</div>
+      <div class="bar-wrap"><div class="bar" style="width:10%"></div></div>
+      <div class="price">100 €</div>
+    </div>
+    <div class="ramp-row">
+      <div class="mlabel">M2</div>
+      <div class="bar-wrap"><div class="bar" style="width:20%"></div></div>
+      <div class="price">200 €</div>
+    </div>
+    <div class="ramp-row">
+      <div class="mlabel">M3</div>
+      <div class="bar-wrap"><div class="bar" style="width:35%"></div></div>
+      <div class="price">350 €</div>
+    </div>
+    <div class="ramp-row">
+      <div class="mlabel">M4</div>
+      <div class="bar-wrap"><div class="bar" style="width:50%"></div></div>
+      <div class="price">500 €</div>
+    </div>
+    <div class="ramp-row">
+      <div class="mlabel">M5</div>
+      <div class="bar-wrap"><div class="bar" style="width:75%"></div></div>
+      <div class="price">750 €</div>
+    </div>
+    <div class="ramp-row">
+      <div class="mlabel">M6</div>
+      <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+      <div class="price">1 000 €</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="meta-grid">
+      <div><strong>Klient</strong><br>Strechy Partizánske</div>
+      <div><strong>Doména</strong><br>strechy-partizanske.sk</div>
+      <div><strong>Štartovací rozpočet</strong><br>100 € / mesiac</div>
+      <div><strong>Cieľový rozpočet (mesiac 6)</strong><br>1 000 € / mesiac</div>
+      <div><strong>Celková investícia za 6 mesiacov</strong><br>2 900 €</div>
+      <div><strong>Dátum dokumentu</strong><br>28. máj 2026 · v1.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ČASŤ 1 — PRE MAJITEĽA -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1</div>
+    <h1>Pre majiteľa</h1>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<h2>Filozofia: investuj len to, čo si overené zarobí späť</h2>
+
+<div class="box info">
+  <div class="label">Krátka verzia</div>
+  Začíname so 100 € mesačne — to je veľmi opatrný štart. <strong>Rozpočet sa zvyšuje len keď sa splnia konkrétne kritériá</strong> z predchádzajúceho mesiaca (počet objednávok, návratnosť investície, stabilita ceny za nákup). Ak sa nesplnia, <strong>budget nedávame hore</strong>, ale optimalizujeme to, čo máme. Cieľ: za 6 mesiacov dosiahnuť stabilný rozpočet 1 000 €/mes s pozitívnym ROAS, alebo zistiť skôr, že kanál nie je pre teba a nestratiť tisíce eur.
+</div>
+
+<h2>Prečo začať na 100 €, nie hneď na 500 €</h2>
+
+<table>
+  <thead><tr><th>Argument PRE pomalý štart</th><th>Argument PROTI</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Pri 100 € minieme ~3,30 €/deň → <strong>ak sa nedarí, stratíme max 100 €</strong>, nie 500 €</td>
+      <td>Google AI potrebuje 30+ konverzií aby sa "učil" — na 100 € to nemusíme dosiahnuť</td>
+    </tr>
+    <tr>
+      <td>Eshop sa práve spúšťa — <strong>nemusíme mať dobrý conversion rate</strong> a 500 € na zle konvertujúci eshop = spálené peniaze</td>
+      <td>Na 100 € nemôžeme spustiť všetky kampane, len 1-2 → menej dát</td>
+    </tr>
+    <tr>
+      <td>Pri M1 odhalíme reálne CPC, reálny CR, reálne hľadané dotazy. <strong>Lepšie investícia 100 € za dáta</strong> ako 500 € za dohad</td>
+      <td>Pomalšie získavame trakciu v sezóne</td>
+    </tr>
+    <tr>
+      <td>Postupný ramp + gates = <strong>každý mesiac validujem, či má zmysel ísť ďalej</strong></td>
+      <td>Vyžaduje disciplínu — musíš každý mesiac rozhodnúť o ramp</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Kumulatívne — čo zaplatíš a čo dostaneš</h2>
+
+<div class="stats-grid">
+  <div class="stat">
+    <div class="num">2 900 €</div>
+    <div class="lbl">Celková investícia za 6 mes.</div>
+  </div>
+  <div class="stat">
+    <div class="num">~ 130</div>
+    <div class="lbl">Očakávané nákupy (cieľ)</div>
+  </div>
+  <div class="stat">
+    <div class="num">8 700 €+</div>
+    <div class="lbl">Očakávané tržby z Ads (300 % ROAS)</div>
+  </div>
+</div>
+
+<p class="footnote">Čísla predpokladajú, že každý mesiac dosiahneme gate kritériá. Ak nie, ramp sa zastaví — stratíme menej, ale aj menej zarobíme. <strong>Worst case:</strong> ostaneme na 100-200 €/mes, mesačne získame 5-10 objednávok, čo je stále zisk.</p>
+
+<h2>Čo dostaneš v každom mesiaci</h2>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M1<small>Štart</small></div>
+    <div>
+      <div class="title">Validácia — funguje to vôbec?</div>
+      <div class="subtitle">Najtvrdšie obmedzená kampaň. Cieľ: zistiť, či máme aspoň 3 reálne nákupy.</div>
+    </div>
+    <div class="budget">100 €<small>3,30 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Kampane</div><div>Brand (ochrana značky) + 1× high-intent Krytiny</div></div>
+    <div class="row"><div class="k">Geo</div><div>Partizánske + 30 km</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 3 nákupy, CPA ≤ 35 €, otestovať tracking</div></div>
+    <div class="row"><div class="k">Reportujem</div><div>Search Term Report → harvest negatívov; Quality Score; CPC realita vs. odhad</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M2</span>≥ 3 konverzie v M1 · CPA ≤ 35 € · tracking validovaný · žiadne hard disapprovals
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M2<small>Expanzia</small></div>
+    <div>
+      <div class="title">Pridáme klampiarske + rozšírime geo</div>
+      <div class="subtitle">Druhý vertikál + väčšia oblasť. Stále úzky focus na vysoký intent.</div>
+    </div>
+    <div class="budget">200 €<small>6,60 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>Klampiarske kampaň · druhý ad group v Krytinách (škridla)</div></div>
+    <div class="row"><div class="k">Geo</div><div>Celý Trenčiansky kraj (PT zóna stále +30 % bid)</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 8 nákupov, CPA ≤ 30 €</div></div>
+    <div class="row"><div class="k">Reportujem</div><div>Compare M2 vs M1 výkon · top 5 keywords · negative harvest log</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M3</span>≥ 8 konverzií · CPA ≤ 30 € · pozitívny trend CTR
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M3<small>Diverzifikácia</small></div>
+    <div>
+      <div class="title">+ Spojovák, mid-intent, remarketing</div>
+      <div class="subtitle">Dopĺňame 3. vertikál a začíname získavať späť ľudí, čo opustili eshop.</div>
+    </div>
+    <div class="budget">350 €<small>11,60 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>Spojovací materiál · Mid-intent "rekonštrukcia strechy" · Remarketing (ak ≥ 1 000 visitors)</div></div>
+    <div class="row"><div class="k">Bidding</div><div><span class="tag scale">UPGRADE</span>Top ad groups → Maximize Conversions</div></div>
+    <div class="row"><div class="k">Geo</div><div>+ Žilinský + Nitriansky kraj</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 15 nákupov, ROAS ≥ 250 %</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M4</span>≥ 15 konverzií · ROAS ≥ 250 % · stabilný CPA (variance &lt; 30 %)
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M4<small>Plný launch</small></div>
+    <div>
+      <div class="title">+ Google Shopping a Smart Bidding</div>
+      <div class="subtitle">Plný portfolio kampaní. Google AI prevzal značnú časť optimalizácie.</div>
+    </div>
+    <div class="budget">500 €<small>16,60 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>Shopping kampaň (vyžaduje Merchant Center feed zo Shoptetu)</div></div>
+    <div class="row"><div class="k">Bidding</div><div><span class="tag scale">UPGRADE</span>Search prejde na Target CPA 25 € · Shopping tROAS 400 %</div></div>
+    <div class="row"><div class="k">A/B testy</div><div>Druhá verzia RSA v top 3 ad groups · 2 verzie landing page pre Krytiny</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 25 nákupov, CPA ≤ 25 €, ROAS ≥ 300 %</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M5</span>≥ 25 konverzií · ROAS ≥ 300 % · pozitívna profit-CPA (CPA &lt; marža/2)
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M5<small>Scale</small></div>
+    <div>
+      <div class="title">+ Performance Max a agresívne škálovanie</div>
+      <div class="subtitle">AI-driven kampaň s audience signals z 4 mesiacov dát.</div>
+    </div>
+    <div class="budget">750 €<small>25 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>Performance Max s audience signals (customer list + custom keywords + in-market)</div></div>
+    <div class="row"><div class="k">Škálujeme</div><div><span class="tag scale">+50 %</span>Top 2 Search ad groups dostávajú zvýšený budget</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 40 nákupov, ROAS ≥ 350 %</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M6</span>≥ 40 konverzií · ROAS ≥ 350 % · PMax pozitívny po 4 týždňoch
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M6<small>Maturita</small></div>
+    <div>
+      <div class="title">Celé Slovensko + B2B vertikál</div>
+      <div class="subtitle">Plne dospelý účet, test celonárodnej geo a osobitnej B2B kampane.</div>
+    </div>
+    <div class="budget">1 000 €<small>33 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>B2B kampaň (firmy, väčšie objednávky, lead form) · YouTube remarketing</div></div>
+    <div class="row"><div class="k">Geo</div><div>Celé Slovensko (regióny mimo TN/ZA/NR s bid -20 %)</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 50 nákupov, ROAS ≥ 400 %, stable PMax</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Po M6</span>Sustained 50+ konverzií · ROAS ≥ 400 % · → rozhodnutie: hold @ 1000 € alebo ďalšia ramp na 1500 €
+  </div>
+</div>
+
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1 · pokračovanie</div>
+    <h1>Rozhodovací rámec</h1>
+  </div>
+  <div class="num">02</div>
+</div>
+
+<h2>Worst case — čo ak nedosiahneme gate?</h2>
+
+<div class="box critical">
+  <div class="label">Pravidlo: nikdy nezvyšuj budget pred dosiahnutím gate</div>
+  <ol style="margin: 4px 0 0 18px; padding: 0;">
+    <li><strong>Nezvyšujeme budget</strong> — ostávame na pôvodnej výške ďalší mesiac</li>
+    <li><strong>Analýza root cause:</strong> nedostatok klikov? zlý CR na LP? zlá ad copy? zlé KW?</li>
+    <li><strong>Implementácia 1-2 hlavných fixov</strong> (nie 10 zmien naraz, nevedeli by sme pripísať efekt)</li>
+    <li><strong>Re-test 30 dní</strong> na pôvodnom budgete</li>
+    <li>Ak ani potom gate nesplnený → <strong>fundamentálny problém</strong> (LP, ponuka, cenotvorba alebo trh nie je pre Google Ads zrelý)</li>
+  </ol>
+</div>
+
+<h2>Decision tree pre koniec každého mesiaca</h2>
+
+<table>
+  <thead><tr><th>Stav</th><th>Akcia</th><th>Príklad</th></tr></thead>
+  <tbody>
+    <tr><td>✅ Gate splnený</td><td>Ramp na ďalší mesiac podľa plánu</td><td>M1 dal 5 konv pri CPA 28 € → M2 spustený</td></tr>
+    <tr><td>⚠ Gate na hranici (80-99 %)</td><td>Hold + targeted fix · ramp s 1 mesiac oneskorením</td><td>M1 dal 3 konv ale CPA 38 € → M1.5 s opraveným LP</td></tr>
+    <tr><td>❌ Gate jasne nesplnený (&lt; 80 %)</td><td>Hold + audit · zvážiť pivot stratégie</td><td>M1 dal 1 konv → audit LP, ad copy, KW relevancia</td></tr>
+    <tr><td>🚀 Gate prekročený (&gt; 130 %)</td><td>Možno preskočiť mesiac alebo zrýchliť ramp</td><td>M1 dal 8 konv pri CPA 22 € → preskoč M2, choď rovno na M3 setup</td></tr>
+  </tbody>
+</table>
+
+<h2>5 otázok, ktoré potrebujem zodpovedať PRED M1</h2>
+
+<div class="box info">
+  <ol style="margin: 6px 0 0 18px; padding: 0;">
+    <li><strong>B2C, B2B alebo hybrid?</strong> Ovplyvňuje ad copy (tykanie/vykanie), zobrazenie cien (s/bez DPH), typ konverzie</li>
+    <li><strong>Fyzický showroom v Partizánskom?</strong> Ak áno, založíme Google Business Profile a pridáme location extension</li>
+    <li><strong>Telefón v pracovnej dobe?</strong> Bez human respondera nezapíname Call extension</li>
+    <li><strong>Priemerná marža na typickej objednávke?</strong> Určuje max CPA (typický pomer: CPA = 20-30 % marže)</li>
+    <li><strong>Shoptet napojený na GA4 + Merchant Center?</strong> Bez tohto nevieme merať a spustiť Shopping</li>
+  </ol>
+</div>
+
+<!-- ČASŤ 2 — TECH NASTAVENIE -->
+<div class="section-banner tech">
+  <div>
+    <div class="subtitle">Časť 2 · technické detaily</div>
+    <h1>Nastavenie</h1>
+  </div>
+  <div class="num">03</div>
+</div>
+
+<div class="tech-zone">
+
+<h2>3.1 Mesiac 1 — €100 setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>Typ</th><th>€/deň</th><th>Bidding</th></tr></thead>
+  <tbody>
+    <tr><td>SP-M1-Brand</td><td>Search</td><td>0,80 €</td><td>Max Clicks, max CPC 0,20 €</td></tr>
+    <tr><td>SP-M1-Krytiny-Plechove</td><td>Search</td><td>2,50 €</td><td>Max Clicks, max CPC 0,70 €</td></tr>
+    <tr><th colspan="2">Spolu</th><th>3,30 €/deň</th><td>≈ 100 €/mes</td></tr>
+  </tbody>
+</table>
+
+<h3>M1 · SP-M1-Brand — keywords</h3>
+<div class="code-block"><span class="kw">"strechy partizanske"</span>        phrase  ~80/mes   CPC ~0,10 €
+<span class="kw">[strechy partizanske]</span>        exact   ~50/mes   CPC ~0,08 €
+<span class="kw">[strechy-partizanske.sk]</span>     exact   ~40/mes   CPC ~0,08 €
+
+<span class="url">Final URL: https://strechy-partizanske.sk/</span></div>
+
+<h3>M1 · SP-M1-Krytiny-Plechove — keywords</h3>
+<div class="code-block"><span class="cmnt"># Top 4 najvyšší intent — žiadne "informational" KW v M1</span>
+<span class="kw">"plechova krytina cena"</span>      phrase  ~480/mes  CPC ~0,55 €
+<span class="kw">"plechova strecha cena"</span>      phrase  ~390/mes  CPC ~0,60 €
+<span class="kw">[krytina lindab]</span>             exact   ~140/mes  CPC ~0,40 €
+<span class="kw">[krytina topdach]</span>            exact   ~90/mes   CPC ~0,35 €
+
+<span class="cmnt"># Negatívy (apply hneď na D1)</span>
+<span class="neg">-bazar -pouzita -druhotna -zadarmo -free -recyklat</span>
+<span class="neg">-praca -brigada -kariera -montaz -inštalacia</span>
+<span class="neg">-ako -postup -navod -svojpomocne -kalkulacka</span>
+
+<span class="url">Final URL: /c/krytiny-skladom/plechove/</span></div>
+
+<h3>M1 · Geo a schedule</h3>
+<div class="code-block">Geo:  Partizánske + 30 km radius (bid baseline)
+      <span class="cmnt"># Žiadna ďalšia zóna v M1 — minimalizujeme variability</span>
+
+Schedule:  Po-Pi 7:00-20:00
+           So   8:00-18:00
+           Ne   9:00-20:00
+           <span class="cmnt"># Mimo týchto časov: PAUSED (úspora budgetu)</span></div>
+
+<h3>M1 · Conversion tracking (must-have pred D1)</h3>
+<ul class="check">
+  <li>Shoptet → GA4 e-commerce events ON (admin → Marketing → GA4)</li>
+  <li>GA4 → Google Ads link (Admin → Product Linking)</li>
+  <li>Primárna konverzia: <code>purchase</code> (z GA4 import)</li>
+  <li>Sekundárna: <code>generate_lead</code> (cenová ponuka form)</li>
+  <li>Enhanced conversions ON (hashed email/phone)</li>
+  <li>Consent Mode v2 (GDPR)</li>
+  <li>Manuálny test pred launchom: kúp 1 produkt sám → over že GA4 + Google Ads zaznamenali</li>
+</ul>
+
+<h2>3.2 Mesiac 2 — €200 (+100 €) setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>1,00 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Plechove</td><td>2,80 €</td><td><span class="tag scale">+12%</span></td></tr>
+    <tr><td>SP-Krytiny-Skridla</td><td>1,50 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Klampiarske-RAL</td><td>1,30 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><th>Spolu</th><th>6,60 €/deň</th><th>≈ 200 €/mes</th></tr>
+  </tbody>
+</table>
+
+<h3>M2 · Nový ad group — Škridla</h3>
+<div class="code-block"><span class="kw">"betonova skridla cena"</span>      phrase  ~320/mes  CPC ~0,50 €
+<span class="kw">"keramicka skridla cena"</span>     phrase  ~210/mes  CPC ~0,55 €
+<span class="kw">[bramac skridla]</span>             exact   ~170/mes  CPC ~0,45 €
+
+<span class="url">Final URL: /c/krytiny-skladom/skridla/</span></div>
+
+<h3>M2 · Nová kampaň — Klampiarske RAL</h3>
+<div class="code-block"><span class="kw">"klampiarske vyrobky"</span>        phrase  ~390/mes  CPC ~0,40 €
+<span class="kw">"oplechovanie strechy"</span>       phrase  ~280/mes  CPC ~0,50 €
+<span class="kw">"lemovanie komina"</span>           phrase  ~170/mes  CPC ~0,55 €
+
+<span class="url">Final URL: /c/klampiarske-produkty/</span></div>
+
+<h3>M2 · Geo expansion</h3>
+<div class="code-block">Geo:  Partizánske + 30 km     bid +30%
+      Celý Trenčiansky kraj    bid baseline</div>
+
+<h2>3.3 Mesiac 3 — €350 (+150 €) setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>1,30 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Plechove</td><td>4,50 €</td><td><span class="tag scale">+60%</span></td></tr>
+    <tr><td>SP-Krytiny-Skridla</td><td>2,20 €</td><td><span class="tag scale">+47%</span></td></tr>
+    <tr><td>SP-Klampiarske-RAL</td><td>1,80 €</td><td><span class="tag scale">+38%</span></td></tr>
+    <tr><td>SP-Klampiarske-Zvody</td><td>0,90 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>0,40 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-MidIntent-Rekonstrukcia</td><td>0,30 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Remarketing-Dynamic</td><td>0,20 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><th>Spolu</th><th>11,60 €/deň</th><th>≈ 350 €/mes</th></tr>
+  </tbody>
+</table>
+
+<h3>M3 · Nové kampane — keywords</h3>
+<div class="code-block"><span class="cmnt"># SP-Klampiarske-Zvody</span>
+<span class="kw">"odkvapovy system"</span>           phrase  ~480/mes  CPC ~0,45 €
+<span class="kw">"odkvapy cena"</span>               phrase  ~590/mes  CPC ~0,50 €
+<span class="kw">"plastove odkvapy"</span>           phrase  ~320/mes  CPC ~0,40 €
+<span class="url">Final URL: /c/zvodovy-system/</span>
+
+<span class="cmnt"># SP-Spojovaci</span>
+<span class="kw">"skrutky do strechy"</span>         phrase  ~210/mes  CPC ~0,35 €
+<span class="kw">"skrutky do trapezoveho plechu"</span> phrase ~140/mes  CPC ~0,40 €
+<span class="url">Final URL: /c/spojovaci-material/skrutky-pre-krytiny/</span>
+
+<span class="cmnt"># SP-MidIntent-Rekonstrukcia (informational + lead intent)</span>
+<span class="kw">"rekonstrukcia strechy cena"</span>  phrase  ~720/mes  CPC ~0,70 €
+<span class="kw">"plech alebo skridla"</span>         phrase  ~210/mes  CPC ~0,35 €
+<span class="url">Final URL: /poradna/vyber-krytiny/ (alebo blog článok s lead formom)</span></div>
+
+<h3>M3 · Bidding upgrade</h3>
+<div class="code-block">SP-Krytiny-Plechove:      Max Clicks → <span class="kw">Maximize Conversions</span>
+SP-Klampiarske-RAL:       Max Clicks → <span class="kw">Maximize Conversions</span>
+Ostatné:                  Max Clicks zatiaľ
+<span class="cmnt"># Podmienka prechodu: ≥ 5 konverzií v ad groupe za posledných 30 dní</span></div>
+
+<h3>M3 · Remarketing audiences</h3>
+<div class="code-block"><span class="cmnt"># Vyžaduje ≥ 1 000 unique visitors v GA4 audience</span>
+- All visitors 30d              (bid base)
+- Cart abandoners 7d            (bid +30%)
+- Product viewers 14d           (bid +15%)
+- Past purchasers — <span class="neg">EXCLUDE</span></div>
+
+<h2>3.4 Mesiac 4 — €500 (+150 €) setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,00 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Plechove + Škridla</td><td>5,00 €</td><td><span class="tag scale">+11%</span></td></tr>
+    <tr><td>SP-Klampiarske (RAL + Zvody)</td><td>4,00 €</td><td><span class="tag scale">+48%</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>2,00 €</td><td><span class="tag scale">+400%</span></td></tr>
+    <tr><td>SP-MidIntent-Rekonstrukcia</td><td>2,00 €</td><td><span class="tag scale">+566%</span></td></tr>
+    <tr><td>SP-Shopping-Standard</td><td>1,00 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Remarketing-Dynamic</td><td>0,60 €</td><td><span class="tag scale">+200%</span></td></tr>
+    <tr><th>Spolu</th><th>16,60 €/deň</th><th>≈ 500 €/mes</th></tr>
+  </tbody>
+</table>
+
+<h3>M4 · Shopping setup (pred-rekvizita)</h3>
+<ul class="check">
+  <li>Shoptet → Google Merchant Center feed export (Marketing → Cenové porovnávače → Google Shopping)</li>
+  <li>GMC account validation (overenie domény + adresy)</li>
+  <li>Product data quality audit: titles ≤ 150 zn., GTIN/MPN, vysokokvalitné obrázky</li>
+  <li>Shopping kampaň: Standard (nie Smart) — vieme čo bidujeme</li>
+  <li>Bidding: tROAS 400 % od štartu (Google má product data)</li>
+</ul>
+
+<h3>M4 · Bidding upgrade — Search</h3>
+<div class="code-block">Top performers (Krytiny, Klampiarske):  Max Conversions → <span class="kw">Target CPA 25 €</span>
+Ostatné Search:                          Maximize Conversions
+Shopping:                                <span class="kw">tROAS 400 %</span>
+Brand:                                   Max Clicks, max CPC 0,20 € (nemenné)</div>
+
+<h2>3.5 Mesiac 5 — €750 (+250 €) setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,00 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny (Plechove + Škridla)</td><td>7,50 €</td><td><span class="tag scale">+50%</span></td></tr>
+    <tr><td>SP-Klampiarske</td><td>5,00 €</td><td><span class="tag scale">+25%</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>2,50 €</td><td><span class="tag scale">+25%</span></td></tr>
+    <tr><td>SP-MidIntent</td><td>2,00 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Shopping-Standard</td><td>2,00 €</td><td><span class="tag scale">+100%</span></td></tr>
+    <tr><td>SP-Remarketing-Dynamic</td><td>1,00 €</td><td><span class="tag scale">+67%</span></td></tr>
+    <tr><td>SP-PerformanceMax</td><td>3,00 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><th>Spolu</th><th>25 €/deň</th><th>≈ 750 €/mes</th></tr>
+  </tbody>
+</table>
+
+<h3>M5 · Performance Max — audience signals (povinné na launch)</h3>
+<div class="code-block"><span class="cmnt"># Bez audience signals PMax = blind, spáli budget</span>
+
+Signal 1 · Customer Match
+  - Upload zoznam reálnych zákazníkov z M1-M4 (email + tel)
+  - Min. 1 000 matched users (alebo PMax to nevyužije)
+
+Signal 2 · Custom audience (keyword-based)
+  - Hľadali: "plechova krytina", "rekonstrukcia strechy", "nova strecha"
+  - Navštívili: maslen.sk, lindab.sk, bramac.sk
+
+Signal 3 · In-market
+  - Home Improvement Materials &amp; Tools
+  - Home &amp; Garden / Roofing
+
+Signal 4 · Past purchasers (z M1-M4 dát)
+  - Pre lookalike modeling</div>
+
+<h2>3.6 Mesiac 6 — €1 000 (+250 €) setup</h2>
+
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,30 €</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny</td><td>9,00 €</td><td><span class="tag scale">+20%</span></td></tr>
+    <tr><td>SP-Klampiarske</td><td>6,50 €</td><td><span class="tag scale">+30%</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>3,00 €</td><td><span class="tag scale">+20%</span></td></tr>
+    <tr><td>SP-MidIntent</td><td>2,50 €</td><td><span class="tag scale">+25%</span></td></tr>
+    <tr><td>SP-Shopping</td><td>2,70 €</td><td><span class="tag scale">+35%</span></td></tr>
+    <tr><td>SP-Remarketing</td><td>1,50 €</td><td><span class="tag scale">+50%</span></td></tr>
+    <tr><td>SP-PerformanceMax</td><td>4,00 €</td><td><span class="tag scale">+33%</span></td></tr>
+    <tr><td>SP-B2B-LeadForm</td><td>1,50 €</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><th>Spolu</th><th>33 €/deň</th><th>≈ 1 000 €/mes</th></tr>
+  </tbody>
+</table>
+
+<h3>M6 · B2B kampaň</h3>
+<div class="code-block">Cieľ:         Lead form fill od firiem (stavebné, klampiarske, developer)
+Lead form:    Meno · Firma · IČO · Telefón · Veľkosť projektu (m²)
+Targeting:    Job titles: stavebný technik, projektant, klampiar
+              In-market: B2B Services / Construction
+Bidding:      Target CPA 45 € (vyšší vďaka vyššej hodnote leadu)
+<span class="url">Final URL: /pre-firmy/ (dedikovaná B2B LP)</span></div>
+
+<h3>M6 · Geo expansion na celé SR</h3>
+<div class="code-block">Partizánske + 30 km           bid +30%
+TN + ZA + NR kraj              bid baseline
+Bratislavský + Trnavský        bid -10% (test)
+Banskobystrický + Prešovský    bid -20% (test)
+Košický kraj                   bid -25% (najďalej, doprava drahšia)</div>
+
+<h2>3.7 Globálne pravidlá platné celých 6 mesiacov</h2>
+
+<table>
+  <thead><tr><th>Pravidlo</th><th>Prečo</th></tr></thead>
+  <tbody>
+    <tr><td>Žiadne vymyslené čísla / tvrdenia v ad copy</td><td>Klamlivá reklama (§ 8 zák. 250/2007) + Google disapproval</td></tr>
+    <tr><td>Žiadne bidovanie na konkurenčné brandy (Maslen, Lindab...)</td><td>Drahé · low QS · možný trademark conflict</td></tr>
+    <tr><td>Headline ≤ 30 zn., Description ≤ 90 zn., Display path 2× 15 zn.</td><td>Google odmietne reklamy nad limit</td></tr>
+    <tr><td>Auto-applied recommendations OFF</td><td>Google by ti zapol broad match + URL expansion</td></tr>
+    <tr><td>Dedikovaná LP pre každú kampaň (žiadna homepage)</td><td>Quality Score → CPC ↓ 40-60 %</td></tr>
+    <tr><td>Search Term Report 2× týždenne v M1-M2, 1× týždenne potom</td><td>Najvyšší ROI optimalizácia</td></tr>
+    <tr><td>Sezonalita: budget × 0,6 v Nov-Feb</td><td>Mŕtve obdobie strešného trhu</td></tr>
+  </tbody>
+</table>
+
+<h2>3.8 Reporting po každom mesiaci (gate check)</h2>
+
+<table>
+  <thead><tr><th>KPI</th><th>Cieľ M1</th><th>Cieľ M3</th><th>Cieľ M6</th></tr></thead>
+  <tbody>
+    <tr><td>Konverzie</td><td>≥ 3</td><td>≥ 15</td><td>≥ 50</td></tr>
+    <tr><td>CPA</td><td>≤ 35 €</td><td>≤ 28 €</td><td>≤ 22 €</td></tr>
+    <tr><td>ROAS</td><td>—</td><td>≥ 250 %</td><td>≥ 400 %</td></tr>
+    <tr><td>CTR (search)</td><td>≥ 4 %</td><td>≥ 5 %</td><td>≥ 6 %</td></tr>
+    <tr><td>Quality Score (avg)</td><td>≥ 6</td><td>≥ 7</td><td>≥ 8</td></tr>
+    <tr><td>Search Imp Share (brand)</td><td>≥ 80 %</td><td>≥ 90 %</td><td>≥ 95 %</td></tr>
+  </tbody>
+</table>
+
+</div><!-- /.tech-zone -->
+
+<hr>
+
+<div style="text-align: center; color: #6c7a89; font-size: 9pt; margin-top: 20px;">
+  Dokument vypracoval Michal Raffay · 28. máj 2026 · v1.0 (ramp variant)<br>
+  Strechy Partizánske — 6-mesačný škálovaný Google Ads plán<br>
+  <em>Každý mesiac validujeme gate kritériá — nikdy nezvyšujeme budget bez nich</em>
+</div>
+
+</body>
+</html>

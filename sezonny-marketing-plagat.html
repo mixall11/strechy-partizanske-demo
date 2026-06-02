@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sezónny marketing — plagát na stenu · Strechy Partizánske</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2127; --accent:#b5472e;
+    --spring:#3f8f4f; --spring-bg:#eef6ef;
+    --summer:#d39a17; --summer-bg:#fbf3df;
+    --autumn:#b5612b; --autumn-bg:#f7ede4;
+    --winter:#3a6ea5; --winter-bg:#eaf1f8;
+    --line:#dcd8cf; --muted:#6a7079;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#cfccc4;display:flex;justify-content:center;padding:24px}
+  .poster{width:210mm;min-height:297mm;background:#fff;padding:13mm 12mm;display:flex;flex-direction:column}
+
+  /* HEADER */
+  .head{text-align:center;border-bottom:4px solid var(--ink);padding-bottom:9px;margin-bottom:11px}
+  .head .brand{font-size:13px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  .head h1{font-size:33px;font-weight:900;letter-spacing:-.5px;line-height:1.04;margin-top:5px}
+  .head .tag{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:6px}
+
+  /* QUADRANTS */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:1}
+  .q{border-radius:11px;border:2px solid;padding:13px 15px;display:flex;flex-direction:column}
+  .q.spring{background:var(--spring-bg);border-color:var(--spring)}
+  .q.summer{background:var(--summer-bg);border-color:var(--summer)}
+  .q.autumn{background:var(--autumn-bg);border-color:var(--autumn)}
+  .q.winter{background:var(--winter-bg);border-color:var(--winter)}
+  .q-top{display:flex;align-items:center;gap:10px;border-bottom:2px solid rgba(0,0,0,.10);padding-bottom:8px;margin-bottom:9px}
+  .q-ico{font-size:30px;line-height:1}
+  .q-name{font-size:21px;font-weight:900;line-height:1}
+  .spring .q-name{color:var(--spring)} .summer .q-name{color:#b07f0f}
+  .autumn .q-name{color:var(--autumn)} .winter .q-name{color:var(--winter)}
+  .q-mon{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+  .q-theme{font-size:13.5px;font-style:italic;color:#3a4049;margin-bottom:9px}
+  .q-list{list-style:none;display:flex;flex-direction:column;gap:5px;flex:1}
+  .q-list li{font-size:15.5px;font-weight:700;padding-left:19px;position:relative;line-height:1.2}
+  .q-list li::before{content:'';position:absolute;left:0;top:6px;width:9px;height:9px;border-radius:2px}
+  .spring .q-list li::before{background:var(--spring)} .summer .q-list li::before{background:var(--summer)}
+  .autumn .q-list li::before{background:var(--autumn)} .winter .q-list li::before{background:var(--winter)}
+  .q-act{margin-top:9px;font-size:12.5px;font-weight:700;background:var(--ink);color:#fff;border-radius:7px;padding:7px 11px}
+  .q-kw{font-size:11px;color:var(--muted);font-weight:600;margin-top:6px}
+
+  /* MONTH STRIP */
+  .months{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-top:11px}
+  .m{border-radius:6px;padding:7px 2px;text-align:center;color:#fff}
+  .m b{display:block;font-size:13px;font-weight:900}
+  .m span{display:block;font-size:8.5px;font-weight:700;margin-top:2px;line-height:1.05;opacity:.95}
+  .bg-spring{background:var(--spring)} .bg-summer{background:var(--summer)}
+  .bg-autumn{background:var(--autumn)} .bg-winter{background:var(--winter)}
+
+  /* RULE */
+  .rule{margin-top:11px;border:2px dashed var(--ink);border-radius:10px;padding:10px 14px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+  .rule div{font-size:13.5px;font-weight:800}
+  .rule .no{color:var(--accent)} .rule .yes{color:var(--spring)}
+  .foot{text-align:center;font-size:10.5px;color:var(--muted);margin-top:9px;font-weight:600}
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    body{background:#fff;padding:0}
+    .poster{width:210mm;min-height:297mm;box-shadow:none;page-break-after:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <div class="head">
+    <div class="brand">Strechy Partizánske · marketingový kalendár</div>
+    <h1>ČO PROPAGOVAŤ A KEDY</h1>
+    <div class="tag">Strešný tovar má 4 sezóny dopytu — propaguj vždy to, čo ľudia práve hľadajú</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- JAR -->
+    <div class="q spring">
+      <div class="q-top"><span class="q-ico">🌱</span><div><div class="q-name">JAR</div><div class="q-mon">marec – máj</div></div></div>
+      <div class="q-theme">„Plánujem novú strechu / rekonštrukciu"</div>
+      <ul class="q-list">
+        <li>Strešné krytiny — plech, škridla</li>
+        <li>Odkvapy a žľaby</li>
+        <li>Fólie, laty, spojovák</li>
+        <li>Strešné okná</li>
+      </ul>
+      <div class="q-act">AKCIA: cenové ponuky + balíčky krytín</div>
+      <div class="q-kw">Hľadanosť: „cena novej strechy" ~880×/mes · „plechová krytina cena" ~480×/mes</div>
+    </div>
+
+    <!-- LETO -->
+    <div class="q summer">
+      <div class="q-top"><span class="q-ico">☀️</span><div><div class="q-name">LETO</div><div class="q-mon">jún – august</div></div></div>
+      <div class="q-theme">„Práve montujem strechu"</div>
+      <ul class="q-list">
+        <li>Klampiarske výrobky — oplechovania, lemovania, komín</li>
+        <li>Spojovací materiál, skrutky</li>
+        <li>Tmely a tesnenia</li>
+        <li>Strešné okná</li>
+      </ul>
+      <div class="q-act">AKCIA: doplnkový predaj k objednaným krytinám</div>
+      <div class="q-kw">Hľadanosť: „klampiarske výrobky" ~390×/mes · „oplechovanie strechy" ~280×/mes</div>
+    </div>
+
+    <!-- JESEN -->
+    <div class="q autumn">
+      <div class="q-top"><span class="q-ico">🍂</span><div><div class="q-name">JESEŇ</div><div class="q-mon">september – november</div></div></div>
+      <div class="q-theme">„Priprav strechu na zimu"</div>
+      <ul class="q-list">
+        <li>Snehové zábrany a háky</li>
+        <li>Odkvapy — čistenie, výmena</li>
+        <li>Tmely, oprava komína, lišty</li>
+        <li>Záveterné lišty</li>
+      </ul>
+      <div class="q-act">AKCIA: „Stihni to pred zimou"</div>
+      <div class="q-kw">Hľadanosť: „odkvapy cena" ~590×/mes · snehové zábrany — jesenný špic</div>
+    </div>
+
+    <!-- ZIMA -->
+    <div class="q winter">
+      <div class="q-top"><span class="q-ico">❄️</span><div><div class="q-name">ZIMA</div><div class="q-mon">december – február</div></div></div>
+      <div class="q-theme">„Zber dopytov na jar + B2B"</div>
+      <ul class="q-list">
+        <li>Snehové zábrany — po snežení</li>
+        <li>Klampiarske náradie</li>
+        <li>Predsezónne objednávky firiem</li>
+        <li>Cenové ponuky na jar</li>
+      </ul>
+      <div class="q-act">AKCIA: skorá zľava pre firmy + zber dopytov</div>
+      <div class="q-kw">Hľadanosť: plánovací dopyt na krytiny beží celoročne</div>
+    </div>
+
+  </div>
+
+  <!-- MONTH STRIP -->
+  <div class="months">
+    <div class="m bg-winter"><b>1</b><span>sneh · plán</span></div>
+    <div class="m bg-winter"><b>2</b><span>B2B · krytiny</span></div>
+    <div class="m bg-spring"><b>3</b><span>krytiny</span></div>
+    <div class="m bg-spring"><b>4</b><span>krytiny</span></div>
+    <div class="m bg-spring"><b>5</b><span>okná · fólie</span></div>
+    <div class="m bg-summer"><b>6</b><span>klampiar</span></div>
+    <div class="m bg-summer"><b>7</b><span>klampiar</span></div>
+    <div class="m bg-summer"><b>8</b><span>spojovák</span></div>
+    <div class="m bg-autumn"><b>9</b><span>zábrany</span></div>
+    <div class="m bg-autumn"><b>10</b><span>zábrany</span></div>
+    <div class="m bg-autumn"><b>11</b><span>opravy</span></div>
+    <div class="m bg-winter"><b>12</b><span>sneh · náradie</span></div>
+  </div>
+
+  <div class="rule">
+    <div class="no">✗ Žiadna celoročná reklama na „strechy"</div>
+    <div class="yes">✓ Vždy propaguj to, čo ľudia práve hľadajú</div>
+  </div>
+
+  <div class="foot">Strechy Partizánske · sezónny marketingový kalendár · čísla hľadanosti z prieskumu kľúčových slov (SK)</div>
+
+</div>
+</body>
+</html>

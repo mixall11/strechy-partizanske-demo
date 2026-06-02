@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Google Ads Ramp Plán v2 — Strechy Partizánske</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-center {
+      content: "Strana " counter(page) " / " counter(pages);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 9pt;
+      color: #999;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    color: #1a2332;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cover {
+    page-break-after: always;
+    min-height: 250mm;
+    padding: 50mm 10mm 10mm 10mm;
+    background: linear-gradient(135deg, #1B3A57 0%, #2c4f70 100%);
+    color: white;
+    margin: -18mm -16mm;
+    padding-left: 26mm;
+    padding-right: 26mm;
+  }
+  .cover .version {
+    display: inline-block;
+    background: #B5472E;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .cover .label {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 10pt;
+    color: #c8d4e0;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .cover h1 {
+    font-size: 32pt;
+    line-height: 1.05;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .cover h2 {
+    font-size: 14pt;
+    font-weight: 300;
+    color: #c8d4e0;
+    margin: 0 0 26px 0;
+  }
+  .ramp-chart {
+    margin: 24px 0;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 18px 16px;
+  }
+  .ramp-chart .title {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #c8d4e0;
+    margin-bottom: 12px;
+  }
+  .ramp-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 85px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+  }
+  .ramp-row .mlabel { font-size: 9pt; color: #c8d4e0; font-weight: 600; }
+  .ramp-row .bar-wrap { background: rgba(255,255,255,0.08); height: 20px; border-radius: 3px; overflow: hidden; }
+  .ramp-row .bar { height: 100%; background: linear-gradient(90deg, #B5472E 0%, #ff7e54 100%); border-radius: 3px; }
+  .ramp-row .price { text-align: right; color: white; font-weight: 700; font-size: 10.5pt; }
+
+  .cover .meta {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 14px;
+    margin-top: 20px;
+    font-size: 9.5pt;
+    color: #c8d4e0;
+  }
+  .cover .meta strong { color: white; }
+  .cover .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin-top: 8px;
+  }
+
+  h1 { font-size: 22pt; color: #1B3A57; border-bottom: 3px solid #B5472E; padding-bottom: 8px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #1B3A57; margin-top: 24px; margin-bottom: 10px; }
+  h3 { font-size: 12pt; color: #1B3A57; margin-top: 18px; margin-bottom: 6px; }
+  h4 { font-size: 10.5pt; color: #1B3A57; margin: 12px 0 4px 0; }
+
+  .section-banner {
+    page-break-before: always;
+    background: #1B3A57;
+    color: white;
+    padding: 14px 20px;
+    margin: 0 -16mm 22px -16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-banner.tech { background: #2a2a2a; }
+  .section-banner .num {
+    font-size: 26pt; font-weight: 700; line-height: 1; color: #B5472E;
+  }
+  .section-banner h1 { color: white; border: none; margin: 0; padding: 0; font-size: 19pt; }
+  .section-banner .subtitle {
+    font-size: 9pt; text-transform: uppercase; letter-spacing: 2px;
+    color: #c8d4e0; margin-top: 4px;
+  }
+  .section-banner.tech .subtitle { color: #aaa; }
+
+  .box {
+    background: #f5f7fa;
+    border-left: 4px solid #B5472E;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .box.info { border-left-color: #1B3A57; background: #eef4f9; }
+  .box.warn { border-left-color: #d9822b; background: #fdf6ed; }
+  .box.critical { border-left-color: #c0392b; background: #fce9e6; }
+  .box.success { border-left-color: #4a7c59; background: #ecf3ee; }
+  .box.new { border-left-color: #5b21b6; background: #f3edff; }
+  .box .label {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #B5472E;
+    margin-bottom: 4px;
+  }
+  .box.info .label { color: #1B3A57; }
+  .box.warn .label { color: #b56f1c; }
+  .box.critical .label { color: #c0392b; }
+  .box.success .label { color: #4a7c59; }
+  .box.new .label { color: #5b21b6; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 9.5pt;
+  }
+  th {
+    background: #1B3A57; color: white;
+    padding: 7px 9px; text-align: left;
+    font-weight: 600; border: 1px solid #1B3A57;
+  }
+  td { padding: 6px 9px; border: 1px solid #d0d7de; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .tech-zone table th { background: #2a2a2a; border-color: #2a2a2a; }
+
+  /* MONTH CARDS */
+  .month-card {
+    page-break-inside: avoid;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .month-card .head {
+    background: #1B3A57; color: white;
+    padding: 11px 14px;
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 14px;
+    align-items: center;
+  }
+  .month-card .head .num {
+    font-size: 22pt; font-weight: 700; line-height: 1; color: #ff9d6c;
+    text-align: center;
+  }
+  .month-card .head .num small {
+    display: block; font-size: 7.5pt; color: #c8d4e0;
+    text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 400; margin-top: 2px;
+  }
+  .month-card .head .title { font-size: 13pt; font-weight: 700; }
+  .month-card .head .subtitle { font-size: 8.5pt; color: #c8d4e0; margin-top: 2px; }
+  .month-card .head .budget {
+    background: #B5472E; color: white;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 15pt; font-weight: 700;
+    text-align: center; min-width: 80px;
+  }
+  .month-card .head .budget small {
+    display: block; font-size: 7pt; font-weight: 400;
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .month-card .body {
+    padding: 12px 14px;
+    background: white;
+  }
+  .month-card .body .row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
+    margin-bottom: 7px;
+    font-size: 9.5pt;
+  }
+  .month-card .body .row .k {
+    font-weight: 700; color: #1B3A57;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 8.5pt; padding-top: 2px;
+  }
+  .month-card .gate {
+    background: #fdf6ed;
+    border-top: 1px solid #f0d6a8;
+    padding: 9px 14px; font-size: 9pt;
+  }
+  .month-card .gate .lbl {
+    text-transform: uppercase; letter-spacing: 1.5px;
+    font-size: 8pt; font-weight: 700;
+    color: #b56f1c; margin-right: 6px;
+  }
+  .month-card .preflight {
+    background: #eef4f9;
+    border-top: 1px solid #c8d4e0;
+    padding: 9px 14px;
+    font-size: 8.8pt;
+    color: #1B3A57;
+  }
+  .month-card .preflight .lbl {
+    text-transform: uppercase; letter-spacing: 1.5px;
+    font-size: 8pt; font-weight: 700; margin-right: 6px;
+  }
+
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li {
+    padding-left: 22px; position: relative; margin-bottom: 4px;
+  }
+  ul.check li::before {
+    content: '☐'; position: absolute; left: 0;
+    color: #1B3A57; font-size: 12pt; top: -2px;
+  }
+
+  .tech-zone {
+    background: #fafafa;
+    color: #1a2332;
+    margin: 0 -16mm;
+    padding: 24px 16mm;
+    border-top: 4px solid #2a2a2a;
+  }
+  .tech-zone h2, .tech-zone h3 { color: #2a2a2a; }
+  .tech-zone .code-block {
+    background: #1e1e1e;
+    color: #e6e6e6;
+    padding: 11px 14px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    margin: 9px 0;
+    overflow-wrap: break-word;
+  }
+  .tech-zone .code-block .kw { color: #ffb86c; }
+  .tech-zone .code-block .neg { color: #ff6b6b; }
+  .tech-zone .code-block .url { color: #8be9fd; }
+  .tech-zone .code-block .cmnt { color: #6272a4; font-style: italic; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    background: #1B3A57; color: white;
+    margin-right: 4px;
+  }
+  .tag.new { background: #4a7c59; }
+  .tag.scale { background: #d9822b; }
+  .tag.continue { background: #6c7a89; }
+  .tag.v2 { background: #5b21b6; }
+
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 12px 0;
+  }
+  .three-col {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px; margin: 12px 0;
+  }
+
+  .footnote { font-size: 8.5pt; color: #6c7a89; font-style: italic; margin-top: 4px; }
+  hr { border: none; border-top: 1px solid #d0d7de; margin: 20px 0; }
+
+  /* DECISION TREE */
+  .tree {
+    margin: 16px 0;
+    background: #f5f7fa;
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .tree .root {
+    background: #1B3A57; color: white;
+    padding: 10px 16px; border-radius: 4px;
+    text-align: center; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .tree .branches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .tree .branch {
+    background: white;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 8.5pt;
+  }
+  .tree .branch .condition {
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    display: inline-block;
+    font-size: 8.5pt;
+    color: white;
+  }
+  .tree .branch.skip .condition { background: #4a7c59; }
+  .tree .branch.go .condition { background: #1B3A57; }
+  .tree .branch.hold .condition { background: #d9822b; }
+  .tree .branch.audit .condition { background: #c0392b; }
+  .tree .branch .action {
+    font-weight: 600; color: #1a2332; margin-bottom: 3px;
+  }
+  .tree .branch .detail {
+    font-size: 8pt; color: #6c7a89;
+  }
+
+  /* GEO RINGS */
+  .rings {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .ring {
+    background: white;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .ring .step {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6c7a89;
+    font-weight: 600;
+  }
+  .ring .label {
+    font-weight: 700; color: #1B3A57;
+    font-size: 10pt; margin: 2px 0 4px 0;
+  }
+  .ring .when {
+    background: #B5472E; color: white;
+    padding: 2px 7px; border-radius: 3px;
+    font-size: 8pt; font-weight: 600;
+    display: inline-block;
+  }
+
+  /* CONVERSION TAXONOMY */
+  .conv-tax {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .conv-tax .lvl {
+    border-radius: 4px;
+    padding: 12px;
+    border-top: 4px solid;
+  }
+  .conv-tax .lvl.p { background: #ecf3ee; border-top-color: #4a7c59; }
+  .conv-tax .lvl.s { background: #eef4f9; border-top-color: #1B3A57; }
+  .conv-tax .lvl.m { background: #f5f7fa; border-top-color: #6c7a89; }
+  .conv-tax .lvl .badge {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 8pt;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .conv-tax .lvl.p .badge { color: #4a7c59; }
+  .conv-tax .lvl.s .badge { color: #1B3A57; }
+  .conv-tax .lvl.m .badge { color: #6c7a89; }
+  .conv-tax .lvl ul { margin: 0; padding-left: 18px; font-size: 9pt; }
+
+  /* CHANGELOG */
+  .changelog {
+    background: #f3edff;
+    border-left: 4px solid #5b21b6;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .changelog .label {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #5b21b6;
+    margin-bottom: 6px;
+  }
+  .changelog ul { margin: 0; padding-left: 18px; font-size: 9.5pt; }
+  .changelog ul li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="version">VERZIA 2.0</div>
+  <div class="label">Marketingový plán · 2026 · Revízia</div>
+  <h1>Google Ads<br>so škálovaným<br>rozpočtom</h1>
+  <h2>Strechy Partizánske · 6-mesačný ramp s tvrdými gate kritériami</h2>
+
+  <div class="ramp-chart">
+    <div class="title">Aktualizovaný mesačný rozpočet — v2 ramp</div>
+    <div class="ramp-row"><div class="mlabel">M1</div><div class="bar-wrap"><div class="bar" style="width:14%"></div></div><div class="price">150 €</div></div>
+    <div class="ramp-row"><div class="mlabel">M2</div><div class="bar-wrap"><div class="bar" style="width:23%"></div></div><div class="price">250 €</div></div>
+    <div class="ramp-row"><div class="mlabel">M3</div><div class="bar-wrap"><div class="bar" style="width:36%"></div></div><div class="price">400 €</div></div>
+    <div class="ramp-row"><div class="mlabel">M4</div><div class="bar-wrap"><div class="bar" style="width:55%"></div></div><div class="price">600 €</div></div>
+    <div class="ramp-row"><div class="mlabel">M5</div><div class="bar-wrap"><div class="bar" style="width:77%"></div></div><div class="price">850 €</div></div>
+    <div class="ramp-row"><div class="mlabel">M6</div><div class="bar-wrap"><div class="bar" style="width:100%"></div></div><div class="price">1 100 €</div></div>
+  </div>
+
+  <div class="meta">
+    <div class="meta-grid">
+      <div><strong>Klient</strong><br>Strechy Partizánske</div>
+      <div><strong>Doména</strong><br>strechy-partizanske.sk</div>
+      <div><strong>Štart M1</strong><br>150 € (vs. v1: 100 €)</div>
+      <div><strong>Cieľ M6</strong><br>1 100 € (vs. v1: 1 000 €)</div>
+      <div><strong>Celkom 6 mes.</strong><br>3 350 € (vs. v1: 2 900 €)</div>
+      <div><strong>Dátum</strong><br>28. máj 2026 · v2.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ČASŤ 1 — PRE MAJITEĽA -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1</div>
+    <h1>Pre majiteľa</h1>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<h2>Čo sa zmenilo oproti v1</h2>
+
+<div class="changelog">
+  <div class="label">Changelog v1 → v2 (po audite Gemini / Perplexity / Mistral)</div>
+  <ul>
+    <li><strong>M1 budget 100 € → 150 €</strong> — pri 3,30 €/deň by sme získali len 5-8 klikov/deň. Štatisticky nereliable. 5 €/deň → 10-15 klikov/deň → 3-5 reálnych konverzií merateľných</li>
+    <li><strong>Composite gate kritériá</strong> — namiesto "≥3 konv" teraz "≥3 konv AND CPA ≤35 € AND tržby ≥450 €". Zabráni falošne pozitívnym mesiacom (3 micro-konverzie za 50 €)</li>
+    <li><strong>Conversion taxonomy</strong> — rozdelenie na primárne (purchase / kvalifikovaný lead), sekundárne (formulár), micro (add to cart). Iba primárne počítajú do gate</li>
+    <li><strong>Early warning kontrola D7 + D14</strong> — nečakáme do konca mesiaca. Ak je CTR &lt; 1,5 % alebo CR &lt; 0,5 % na D7, okamžite audit, nie strata 3 týždňov</li>
+    <li><strong>CPA-based gates v M1-M3, ROAS-based v M4-M6</strong> — v prvých mesiacoch nemáme dáta o reálnej hodnote zákazníka, ROAS je matematicky šum</li>
+    <li><strong>Measurement lag buffer +7 dní</strong> — gate vyhodnocujeme až 7 dní po konci mesiaca (neskoro pripísané konverzie)</li>
+    <li><strong>Geo: koncentrické kruhy</strong> namiesto skoku na "celé SR" v M6. Logistická rentabilita má hranice</li>
+    <li><strong>Preflight checklist per mesiac</strong> — operacionálny audit pred spustením nových kampaní</li>
+    <li><strong>Audit hierarchy v worst case</strong> — definované poradie kontroly: tracking → LP → ad copy → KW → search terms → geo → device</li>
+    <li><strong>Lead quality scoring + CRM offline import</strong> — pre B2B / služby s dlhým sales cyklom</li>
+  </ul>
+</div>
+
+<h2>Centrálny princíp v2: gate = 3 podmienky</h2>
+
+<div class="box success">
+  <div class="label">Composite gate — všetky 3 podmienky musia byť splnené</div>
+  <div class="three-col" style="margin-top: 8px;">
+    <div style="background: white; padding: 10px; border-radius: 4px;">
+      <div style="font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.5px; color: #4a7c59; font-weight: 700;">1 · Objem</div>
+      <div style="font-weight: 700; color: #1a2332; margin-top: 4px;">Minimálny počet PRIMÁRNYCH konverzií</div>
+      <div style="font-size: 8.5pt; color: #6c7a89;">Bez objemu = štatistický šum, Google AI sa nenaučí</div>
+    </div>
+    <div style="background: white; padding: 10px; border-radius: 4px;">
+      <div style="font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.5px; color: #4a7c59; font-weight: 700;">2 · Efektivita</div>
+      <div style="font-weight: 700; color: #1a2332; margin-top: 4px;">CPA strop (M1-M3) alebo ROAS spodok (M4-M6)</div>
+      <div style="font-size: 8.5pt; color: #6c7a89;">Bez efektivity = míňame ale nezarábame</div>
+    </div>
+    <div style="background: white; padding: 10px; border-radius: 4px;">
+      <div style="font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.5px; color: #4a7c59; font-weight: 700;">3 · Kvalita</div>
+      <div style="font-weight: 700; color: #1a2332; margin-top: 4px;">Minimálna tržba alebo % kvalifikovaných leadov</div>
+      <div style="font-size: 8.5pt; color: #6c7a89;">Bez kvality = nadhodnotené metriky</div>
+    </div>
+  </div>
+</div>
+
+<h2>6 mesiacov — kampaňové bloky s novými gate kritériami</h2>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M1<small>Štart</small></div>
+    <div>
+      <div class="title">Validácia — funguje tracking a basic intent?</div>
+      <div class="subtitle">Brand defense + 1× high-intent Krytiny-Plechové. Geo: Partizánske + 30 km.</div>
+    </div>
+    <div class="budget">150 €<small>5 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Konverzie</div><div>Primárna: <code>purchase</code> + <code>generate_lead</code> · Sekundárna: <code>phone_call ≥60s</code></div></div>
+    <div class="row"><div class="k">Bidding</div><div>Max Clicks + max CPC 0,70 € (príliš málo dát pre Smart Bidding)</div></div>
+    <div class="row"><div class="k">Early warning</div><div>D7: CTR &lt; 1,5 % → audit ad copy · D14: 0 konv pri 50 € spend → audit tracking + LP</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M2 (3 podmienky)</span>
+    ≥ 3 primárne konv. · CPA ≤ 35 € · tržby/value ≥ 450 € · tracking validovaný · žiadne disapprovals
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    Shoptet→GA4 ✓ · GA4→Google Ads link ✓ · Enhanced Conversions ON ✓ · Consent Mode v2 ✓ · LP Lighthouse mobile ≥ 80 ✓ · Manual test purchase done ✓
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M2<small>Expanzia</small></div>
+    <div>
+      <div class="title">+ Klampiarske + Škridla · regional bid-up</div>
+      <div class="subtitle">Druhý vertikál, rozšírenie geo na Trenčiansky kraj.</div>
+    </div>
+    <div class="budget">250 €<small>8,30 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>SP-Klampiarske-RAL · druhý ad group Krytiny-Skridla</div></div>
+    <div class="row"><div class="k">Geo</div><div>Partizánske +30 km (bid +30 %) · celý TN kraj baseline</div></div>
+    <div class="row"><div class="k">Early warning</div><div>D7: ak SP-Klampiarske má CR &lt; 0,5 % → audit LP klampiarske kategórie</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M3</span>
+    ≥ 8 primárne konv. · CPA ≤ 30 € · tržby/value ≥ 1 200 € · CTR ≥ 4 % v top ad group
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    LP /c/klampiarske-produkty/ pripravené ✓ · LP /c/krytiny-skladom/skridla/ pripravené ✓ · Geo expansion preview v Google Ads UI ✓
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M3<small>Diverzifikácia</small></div>
+    <div>
+      <div class="title">+ Spojovák · Mid-intent · Remarketing</div>
+      <div class="subtitle">Tretí vertikál + návrat strateného trafficu. Prepnutie top kampaní na Smart Bidding.</div>
+    </div>
+    <div class="budget">400 €<small>13,30 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>SP-Spojovaci · SP-MidIntent-Rekonstrukcia · SP-Remarketing-Dynamic</div></div>
+    <div class="row"><div class="k">Bidding</div><div><span class="tag scale">UPGRADE</span>Top 2 ad groups → Maximize Conversions (5+ konv požiadavka)</div></div>
+    <div class="row"><div class="k">Geo</div><div>+ Žilinský + Nitriansky kraj baseline</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M4</span>
+    ≥ 15 primárne konv. · CPA ≤ 28 € · tržby ≥ 2 500 € · ≥ 70 % leadov označených CRM ako "kvalitné"
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    Remarketing audience ≥ 1 000 visitors v GA4 ✓ · /poradna/vyber-krytiny/ LP s lead formom ✓ · CRM lead quality scoring proces definovaný ✓
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M4<small>Plný launch</small></div>
+    <div>
+      <div class="title">+ Shopping · prepnutie na Target CPA</div>
+      <div class="subtitle">Eshop produkty cez Google Shopping. Hodnotenie sa posúva z CPA na ROAS.</div>
+    </div>
+    <div class="budget">600 €<small>20 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>SP-Shopping-Standard (Shoptet → Merchant Center feed)</div></div>
+    <div class="row"><div class="k">Bidding</div><div><span class="tag scale">UPGRADE</span>Search top kampane → Target CPA 25 € · Shopping → tROAS 400 %</div></div>
+    <div class="row"><div class="k">A/B test</div><div>2. RSA variant v Krytiny-Plechove + 2. LP variant (CTA placement)</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M5</span>
+    ≥ 25 primárne konv. · ROAS ≥ 300 % · CPA ≤ 25 € · profit-CPA pozitívna (CPA &lt; marža / 2)
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    Google Merchant Center feed validated ✓ · Product titles ≤ 150 zn ✓ · GTIN/MPN doplnené ✓ · Offline conversion import zo Shoptet/CRM ✓ · 30+ historických konverzií zaznamenaných ✓
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M5<small>Scale</small></div>
+    <div>
+      <div class="title">+ Performance Max s audience signals</div>
+      <div class="subtitle">AI-driven kampaň s 4 mesiacmi dát. Customer Match z reálnych zákazníkov.</div>
+    </div>
+    <div class="budget">850 €<small>28,30 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>SP-PerformanceMax s customer list + custom audience + in-market signals</div></div>
+    <div class="row"><div class="k">Škálujeme</div><div><span class="tag scale">+50 %</span>Top 2 Search ad groups dostávajú zvýšený budget</div></div>
+    <div class="row"><div class="k">Geo</div><div>Postupné rozšírenie podľa ROAS — pozri Geo Rings nižšie</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Gate na M6</span>
+    ≥ 40 primárne konv. · ROAS ≥ 350 % · PMax ROAS ≥ 200 % (PMax doplnok, nie primary driver)
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    Customer Match: ≥ 1 000 matched users ✓ · PMax exclusions: brand traffic excluded ✓ · Asset groups: 5+ images, 3+ videos, 15 headlines ✓ · Audience signals 3 zdroje aktívne ✓
+  </div>
+</div>
+
+<div class="month-card">
+  <div class="head">
+    <div class="num">M6<small>Maturita</small></div>
+    <div>
+      <div class="title">B2B vertikál · geo expansion podľa rentability</div>
+      <div class="subtitle">Separátna B2B lead form kampaň · geo len kam doprava dáva sense.</div>
+    </div>
+    <div class="budget">1 100 €<small>36,60 €/deň</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Pridávame</div><div><span class="tag new">NOVÉ</span>SP-B2B-LeadForm (separátny tracking + CRM scoring) · YouTube remarketing</div></div>
+    <div class="row"><div class="k">Geo</div><div>Pridať Trnavský + Banskobystrický kraj (test). Východ SR <strong>NIE</strong> kým doprava nie je rentabilná</div></div>
+    <div class="row"><div class="k">Cieľ</div><div>≥ 50 primárne konv., stable PMax, B2B leady so separate CPA target 45 €</div></div>
+  </div>
+  <div class="gate">
+    <span class="lbl">Post-M6 review</span>
+    Sustained ≥ 50 konv. · ROAS ≥ 400 % · B2B lead-to-deal ≥ 15 % → rozhodnutie: hold @ 1100 € alebo ramp na 1500 €
+  </div>
+  <div class="preflight">
+    <span class="lbl">Preflight</span>
+    /pre-firmy/ B2B LP s IČO/DIČ poľami ✓ · CRM segmentácia B2C vs. B2B aktívna ✓ · Logistická kalkulačka pre nové geo zóny ✓
+  </div>
+</div>
+
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1 · pokračovanie</div>
+    <h1>Rozhodovacie pravidlá</h1>
+  </div>
+  <div class="num">02</div>
+</div>
+
+<h2>Decision tree — koniec mesiaca + 7 dní</h2>
+
+<p class="footnote"><strong>Measurement lag buffer:</strong> gate vyhodnocujeme až 7 dní po skončení mesiaca, aby sme zachytili neskoro pripísané konverzie (offline imports, view-through, cross-device).</p>
+
+<div class="tree">
+  <div class="root">Výsledok mesiaca M(n) · vyhodnotené po M(n)+7 dní</div>
+  <div class="branches">
+    <div class="branch skip">
+      <div class="condition">🚀 &gt; 130 %</div>
+      <div class="action">Preskoč mesiac</div>
+      <div class="detail">M(n+1) sa preskočí, ideme rovno na M(n+2) setup. Použiteľné iba ak boli splnené všetky 3 composite podmienky.</div>
+    </div>
+    <div class="branch go">
+      <div class="condition">✅ 100-130 %</div>
+      <div class="action">Ramp podľa plánu</div>
+      <div class="detail">Spustíme M(n+1) štandardne. Pridáme nové kampane podľa plánu, navýšime budget.</div>
+    </div>
+    <div class="branch hold">
+      <div class="condition">⚠ 80-99 %</div>
+      <div class="action">Hold + 1-2 fixy + re-test 14 dní</div>
+      <div class="detail">Ostávame na M(n) rozpočte. Identifikujeme TOP 1-2 root causes a fixujeme. Re-test 14 dní, nie 30.</div>
+    </div>
+    <div class="branch audit">
+      <div class="condition">❌ &lt; 80 %</div>
+      <div class="action">Hold + plný audit hierarchy</div>
+      <div class="detail">Audit v poradí: tracking → LP → ad copy → KW intent → search terms → geo → device. Max 2-3 fixy naraz.</div>
+    </div>
+  </div>
+</div>
+
+<h2>Audit hierarchy — keď gate nie je splnený</h2>
+
+<div class="box critical">
+  <div class="label">Striktné poradie kontroly (nepreskakovať)</div>
+  <ol style="margin: 6px 0 0 18px; padding: 0;">
+    <li><strong>Tracking</strong> — Test purchase. Skontroluj v Google Ads → Tools → Conversions, či konverzia "recorded". Ak chýba → 80 % problémov je tu</li>
+    <li><strong>Landing Page</strong> — Lighthouse audit, INP &lt; 200 ms, mobile usability, sticky CTA, formulár ≤ 4 polia</li>
+    <li><strong>Ad copy</strong> — Match keyword v H1, USP v H2, CTA v H3. CTR &lt; 3 % = problém s ad copy</li>
+    <li><strong>Keyword intent</strong> — Sú KW skutočne transakčné? "ako vybrať strechu" je informational, nezarobí</li>
+    <li><strong>Search terms report</strong> — Čo ľudia reálne hľadajú vs. čo si bidujeme? Negatives potrebné?</li>
+    <li><strong>Geo</strong> — Konvertujú niektoré zóny lepšie? Bid adjustment</li>
+    <li><strong>Device</strong> — Mobile vs desktop CR rozdiel. Bid adjustment</li>
+  </ol>
+</div>
+
+<h2>Geografia — koncentrické kruhy</h2>
+
+<p>Namiesto skoku na celé SR v M6 ideme postupne <strong>podľa logistickej rentability</strong>. Doprava do Košíc z Partizánskeho je drahá → menej konkurencieschopní → zlý ROAS.</p>
+
+<div class="rings">
+  <div class="ring">
+    <div class="step">Kruh 1</div>
+    <div class="label">PT + 30 km</div>
+    <div class="when">M1-M6 (bid +30 %)</div>
+    <p style="margin: 4px 0 0 0; font-size: 8.5pt; color: #6c7a89;">Osobný odber zóna, najlepšia konverzia</p>
+  </div>
+  <div class="ring">
+    <div class="step">Kruh 2</div>
+    <div class="label">TN + NR + ZA kraj</div>
+    <div class="when">M2-M6 (baseline)</div>
+    <p style="margin: 4px 0 0 0; font-size: 8.5pt; color: #6c7a89;">Kuriérska zóna &lt; 24 h, rentabilná doprava</p>
+  </div>
+  <div class="ring">
+    <div class="step">Kruh 3</div>
+    <div class="label">TT + BB kraj</div>
+    <div class="when">M6 test (bid -10 %)</div>
+    <p style="margin: 4px 0 0 0; font-size: 8.5pt; color: #6c7a89;">Hraničná rentabilita, test podľa konverzií</p>
+  </div>
+  <div class="ring">
+    <div class="step">Kruh 4</div>
+    <div class="label">PO + KE kraj</div>
+    <div class="when">Iba ak Kruh 3 zarába</div>
+    <p style="margin: 4px 0 0 0; font-size: 8.5pt; color: #6c7a89;">Najďalej, najdrahšia doprava — odložené</p>
+  </div>
+</div>
+
+<h2>Lead quality definícia + CRM feedback loop</h2>
+
+<div class="box info">
+  <div class="label">Čo presne znamená "kvalifikovaný lead"</div>
+  <table style="margin: 8px 0 0 0;">
+    <thead><tr><th>Skóre</th><th>Definícia</th><th>Akcia v Google Ads</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Hot (10 b.)</strong></td><td>Konkrétny dopyt + telefón + lokalita + termín do 60 dní</td><td>Conversion value: 200 €</td></tr>
+      <tr><td><strong>Warm (6 b.)</strong></td><td>Konkrétny dopyt + kontakty + termín do 6 mes.</td><td>Conversion value: 100 €</td></tr>
+      <tr><td><strong>Cold (2 b.)</strong></td><td>Len kontakty, vágne info, "len sa pýtam"</td><td>Conversion value: 30 €</td></tr>
+      <tr><td><strong>Junk (0 b.)</strong></td><td>Spam, irelevantné, neexistujúce kontakty</td><td>Conversion ZRUŠENÁ (offline upload negative)</td></tr>
+    </tbody>
+  </table>
+  <p style="margin: 8px 0 0 0; font-size: 9pt;"><strong>Proces:</strong> Po 24 h od submitu Michal / obchodník v Shoptete označí lead skóre v CRM. Týždenne offline upload do Google Ads. Bez tohto Google AI optimalizuje na všetky leady rovnako (vrátane spamu).</p>
+</div>
+
+<h2>Sezónny koeficient</h2>
+
+<table>
+  <thead><tr><th>Obdobie</th><th>Budget × koef.</th><th>Gate kritériá</th></tr></thead>
+  <tbody>
+    <tr><td>Mar - október (peak)</td><td>× 1,00</td><td>baseline (vyššie čísla)</td></tr>
+    <tr><td>November - január (dno)</td><td>× 0,50-0,60</td><td>znížené o 40 % (menej dopytu)</td></tr>
+    <tr><td>Február - prechod</td><td>× 0,80</td><td>znížené o 20 %</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote"><strong>Exception rule:</strong> Ak začíname kampaň v Nov-Jan, M1 sa NEVYHODNOCUJE proti štandardným gates, ale podľa zimného koef. M1 (zima) = 1-2 konv minimum, ROAS gate odložený do M3.</p>
+
+<!-- ČASŤ 2 — TECH NASTAVENIE -->
+<div class="section-banner tech">
+  <div>
+    <div class="subtitle">Časť 2 · technické detaily</div>
+    <h1>Nastavenie</h1>
+  </div>
+  <div class="num">03</div>
+</div>
+
+<div class="tech-zone">
+
+<h2>3.1 Conversion taxonomy — 3 úrovne</h2>
+
+<p>Iba <strong>primárne</strong> konverzie počítajú do gate kritérií. Sekundárne a micro slúžia Google AI na optimalizáciu, ale nikdy nie ako primary conversion goal.</p>
+
+<div class="conv-tax">
+  <div class="lvl p">
+    <div class="badge">PRIMÁRNA</div>
+    <ul>
+      <li><code>purchase</code> (Shoptet checkout)</li>
+      <li><code>generate_lead</code> — kvalifikovaný (CRM score Hot/Warm)</li>
+      <li><code>phone_call ≥ 90s</code> (Google forwarding number)</li>
+    </ul>
+  </div>
+  <div class="lvl s">
+    <div class="badge">SEKUNDÁRNA</div>
+    <ul>
+      <li><code>form_start</code> (začal vyplňovať)</li>
+      <li><code>begin_checkout</code></li>
+      <li><code>phone_call &lt; 90s</code></li>
+      <li><code>email_click</code></li>
+    </ul>
+  </div>
+  <div class="lvl m">
+    <div class="badge">MICRO</div>
+    <ul>
+      <li><code>add_to_cart</code></li>
+      <li><code>view_product</code> + time &gt; 60s</li>
+      <li><code>scroll_75pct</code></li>
+      <li><code>click_call_button</code></li>
+    </ul>
+  </div>
+</div>
+
+<h2>3.2 Mesačné setupy — kampane + budget allocation</h2>
+
+<h3>M1 · 150 € (5 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Bidding</th></tr></thead>
+  <tbody>
+    <tr><td>SP-M1-Brand</td><td>1,00</td><td>Max Clicks, max CPC 0,20 €</td></tr>
+    <tr><td>SP-M1-Krytiny-Plechove</td><td>4,00</td><td>Max Clicks, max CPC 0,70 €</td></tr>
+  </tbody>
+</table>
+
+<h3>M2 · 250 € (8,30 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>1,30</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Plechove</td><td>3,50</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Skridla</td><td>1,80</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Klampiarske-RAL</td><td>1,70</td><td><span class="tag new">NOVÉ</span></td></tr>
+  </tbody>
+</table>
+
+<h3>M3 · 400 € (13,30 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>1,60</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny-Plechove</td><td>4,70</td><td><span class="tag scale">+34 %</span></td></tr>
+    <tr><td>SP-Krytiny-Skridla</td><td>2,30</td><td><span class="tag scale">+28 %</span></td></tr>
+    <tr><td>SP-Klampiarske-RAL</td><td>1,80</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Klampiarske-Zvody</td><td>1,10</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>0,80</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-MidIntent-Rekonstrukcia</td><td>0,70</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Remarketing-Dynamic</td><td>0,30</td><td><span class="tag new">NOVÉ</span></td></tr>
+  </tbody>
+</table>
+
+<h3>M4 · 600 € (20 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,00</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny (Plech + Škridla)</td><td>7,00</td><td><span class="tag scale">+ 23 %</span></td></tr>
+    <tr><td>SP-Klampiarske (RAL + Zvody)</td><td>4,50</td><td><span class="tag scale">+ 55 %</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>1,80</td><td><span class="tag scale">+125 %</span></td></tr>
+    <tr><td>SP-MidIntent</td><td>1,80</td><td><span class="tag scale">+157 %</span></td></tr>
+    <tr><td>SP-Shopping-Standard</td><td>1,80</td><td><span class="tag new">NOVÉ</span></td></tr>
+    <tr><td>SP-Remarketing-Dynamic</td><td>1,10</td><td><span class="tag scale">+267 %</span></td></tr>
+  </tbody>
+</table>
+
+<h3>M5 · 850 € (28,30 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,30</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny</td><td>9,50</td><td><span class="tag scale">+ 36 %</span></td></tr>
+    <tr><td>SP-Klampiarske</td><td>5,50</td><td><span class="tag scale">+ 22 %</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>2,50</td><td><span class="tag scale">+ 39 %</span></td></tr>
+    <tr><td>SP-MidIntent</td><td>2,00</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Shopping-Standard</td><td>2,50</td><td><span class="tag scale">+ 39 %</span></td></tr>
+    <tr><td>SP-Remarketing</td><td>1,50</td><td><span class="tag scale">+ 36 %</span></td></tr>
+    <tr><td>SP-PerformanceMax</td><td>2,50</td><td><span class="tag new">NOVÉ</span></td></tr>
+  </tbody>
+</table>
+
+<h3>M6 · 1 100 € (36,60 €/deň)</h3>
+<table>
+  <thead><tr><th>Kampaň</th><th>€/deň</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>SP-Brand</td><td>2,50</td><td><span class="tag continue">POKR.</span></td></tr>
+    <tr><td>SP-Krytiny</td><td>11,00</td><td><span class="tag scale">+ 16 %</span></td></tr>
+    <tr><td>SP-Klampiarske</td><td>7,00</td><td><span class="tag scale">+ 27 %</span></td></tr>
+    <tr><td>SP-Spojovaci</td><td>3,20</td><td><span class="tag scale">+ 28 %</span></td></tr>
+    <tr><td>SP-MidIntent</td><td>2,70</td><td><span class="tag scale">+ 35 %</span></td></tr>
+    <tr><td>SP-Shopping</td><td>3,20</td><td><span class="tag scale">+ 28 %</span></td></tr>
+    <tr><td>SP-Remarketing</td><td>1,80</td><td><span class="tag scale">+ 20 %</span></td></tr>
+    <tr><td>SP-PerformanceMax</td><td>3,50</td><td><span class="tag scale">+ 40 %</span></td></tr>
+    <tr><td>SP-B2B-LeadForm</td><td>1,70</td><td><span class="tag new">NOVÉ</span></td></tr>
+  </tbody>
+</table>
+
+<h2>3.3 Keywords + ad copy</h2>
+
+<p class="footnote">Plný keyword zoznam + RSA texty + extensions sú v hlavnom pláne <code>google-ads-plan.md</code> (sekcie 3.1-3.5). Tu sú iba nové prvky pre v2.</p>
+
+<h3>M1 — top 4 high-intent KW (testovacia konfigurácia)</h3>
+<div class="code-block"><span class="cmnt"># M1 obmedzená sada — len absolútne najvyšší intent</span>
+<span class="kw">"plechova krytina cena"</span>      phrase  ~480/mes  CPC ~0,55 €
+<span class="kw">"plechova strecha cena"</span>      phrase  ~390/mes  CPC ~0,60 €
+<span class="kw">[krytina lindab]</span>             exact   ~140/mes  CPC ~0,40 €
+<span class="kw">[krytina topdach]</span>            exact   ~90/mes   CPC ~0,35 €
+
+<span class="cmnt"># PLUS rozšírený negative list v M1 (učenie sa)</span>
+<span class="neg">-ako -postup -navod -svojpomocne -tutorial -video</span>
+<span class="neg">-cennik konkurencie -recenzie -porovnanie -test</span>
+<span class="neg">-bazar -bazos -pouzita -druhotna -recyklat</span>
+<span class="neg">-praca -brigada -hladam -montaz -instalacia</span></div>
+
+<h2>3.4 Early warning thresholds (D7 + D14 monitoring)</h2>
+
+<table>
+  <thead><tr><th>Deň</th><th>Metrika</th><th>Threshold</th><th>Akcia</th></tr></thead>
+  <tbody>
+    <tr><td>D7</td><td>CTR</td><td>&lt; 1,5 %</td><td>Audit ad copy + KW relevancia</td></tr>
+    <tr><td>D7</td><td>Quality Score (avg)</td><td>&lt; 5</td><td>Re-align ad ↔ keyword ↔ LP</td></tr>
+    <tr><td>D7</td><td>Impressions</td><td>&lt; 500</td><td>Zvýš max CPC bid alebo pridaj KW</td></tr>
+    <tr><td>D14</td><td>Konverzie</td><td>0</td><td>FULL audit hierarchy (tracking first!)</td></tr>
+    <tr><td>D14</td><td>CR (z klikov)</td><td>&lt; 0,5 %</td><td>Audit LP + form friction</td></tr>
+    <tr><td>D14</td><td>Spend</td><td>&gt; 70 % budget</td><td>Bid down — minieme prv ako mesiac končí</td></tr>
+    <tr><td>D14</td><td>Bounce rate</td><td>&gt; 70 %</td><td>LP speed + content relevancia audit</td></tr>
+  </tbody>
+</table>
+
+<h2>3.5 Conversion tracking — kompletný setup</h2>
+
+<h4>Primárne konverzie (count toward gate)</h4>
+<ul class="check">
+  <li><strong>purchase</strong> — GA4 ecommerce event, value = tržba s DPH</li>
+  <li><strong>generate_lead (qualified)</strong> — iba ak CRM označil ako Hot/Warm; spam/cold → offline negative upload</li>
+  <li><strong>phone_call ≥ 90s</strong> — Google forwarding number, 90s threshold filter spam</li>
+</ul>
+
+<h4>Sekundárne konverzie (optimization signal, not gate)</h4>
+<ul class="check">
+  <li><strong>form_start</strong>, <strong>begin_checkout</strong>, <strong>phone_call_short</strong></li>
+</ul>
+
+<h4>Offline conversion import (week M2+)</h4>
+<div class="code-block"><span class="cmnt"># Týždenný CSV upload do Google Ads</span>
+<span class="cmnt"># Formát: GCLID, conversion_name, conversion_time, value</span>
+
+Hot lead         → conv value 200 €
+Warm lead        → conv value 100 €
+Cold lead        → conv value 30 €
+Junk/spam        → upload ZERO value (negative signal pre Google AI)
+Real purchase    → conv value = actual revenue</div>
+
+<h2>3.6 Globálne pravidlá (po celých 6 mesiacov)</h2>
+
+<table>
+  <thead><tr><th>Pravidlo</th><th>Prečo</th></tr></thead>
+  <tbody>
+    <tr><td>Žiadne vymyslené tvrdenia v ad copy</td><td>§ 8 zák. 250/2007 · Google disapproval</td></tr>
+    <tr><td>Headline ≤ 30 zn., Description ≤ 90 zn., Display path 2× 15 zn.</td><td>Google odmietne over-limit</td></tr>
+    <tr><td>Auto-applied recommendations OFF</td><td>Google by zapol broad match + URL expansion</td></tr>
+    <tr><td>Dedikovaná LP pre každú kampaň</td><td>Quality Score → CPC ↓ 40-60 %</td></tr>
+    <tr><td>Search Term Report 2× týž v M1-M2, 1× týž potom</td><td>Najvyšší ROI optimalizácia</td></tr>
+    <tr><td>Sezónny koeficient × 0,5-0,6 v Nov-Jan</td><td>Mŕtve obdobie</td></tr>
+    <tr><td>Core + test split: 85 % proven, 15 % experiment</td><td>Pokračujúce učenie bez straty tempa</td></tr>
+    <tr><td>Gate vyhodnocujeme M(n)+7 dní, nie M(n)+0</td><td>Measurement lag — neskoré atribúcie</td></tr>
+  </tbody>
+</table>
+
+<h2>3.7 Reporting cadence</h2>
+
+<div class="two-col">
+  <div class="box info">
+    <div class="label">Týždenne (interný)</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li>Search terms harvest</li>
+      <li>Negative additions log</li>
+      <li>CPA / CTR / spend tracking</li>
+      <li>D7 / D14 early warnings check</li>
+      <li>Quality Score audit</li>
+    </ul>
+  </div>
+  <div class="box info">
+    <div class="label">Mesačne (klient + gate review)</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li>Composite gate verdict (3 podmienky)</li>
+      <li>Lead quality breakdown (Hot/Warm/Cold/Junk)</li>
+      <li>Top 10 KW by ROAS</li>
+      <li>Geo + device performance</li>
+      <li>Decision: ramp / hold / audit</li>
+      <li>Recommendations pre M(n+1)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>3.8 Kumulatívne výsledky — projekcia v2</h2>
+
+<table>
+  <thead><tr><th>Mes.</th><th>Budget</th><th>Cieľ konv.</th><th>Cieľ CPA</th><th>Cieľ ROAS</th><th>Cum. spend</th></tr></thead>
+  <tbody>
+    <tr><td>M1</td><td>150 €</td><td>≥ 3</td><td>≤ 35 €</td><td>—</td><td>150 €</td></tr>
+    <tr><td>M2</td><td>250 €</td><td>≥ 8</td><td>≤ 30 €</td><td>—</td><td>400 €</td></tr>
+    <tr><td>M3</td><td>400 €</td><td>≥ 15</td><td>≤ 28 €</td><td>(prvé merania)</td><td>800 €</td></tr>
+    <tr><td>M4</td><td>600 €</td><td>≥ 25</td><td>≤ 25 €</td><td>≥ 300 %</td><td>1 400 €</td></tr>
+    <tr><td>M5</td><td>850 €</td><td>≥ 40</td><td>≤ 23 €</td><td>≥ 350 %</td><td>2 250 €</td></tr>
+    <tr><td>M6</td><td>1 100 €</td><td>≥ 50</td><td>≤ 22 €</td><td>≥ 400 %</td><td>3 350 €</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote"><strong>Pri splnení všetkých gates:</strong> ~140 konverzií za 6 mes., kumulatívne tržby ≥ 10 000 € (pri ROAS 300 %+). <strong>Pri zlyhaní:</strong> ramp sa zastaví, max strata ohraničená na pôvodný mesiac.</p>
+
+</div><!-- /.tech-zone -->
+
+<hr>
+
+<div style="text-align: center; color: #6c7a89; font-size: 9pt; margin-top: 20px;">
+  Dokument vypracoval Michal Raffay · 28. máj 2026 · <strong>v2.0 (po multi-AI peer review)</strong><br>
+  Strechy Partizánske — 6-mesačný škálovaný Google Ads plán<br>
+  <em>Composite gates · early warning · CPA→ROAS evolution · lead quality scoring</em>
+</div>
+
+</body>
+</html>

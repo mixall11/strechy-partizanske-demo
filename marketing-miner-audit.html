@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Audit Marketing Miner reportu — Strechy SK</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm;
+    @bottom-center { content: "Strana " counter(page) " / " counter(pages); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9pt; color: #999; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Arial', sans-serif; color: #1a2332; font-size: 10.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .cover { page-break-after: always; min-height: 250mm; padding: 50mm 10mm 10mm 10mm; background: linear-gradient(135deg, #1B3A57 0%, #2c4f70 100%); color: white; margin: -18mm -16mm; padding-left: 26mm; padding-right: 26mm; }
+  .cover .badge { display: inline-block; background: #c0392b; color: white; padding: 4px 12px; border-radius: 3px; font-size: 9pt; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
+  .cover .label { text-transform: uppercase; letter-spacing: 4px; font-size: 10pt; color: #c8d4e0; font-weight: 600; margin-bottom: 10px; }
+  .cover h1 { font-size: 32pt; line-height: 1.05; margin: 0 0 8px 0; font-weight: 700; letter-spacing: -1px; }
+  .cover h2 { font-size: 14pt; font-weight: 300; color: #c8d4e0; margin: 0 0 40px 0; }
+
+  .score-circle { text-align: center; padding: 30px; background: rgba(255,255,255,0.08); border-radius: 50%; width: 200px; height: 200px; margin: 30px auto; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .score-circle .num { font-size: 60pt; font-weight: 700; color: #ff7e54; line-height: 1; }
+  .score-circle .label { font-size: 10pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-top: 8px; }
+
+  .cover .verdict { background: rgba(255,255,255,0.08); padding: 16px 20px; border-radius: 6px; margin-top: 30px; font-size: 11pt; color: #fff; }
+  .cover .verdict strong { color: #ff7e54; }
+
+  h1 { font-size: 22pt; color: #1B3A57; border-bottom: 3px solid #B5472E; padding-bottom: 8px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #1B3A57; margin-top: 24px; margin-bottom: 10px; }
+  h3 { font-size: 12pt; color: #1B3A57; margin-top: 18px; margin-bottom: 6px; }
+
+  .section-banner { page-break-before: always; background: #1B3A57; color: white; padding: 14px 20px; margin: 0 -16mm 22px -16mm; display: flex; justify-content: space-between; align-items: center; }
+  .section-banner .num { font-size: 26pt; font-weight: 700; line-height: 1; color: #B5472E; }
+  .section-banner h1 { color: white; border: none; margin: 0; padding: 0; font-size: 19pt; }
+  .section-banner .subtitle { font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-top: 4px; }
+
+  .box { background: #f5f7fa; border-left: 4px solid #B5472E; padding: 12px 16px; margin: 12px 0; border-radius: 0 4px 4px 0; }
+  .box.success { border-left-color: #4a7c59; background: #ecf3ee; }
+  .box.warn { border-left-color: #d9822b; background: #fdf6ed; }
+  .box.critical { border-left-color: #c0392b; background: #fce9e6; }
+  .box.info { border-left-color: #1B3A57; background: #eef4f9; }
+  .box .label { text-transform: uppercase; letter-spacing: 1.5px; font-size: 8.5pt; font-weight: 700; color: #B5472E; margin-bottom: 4px; }
+  .box.success .label { color: #4a7c59; }
+  .box.warn .label { color: #b56f1c; }
+  .box.critical .label { color: #c0392b; }
+  .box.info .label { color: #1B3A57; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+  th { background: #1B3A57; color: white; padding: 7px 9px; text-align: left; font-weight: 600; border: 1px solid #1B3A57; }
+  td { padding: 6px 9px; border: 1px solid #d0d7de; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  .verdict-tag { display: inline-block; padding: 3px 9px; border-radius: 3px; font-size: 8.5pt; font-weight: 700; }
+  .verdict-tag.ok { background: #4a7c59; color: white; }
+  .verdict-tag.partial { background: #d9822b; color: white; }
+  .verdict-tag.wrong { background: #c0392b; color: white; }
+  .verdict-tag.fabricated { background: #5b21b6; color: white; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; }
+  .stat { background: #eef4f9; border: 1px solid #c8d4e0; border-radius: 4px; padding: 10px; text-align: center; }
+  .stat .v { font-size: 18pt; font-weight: 700; color: #1B3A57; line-height: 1; }
+  .stat .l { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; color: #6c7a89; margin-top: 4px; }
+
+  .footnote { font-size: 8.5pt; color: #6c7a89; font-style: italic; margin-top: 4px; }
+  hr { border: none; border-top: 1px solid #d0d7de; margin: 20px 0; }
+
+  .compare-table th:first-child { width: 25%; }
+  .compare-table th:nth-child(2) { width: 18%; }
+  .compare-table th:nth-child(3) { width: 18%; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="badge">CRITICAL AUDIT</div>
+  <div class="label">Marketing Miner Report — Quality Check</div>
+  <h1>Tento report<br>má vážne<br>chyby</h1>
+  <h2>Audit reportu „Strešný e-shop · 57 slov testovaných" — fact-check čísel</h2>
+
+  <div class="score-circle">
+    <div class="num">4/10</div>
+    <div class="label">Spoľahlivosť</div>
+  </div>
+
+  <div class="verdict">
+    <strong>VERDIKT:</strong> Framework a metodológia sú slušné (Tier 1/2/3 segmentácia, observácia o messaging slovách je správna). <strong>Konkrétne čísla a finančné projekcie sú však z veľkej časti optimisticky nadhodnotené alebo úplne fabrikované</strong> — search volumes nesedia s mojím predošlým odhadom a publikovanými benchmarkmi, conversion rates sú nereálne, revenue projekcie sú marketing fluff. <strong>NEPLÁNUJ biznis podľa tohto reportu</strong> — použi len framework, čísla over inde.
+  </div>
+</div>
+
+<!-- ČASŤ 1 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1</div>
+    <h1>Čo je správne</h1>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<h2>✅ 5 vecí, ktoré report trafil dobre</h2>
+
+<div class="box success">
+  <div class="label">1 · Observácia „77 % zoznamu sú messaging slová"</div>
+  <strong>SPRÁVNE.</strong> Slová ako „strecha bez starostí", „rýchla strecha", „strecha s garanciou" sú slogany pre web copy, nie reálne search queries. Ľudia tieto frázy v Google netypujú. Toto je <strong>jediná najhodnotnejšia časť reportu</strong> — uchránil ťa od kúpy ~46 zbytočných domén.
+</div>
+
+<div class="box success">
+  <div class="label">2 · Tier 1 / Tier 2 / Tier 3 segmentácia</div>
+  <strong>SPRÁVNE.</strong> Štandardná SEO metodológia — high-intent + volume = Tier 1, secondary = Tier 2, no-volume = Tier 3. Framework je sound.
+</div>
+
+<div class="box success">
+  <div class="label">3 · Funnel štruktúra (Awareness → Consideration → Conversion)</div>
+  <strong>SPRÁVNE.</strong> Klasická marketing štruktúra, dobre aplikovaná na keyword clustery. URL návrhy (/produkty/, /sluzby/, /eshop/) sú logické.
+</div>
+
+<div class="box success">
+  <div class="label">4 · Long-tail opportunity flag</div>
+  <strong>SPRÁVNE.</strong> Konkrétne frázy "plechová strecha cena za m2" alebo "plech na strechu cena" majú reálnejší search intent než len "plechové krytiny". Long-tail expansia z TOP 8 je validná stratégia.
+</div>
+
+<div class="box success">
+  <div class="label">5 · Anti-pattern „messaging vs search intent"</div>
+  <strong>SPRÁVNE.</strong> Distinction medzi marketing copy a search SEO je kritický koncept. Drvivá väčšina začínajúcich firiem to nerozumie.
+</div>
+
+<!-- ČASŤ 2 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 2</div>
+    <h1>Čo nesedí</h1>
+  </div>
+  <div class="num">02</div>
+</div>
+
+<h2>❌ Vážne problémy s číslami</h2>
+
+<h3>Search volumes — porovnanie s mojím odhadom</h3>
+
+<table class="compare-table">
+  <thead><tr><th>Keyword</th><th>Report tvrdí</th><th>Realistický odhad</th><th>Verdikt</th></tr></thead>
+  <tbody>
+    <tr><td>zelená strecha</td><td><strong>730 /mes</strong></td><td>50-150 /mes</td><td><span class="verdict-tag fabricated">5× nafúknuté</span></td></tr>
+    <tr><td>plechové krytiny</td><td>600 /mes</td><td>200-400 /mes</td><td><span class="verdict-tag partial">2× nafúknuté</span></td></tr>
+    <tr><td>falcovaný plech</td><td>560 /mes</td><td>100-200 /mes</td><td><span class="verdict-tag partial">3× nafúknuté</span></td></tr>
+    <tr><td>odkvapy</td><td>370 /mes</td><td>400-600 /mes</td><td><span class="verdict-tag ok">~OK</span></td></tr>
+    <tr><td>rekonštrukcia strechy</td><td>170 /mes</td><td>500-900 /mes</td><td><span class="verdict-tag wrong">3-5× podhodnotené</span></td></tr>
+    <tr><td>klampiarstvo</td><td>140 /mes</td><td>150-250 /mes</td><td><span class="verdict-tag ok">~OK</span></td></tr>
+    <tr><td>cena strechy</td><td>120 /mes</td><td>500-900 /mes</td><td><span class="verdict-tag wrong">5-7× podhodnotené</span></td></tr>
+    <tr><td>žľaby</td><td>120 /mes</td><td>200-400 /mes</td><td><span class="verdict-tag partial">2× podhodnotené</span></td></tr>
+    <tr><td>výmena strechy</td><td>60 /mes</td><td>400-600 /mes</td><td><span class="verdict-tag wrong">10× podhodnotené</span></td></tr>
+    <tr><td>montáž strechy</td><td>60 /mes</td><td>200-400 /mes</td><td><span class="verdict-tag wrong">5× podhodnotené</span></td></tr>
+  </tbody>
+</table>
+
+<div class="box critical">
+  <div class="label">Záver search volumes</div>
+  <strong>Distribúcia nesedí.</strong> Reálny strešný trh SK má najvyšší volume pri <strong>"cena strechy", "rekonštrukcia strechy", "výmena strechy"</strong> (buying intent fráze 400-900/mes). Report ich má 60-170/mes, čo je 5-10× podhodnotené. Naopak "zelená strecha" je niche eko segment (50-150/mes), report ich má 730/mes — bezdôvodne preferovaný keyword.
+</div>
+
+<h3>CPC hodnoty — neporovnateľné s benchmarkom</h3>
+
+<table>
+  <thead><tr><th>Keyword</th><th>Report CPC</th><th>Reálny CPC (SK 2026)</th><th>Verdikt</th></tr></thead>
+  <tbody>
+    <tr><td>plechové krytiny</td><td>0,14 €</td><td>0,40-0,55 €</td><td><span class="verdict-tag wrong">4× podhodnotené</span></td></tr>
+    <tr><td>falcovaný plech</td><td>0,14 €</td><td>0,45-0,55 €</td><td><span class="verdict-tag wrong">4× podhodnotené</span></td></tr>
+    <tr><td>odkvapy</td><td>0,16 €</td><td>0,45-0,50 €</td><td><span class="verdict-tag wrong">3× podhodnotené</span></td></tr>
+    <tr><td>zelená strecha</td><td>0,53 €</td><td>0,30-0,50 €</td><td><span class="verdict-tag ok">~OK</span></td></tr>
+    <tr><td>cena strechy</td><td>0,34 €</td><td>0,60-0,80 €</td><td><span class="verdict-tag wrong">2× podhodnotené</span></td></tr>
+  </tbody>
+</table>
+
+<p class="footnote">CPC 0,14 € pre "plechové krytiny" je nereálne — v stavebníckom segmente s reálnym buying intent sa SK CPC pohybuje 0,40-0,80 €. Podhodnotené CPC v reporte podávajú dojem lacnejšieho marketingu, ako realitou je.</p>
+
+<h2>❌ Finančné projekcie — vysoko zavádzajúce</h2>
+
+<div class="box critical">
+  <div class="label">Scenár A · "37 500 – 52 500 €/mes"</div>
+  <strong>FANTAZIA.</strong> Predpoklady reportu:
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li>CTR z SERP <strong>25 %</strong> → reálne 1-15 % podľa pozície (pozícia 1 ≈ 30 %, pozícia 5 ≈ 6 %, pozícia 10 ≈ 2,5 %)</li>
+    <li>Conversion rate <strong>5-7 %</strong> → reálne pre nový eshop 0,5-1,5 % (Shopify benchmark 2024)</li>
+    <li>Priemerná objednávka <strong>1 500 €</strong> → možné pre strešné materiály (B2B), ale CR pri tak vysokej AOV je 0,3-0,8 %</li>
+  </ul>
+  Realistická matematika: 3 300 hľadaní/mes × CTR 8 % × CR 1 % × AOV 800 € = <strong>2 100 €/mes</strong>, nie 37-52 tis. €.
+</div>
+
+<div class="box critical">
+  <div class="label">Scenár B · "5-15 k €/mes lead generation"</div>
+  <strong>STÁLE NADHODNOTENÉ.</strong> Lead cena 50-150 € (B2B) je realistická, ale konv. 2-5 % na lead pre nový web bez authority je nereálne. Prvé 6 mesiacov sa pohybuje 0,3-1 %.
+</div>
+
+<div class="box critical">
+  <div class="label">Timeline „Mesiac 12+: 15-50 k €/mes"</div>
+  <strong>NEREÁLNE.</strong> Implikuje 1,5-2 % konv. rate × organic traffic 3 000+/mes po 12 mesiacoch. Realistic: po 12 mes. organic 500-1 500/mes pre nový web v competitívnom segmente, konv. 1 % → 5-15 nákupov/mes pri AOV 800 € = <strong>4-12 k €/mes</strong>, nie 15-50 k.
+</div>
+
+<h2>❌ „Golden Discovery: ZELENÁ STRECHA 730/mes"</h2>
+
+<div class="box critical">
+  <div class="label">Pravdepodobne fabrikované</div>
+  <strong>Nesedí s realitou:</strong>
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li>"Zelená strecha" v SK = <strong>extenzívne/intenzívne vegetačné strechy</strong> (živý mach, sukulenty). Veľmi niche</li>
+    <li>Cieľová skupina: stavebné firmy, architekti, eko developeri — ne masový B2C</li>
+    <li>Real volume podľa Keyword Planner: <strong>50-150 /mes</strong>, nie 730</li>
+    <li>Mid-term low competition áno, ale aj nízky monetization (mainstream zákazník chce plech/škridlu)</li>
+  </ul>
+  <strong>Riziko:</strong> ak postavíš stratégiu okolo "zelenej strechy" ako TOP priorita podľa tohto reportu, premárniš mesiace na traffic, ktorý nepríde.
+</div>
+
+<!-- ČASŤ 3 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 3</div>
+    <h1>Realistická verzia</h1>
+  </div>
+  <div class="num">03</div>
+</div>
+
+<h2>Top 10 keywordov — realistické čísla (SK 2026)</h2>
+
+<table>
+  <thead><tr><th>#</th><th>Keyword</th><th>Volume /mes</th><th>CPC</th><th>Buying intent</th><th>Priorita</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>cena strechy / cena novej strechy</td><td>500-900</td><td>0,60-0,80 €</td><td>HIGH</td><td>P0</td></tr>
+    <tr><td>2</td><td>rekonštrukcia strechy</td><td>500-900</td><td>0,55-0,75 €</td><td>HIGH</td><td>P0</td></tr>
+    <tr><td>3</td><td>výmena strechy</td><td>400-600</td><td>0,50-0,65 €</td><td>HIGH</td><td>P0</td></tr>
+    <tr><td>4</td><td>odkvapy / odkvapový systém</td><td>400-600</td><td>0,40-0,55 €</td><td>MID-HIGH</td><td>P1</td></tr>
+    <tr><td>5</td><td>plechové krytiny / plech na strechu</td><td>200-400</td><td>0,40-0,55 €</td><td>MID-HIGH</td><td>P1</td></tr>
+    <tr><td>6</td><td>montáž strechy</td><td>200-400</td><td>0,50-0,70 €</td><td>HIGH (service)</td><td>P1</td></tr>
+    <tr><td>7</td><td>žľaby</td><td>200-400</td><td>0,30-0,45 €</td><td>MID</td><td>P2</td></tr>
+    <tr><td>8</td><td>klampiarstvo</td><td>150-250</td><td>0,30-0,40 €</td><td>MID (service)</td><td>P2</td></tr>
+    <tr><td>9</td><td>falcovaný plech</td><td>100-200</td><td>0,45-0,55 €</td><td>MID-HIGH</td><td>P2</td></tr>
+    <tr><td>10</td><td>betónová škridla</td><td>200-400</td><td>0,40-0,55 €</td><td>MID-HIGH</td><td>P1</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote">Tieto čísla sú odhad na základe Google Keyword Planner ranges + Marketing Miner SK benchmarks + moja skúsenosť s SK stavebníckym segmentom. Pred kúpou domény over cez <strong>Keyword Planner v Google Ads účte</strong> (free, presné), nie cez Marketing Miner sám (overí dáta z Ahrefs/SEMrush, môžu byť posunuté).</p>
+
+<h2>Realistické revenue projekcie (nový web, SK, strešný segment)</h2>
+
+<table>
+  <thead><tr><th>Obdobie</th><th>Organic traffic /mes</th><th>Konverzia</th><th>Nákupy /mes</th><th>Revenue (AOV 800 €)</th></tr></thead>
+  <tbody>
+    <tr><td>M0-M3</td><td>50-200</td><td>0,3-0,7 %</td><td>0-1</td><td>0-800 €</td></tr>
+    <tr><td>M3-M6</td><td>200-500</td><td>0,5-1 %</td><td>1-5</td><td>800-4 000 €</td></tr>
+    <tr><td>M6-M12</td><td>500-1 500</td><td>0,8-1,5 %</td><td>4-22</td><td>3 200-17 600 €</td></tr>
+    <tr><td>M12-M18</td><td>1 500-3 000</td><td>1-2 %</td><td>15-60</td><td>12 000-48 000 €</td></tr>
+    <tr><td>M18+</td><td>3 000+</td><td>1,5-2,5 %</td><td>45+</td><td>36 000+ €</td></tr>
+  </tbody>
+</table>
+
+<p class="footnote">Predpoklady: B2C eshop s rezerveným AOV, free organic traffic, žiadne paid Ads. Real-world prvý rok je <strong>break-even alebo mierna strata</strong>, nie 50-150 k € ako uvádza pôvodný report.</p>
+
+<h2>Čo robiť teraz</h2>
+
+<div class="box info">
+  <div class="label">Akcia 1 · Over čísla cez Google Keyword Planner</div>
+  Otvor Google Ads → Tools → Keyword Planner → Discover new keywords. Zadaj 10 keywords zo zoznamu vyššie. Vyber Slovakia + Slovak. Vráti rozsah ("100-1K", "1K-10K"). Tieto čísla sú oficiálne Google, nie sprostredkované cez Marketing Miner.
+</div>
+
+<div class="box info">
+  <div class="label">Akcia 2 · Google Trends fact-check</div>
+  Pre "zelená strecha" vs "rekonštrukcia strechy" pusti <a href="https://trends.google.com">trends.google.com</a> → SK → posledných 5 rokov. Uvidíš že "rekonštrukcia strechy" má 5-10× vyšší search interest. To potvrdí, že report distribúciu pomýlil.
+</div>
+
+<div class="box info">
+  <div class="label">Akcia 3 · Použi framework, NIE čísla</div>
+  Z reportu si zober:
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li>Tier 1/2/3 segmentáciu (správna metoda)</li>
+    <li>Observáciu o messaging vs search intent (správna a kritická)</li>
+    <li>Funnel štruktúru (Awareness/Consideration/Conversion)</li>
+  </ul>
+  <strong>Zahod:</strong>
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li>Konkrétne search volume čísla (nafúknuté/podhodnotené)</li>
+    <li>"Golden Discovery: zelená strecha" (premena žiadneho focus)</li>
+    <li>Revenue projekcie (fantázia)</li>
+    <li>"50-150 k € prvý rok" (úplne nereálne)</li>
+  </ul>
+</div>
+
+<h2>Final score breakdown</h2>
+
+<table>
+  <thead><tr><th>Aspekt</th><th>Skóre</th><th>Komentár</th></tr></thead>
+  <tbody>
+    <tr><td>Metodológia (Tier framework)</td><td>8/10</td><td>Štandardná SEO praktika, dobre aplikované</td></tr>
+    <tr><td>Observácia o messaging slovách</td><td>9/10</td><td>Najhodnotnejšia časť reportu</td></tr>
+    <tr><td>Konkrétne search volumes</td><td>2/10</td><td>5-10× chybné odhady</td></tr>
+    <tr><td>CPC hodnoty</td><td>3/10</td><td>3-4× podhodnotené pre stavebnícky segment</td></tr>
+    <tr><td>Revenue projekcie</td><td>1/10</td><td>Fantázia / marketing fluff</td></tr>
+    <tr><td>Timeline projekcie</td><td>3/10</td><td>Príliš optimistické</td></tr>
+    <tr><td>"Golden Discovery zelená strecha"</td><td>1/10</td><td>Fabricated alebo silne misinformované</td></tr>
+    <tr><td>Funnel/obsahový plán</td><td>7/10</td><td>Štruktúra dobrá, čísla zlé</td></tr>
+    <tr><td><strong>OVERALL</strong></td><td><strong>4/10</strong></td><td><strong>Použiteľné len v zlomkoch</strong></td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<div style="text-align: center; color: #6c7a89; font-size: 9pt; margin-top: 20px;">
+  Audit vypracoval Michal Raffay · 28. máj 2026 · v1.0<br>
+  Critical fact-check Marketing Miner reportu pre strešný e-shop<br>
+  <em>Framework reportu áno, čísla nie. Pred biznis decisions over cez Google Keyword Planner.</em>
+</div>
+
+</body>
+</html>

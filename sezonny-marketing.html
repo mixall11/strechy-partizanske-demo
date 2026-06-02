@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sezónny marketing — čo propagovať a kedy · Strechy Partizánske</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2127; --ink2:#2b323b; --accent:#b5472e;
+    --spring:#3f8f4f; --summer:#c9971f; --autumn:#b5612b; --winter:#3a6ea5;
+    --paper:#fff; --soft:#f6f5f2; --line:#e4e0d8; --muted:#6a7079; --text:#23272d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:#eceae5;line-height:1.6;font-size:15.5px}
+  .page{max-width:860px;margin:32px auto;background:var(--paper);box-shadow:0 4px 30px -10px rgba(0,0,0,.15)}
+  .pad{padding:46px 54px}
+  h1{font-size:29px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.15}
+  h2{font-size:20px;font-weight:700;color:var(--ink);margin:36px 0 12px;padding-top:20px;border-top:2px solid var(--line)}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:16px;font-weight:700;margin:14px 0 4px}
+  p{margin:9px 0}
+  ul{margin:8px 0 8px 20px}li{margin:5px 0}
+  strong{color:var(--ink)}
+  .cover{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padding:50px 54px}
+  .cover .kicker{text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:#d7a08e;font-weight:700;margin-bottom:16px}
+  .cover .sub{color:#c9ccd1;font-size:16px;margin-top:12px;max-width:640px}
+  .cover .meta{margin-top:24px;font-size:13px;color:#9aa0a8;border-top:1px solid #3a424c;padding-top:14px}
+  .lead{font-size:16.5px;background:var(--soft);border-left:4px solid var(--accent);padding:16px 20px;border-radius:0 8px 8px 0}
+  .muted{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);font-weight:700;color:var(--ink2);font-size:12.5px;text-transform:uppercase;letter-spacing:.03em}
+  .vol{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+  /* heatmapa */
+  .heat td,.heat th{text-align:center}
+  .heat td:first-child,.heat th:first-child{text-align:left;font-weight:600}
+  .dot{font-size:15px;letter-spacing:1px}
+  .d3{color:var(--accent)}.d2{color:#cf8b5f}.d1{color:#cdb89c}.d0{color:#dfe0dd}
+  .legend{font-size:13px;color:var(--muted);margin-top:6px}
+  /* season blocks */
+  .season{border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}
+  .season-head{padding:14px 20px;color:#fff;display:flex;justify-content:space-between;align-items:baseline}
+  .season-head h3{color:#fff;margin:0;font-size:18px}
+  .season-head .mon{font-size:13px;opacity:.85}
+  .s-spring .season-head{background:var(--spring)}
+  .s-summer .season-head{background:var(--summer)}
+  .s-autumn .season-head{background:var(--autumn)}
+  .s-winter .season-head{background:var(--winter)}
+  .season-body{padding:16px 20px}
+  .season-body .row{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .season-body .row:last-child{border-bottom:none}
+  .season-body .k{font-weight:700;color:var(--ink2);font-size:13.5px}
+  .note{background:#eef4ee;border:1px solid #cfe3d3;border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14.5px}
+  .foot{padding:24px 54px;background:var(--soft);font-size:12.5px;color:var(--muted);border-top:1px solid var(--line)}
+  @media(max-width:680px){.pad,.cover,.foot{padding:28px 22px}.season-body .row{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.page{box-shadow:none;margin:0;max-width:none}.season,.note{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <p class="kicker">Marketingový kalendár · Strechy Partizánske</p>
+    <h1>Sezónny marketing<br>— čo propagovať a kedy</h1>
+    <p class="sub">Strešný tovar má štyri rôzne sezóny dopytu. Tento dokument hovorí, ktoré produkty propagovať v ktorom období roka, prečo a s akým obsahom — namiesto jednej drahej celoročnej reklamy na „strechy".</p>
+    <p class="meta">Pripravil: Michal Raffay · Jún 2026 · Čísla hľadanosti z prieskumu kľúčových slov (Slovensko)</p>
+  </div>
+
+  <div class="pad">
+
+    <h2>Prečo sezónne, a nie jedna reklama na celý rok</h2>
+    <p class="lead">Po celý rok sa rovnaká reklama na „strechy" nevypláca. V januári nikto nepokrýva strechu — no po prvom snežení zúfalo hľadá snehové zábrany. Na jar sa nakupuje krytina, v lete bežia montáže, na jeseň sa strecha pripravuje na zimu. Keď reklama aj obsah <strong>kopírujú túto sezónu</strong>, oslovíte človeka presne vtedy, keď daný tovar naozaj rieši — to znamená lacnejšie kliknutia a viac objednávok za rovnaký rozpočet.</p>
+
+    <h2>Ročný prehľad na jeden pohľad</h2>
+    <p class="muted">Kedy ktorá skupina tovaru kulminuje. <span class="dot d3">●●●</span> vrchol · <span class="dot d2">●●</span> rast/dobiehanie · <span class="dot d1">●</span> základný dopyt · <span class="dot d0">○</span> mimo sezóny (plánovanie).</p>
+    <table class="heat">
+      <tr><th>Skupina tovaru</th><th>🌱 Jar</th><th>☀️ Leto</th><th>🍂 Jeseň</th><th>❄️ Zima</th></tr>
+      <tr><td>Strešné krytiny</td><td><span class="dot d3">●●●</span></td><td><span class="dot d2">●●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d0">○</span></td></tr>
+      <tr><td>Odkvapy / zvodový systém</td><td><span class="dot d3">●●●</span></td><td><span class="dot d2">●●</span></td><td><span class="dot d3">●●●</span></td><td><span class="dot d0">○</span></td></tr>
+      <tr><td>Klampiarske výrobky</td><td><span class="dot d1">●</span></td><td><span class="dot d3">●●●</span></td><td><span class="dot d2">●●</span></td><td><span class="dot d0">○</span></td></tr>
+      <tr><td>Spojovací materiál</td><td><span class="dot d2">●●</span></td><td><span class="dot d3">●●●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d0">○</span></td></tr>
+      <tr><td>Snehové zábrany</td><td><span class="dot d0">○</span></td><td><span class="dot d1">●</span></td><td><span class="dot d3">●●●</span></td><td><span class="dot d3">●●●</span></td></tr>
+      <tr><td>Strešné okná</td><td><span class="dot d2">●●</span></td><td><span class="dot d3">●●●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d0">○</span></td></tr>
+      <tr><td>Klampiarske náradie (B2B)</td><td><span class="dot d1">●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d3">●●●</span></td></tr>
+      <tr><td>Cenové ponuky / poradenstvo</td><td><span class="dot d2">●●</span></td><td><span class="dot d1">●</span></td><td><span class="dot d2">●●</span></td><td><span class="dot d3">●●●</span></td></tr>
+    </table>
+
+    <h2>Detail po sezónach</h2>
+
+    <!-- JAR -->
+    <div class="season s-spring">
+      <div class="season-head"><h3>🌱 Jar — nákupná sezóna</h3><span class="mon">marec – máj</span></div>
+      <div class="season-body">
+        <div class="row"><span class="k">Téma</span><span>„Plánujem novú strechu / rekonštrukciu." Štart stavebnej sezóny — ľudia kupujú materiál pred letnou montážou.</span></div>
+        <div class="row"><span class="k">Propagovať</span><span>Strešné krytiny (plechové, škridla), odkvapové systémy a žľaby, strešné fólie a laty, strešné okná.</span></div>
+        <div class="row"><span class="k">Hľadanosť</span><span>cena novej strechy <span class="vol">~880×/mes</span> · rekonštrukcia strechy cena <span class="vol">~720×/mes</span> · odkvapy cena <span class="vol">~590×/mes</span> · plechová krytina cena <span class="vol">~480×/mes</span> · betónová škridla cena <span class="vol">~320×/mes</span></span></div>
+        <div class="row"><span class="k">Blog</span><span>„Ako vybrať strešnú krytinu", „Plech alebo škridla?", „Koľko stojí nová strecha v roku 2026".</span></div>
+        <div class="row"><span class="k">E-mail / akcia</span><span>Predsezónna ponuka krytín, výzva na cenovú ponuku / kalkuláciu.</span></div>
+      </div>
+    </div>
+
+    <!-- LETO -->
+    <div class="season s-summer">
+      <div class="season-head"><h3>☀️ Leto — montážna sezóna</h3><span class="mon">jún – august</span></div>
+      <div class="season-body">
+        <div class="row"><span class="k">Téma</span><span>„Práve realizujem strechu." Suché počasie, firmy aj svojpomocníci montujú — dopyt po doplnkovom a spojovacom materiáli.</span></div>
+        <div class="row"><span class="k">Propagovať</span><span>Klampiarske výrobky (oplechovania, lemovania, úžľabia, oplechovanie komína), spojovací materiál, tmely a tesnenia, strešné okná.</span></div>
+        <div class="row"><span class="k">Hľadanosť</span><span>klampiarske výrobky <span class="vol">~390×/mes</span> · oplechovanie strechy <span class="vol">~280×/mes</span> · skrutky do strechy <span class="vol">~210×/mes</span> · lemovanie komína <span class="vol">~170×/mes</span> · skrutky do trapézového plechu <span class="vol">~140×/mes</span></span></div>
+        <div class="row"><span class="k">Blog</span><span>„Ako správne oplechovať komín", „Aké skrutky na plechovú krytinu", „Montáž strešného okna krok po kroku".</span></div>
+        <div class="row"><span class="k">E-mail / akcia</span><span>Balíčky „krytina + spojovák + zábrany", doplnkový predaj k objednaným krytinám.</span></div>
+      </div>
+    </div>
+
+    <!-- JESEN -->
+    <div class="season s-autumn">
+      <div class="season-head"><h3>🍂 Jeseň — príprava na zimu</h3><span class="mon">september – november</span></div>
+      <div class="season-body">
+        <div class="row"><span class="k">Téma</span><span>„Priprav strechu na zimu." Posledné práce pred mrazom — opravy, tesnenia a hlavne snehové zábrany, kým je čas na montáž.</span></div>
+        <div class="row"><span class="k">Propagovať</span><span>Snehové zábrany a háky, odkvapy (čistenie a výmena), tmely a tesnenia, oprava lemovaní a oplechovania komína, záveterné lišty.</span></div>
+        <div class="row"><span class="k">Hľadanosť</span><span>odkvapy cena <span class="vol">~590×/mes</span> · odkvapový systém <span class="vol">~480×/mes</span> · plastové odkvapy <span class="vol">~320×/mes</span> · snehové zábrany — sezónny špic na jeseň a po prvom snežení</span></div>
+        <div class="row"><span class="k">Blog</span><span>„Snehové zábrany — kedy sú povinné a aké vybrať", „Priprav strechu a odkvapy na zimu", „Ako predísť škodám z ľadu a snehu".</span></div>
+        <div class="row"><span class="k">E-mail / akcia</span><span>„Stihni to pred zimou" — snehové zábrany + tesnenia, čistenie odkvapov.</span></div>
+      </div>
+    </div>
+
+    <!-- ZIMA -->
+    <div class="season s-winter">
+      <div class="season-head"><h3>❄️ Zima — zber dopytov a B2B</h3><span class="mon">december – február</span></div>
+      <div class="season-body">
+        <div class="row"><span class="k">Téma</span><span>Montáže stoja, ale dva dopyty žijú: reaktívny (po snežení) a plánovací (ponuky na jar). Plus B2B doskladnenie.</span></div>
+        <div class="row"><span class="k">Propagovať</span><span>Snehové zábrany (po snežení), klampiarske náradie, predsezónne objednávky pre firmy; zber cenových ponúk a dopytov na jarné realizácie.</span></div>
+        <div class="row"><span class="k">Hľadanosť</span><span>snehové zábrany skokovo po každom väčšom snežení (riziko padajúceho snehu) · cena novej strechy <span class="vol">~880×/mes</span> beží celoročne ako plánovací dopyt</span></div>
+        <div class="row"><span class="k">Blog</span><span>„Plánujete strechu na jar? Na čo myslieť už teraz", „Ceny krytín 2026", prípadové štúdie realizácií.</span></div>
+        <div class="row"><span class="k">E-mail / akcia</span><span>Skorá predsezónna zľava pre firmy, zbierka dopytov „nezáväzná ponuka na jar", obsahový newsletter (udržanie pozornosti).</span></div>
+      </div>
+    </div>
+
+    <h2>Celoročný základ (beží stále)</h2>
+    <ul>
+      <li><strong>Brand a eshop</strong> — vlastné meno firmy a eshop bežia po celý rok, sezónne kampane sa naň len navrstvujú.</li>
+      <li><strong>Poradenský obsah</strong> — „aká krytina je najlepšia" (<span class="vol">~170×/mes</span>), „plech alebo škridla" (<span class="vol">~210×/mes</span>) priťahuje záujemcov v každej fáze rozhodovania.</li>
+      <li><strong>Cenové ponuky</strong> na krytiny — vysoký dopyt aj mimo špičky, vždy je niekto, kto rieši strechu.</li>
+    </ul>
+
+    <h2>Akčný kalendár po mesiacoch</h2>
+    <table>
+      <tr><th>Mesiac</th><th>Hlavný fokus</th><th>Akcia</th></tr>
+      <tr><td>Január</td><td>Snehové zábrany (po snežení) · plánovanie</td><td>Reaktívna reklama na sneh, zber dopytov na jar</td></tr>
+      <tr><td>Február</td><td>Predsezónne B2B · krytiny plánovanie</td><td>Skorá zľava pre firmy, ceny krytín 2026</td></tr>
+      <tr><td>Marec</td><td>Krytiny + odkvapy — štart</td><td>Spustiť jarné kampane, „vyber krytinu" blog</td></tr>
+      <tr><td>Apríl</td><td>Krytiny vrchol</td><td>Plný rozpočet na krytiny + cenové ponuky</td></tr>
+      <tr><td>Máj</td><td>Krytiny + okná + fólie</td><td>Balíčky materiálu, strešné okná</td></tr>
+      <tr><td>Jún</td><td>Klampiarske + spojovák — štart montáží</td><td>Prepnúť dôraz na doplnkový materiál</td></tr>
+      <tr><td>Júl</td><td>Klampiarske vrchol</td><td>Oplechovania, lemovania, skrutky, tmely</td></tr>
+      <tr><td>August</td><td>Klampiarske + okná</td><td>Doplnkový predaj k bežiacim stavbám</td></tr>
+      <tr><td>September</td><td>Snehové zábrany + odkvapy — príprava na zimu</td><td>Spustiť „priprav strechu na zimu"</td></tr>
+      <tr><td>Október</td><td>Snehové zábrany vrchol</td><td>Plný dôraz na zábrany + tesnenia</td></tr>
+      <tr><td>November</td><td>Posledné opravy pred zimou</td><td>„Stihni to pred zimou", čistenie odkvapov</td></tr>
+      <tr><td>December</td><td>Snehové zábrany + náradie (B2B)</td><td>Reaktívna reklama, náradie, plán na jar</td></tr>
+    </table>
+
+    <div class="note">
+      <strong>Podklad:</strong> čísla hľadanosti pochádzajú z prieskumu kľúčových slov pre slovenský trh. Sú orientačné a po nasadení merania na webe ich spresníme reálnymi dátami. Detailný rozpis reklamných kampaní (rozpočty, CPC, štruktúra) je spracovaný v samostatnom dokumente Google Ads plánu.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    Strechy Partizánske — sezónny marketingový kalendár · pripravil Michal Raffay · jún 2026.
+  </div>
+
+</div>
+</body>
+</html>

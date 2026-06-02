@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Integrated Roadmap v3 — Strechy Partizánske</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm;
+    @bottom-center { content: "Strana " counter(page) " / " counter(pages); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9pt; color: #999; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Arial', sans-serif; color: #1a2332; font-size: 10.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* COVER */
+  .cover { page-break-after: always; min-height: 250mm; padding: 45mm 10mm 10mm 10mm; background: linear-gradient(135deg, #1B3A57 0%, #2c4f70 100%); color: white; margin: -18mm -16mm; padding-left: 26mm; padding-right: 26mm; }
+  .cover .version { display: inline-block; background: #B5472E; color: white; padding: 4px 12px; border-radius: 3px; font-size: 9pt; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
+  .cover .label { text-transform: uppercase; letter-spacing: 4px; font-size: 10pt; color: #c8d4e0; font-weight: 600; margin-bottom: 10px; }
+  .cover h1 { font-size: 30pt; line-height: 1.05; margin: 0 0 8px 0; font-weight: 700; letter-spacing: -1px; }
+  .cover h2 { font-size: 14pt; font-weight: 300; color: #c8d4e0; margin: 0 0 26px 0; }
+
+  /* TRACK GRID na cover */
+  .track-grid { background: rgba(255,255,255,0.06); border-radius: 6px; padding: 16px; margin: 20px 0; }
+  .track-grid .title { font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-bottom: 12px; }
+  .track-row { display: grid; grid-template-columns: 60px repeat(6, 1fr); gap: 4px; margin-bottom: 4px; align-items: center; font-size: 8pt; }
+  .track-row .tname { font-weight: 700; color: white; font-size: 9pt; }
+  .track-row .cell { background: rgba(255,255,255,0.1); padding: 6px 4px; border-radius: 3px; text-align: center; color: #fff; }
+  .track-row .cell.ads { background: rgba(255, 156, 108, 0.25); }
+  .track-row .cell.cnt { background: rgba(91, 168, 199, 0.25); }
+  .track-row .cell.eml { background: rgba(154, 197, 124, 0.25); }
+  .track-row .cell strong { color: #ffe5d4; font-size: 10pt; }
+  .track-row.header { font-size: 9pt; color: #c8d4e0; font-weight: 600; }
+  .track-row.header .cell { background: transparent; }
+
+  .cover .meta { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px; margin-top: 18px; font-size: 9.5pt; color: #c8d4e0; }
+  .cover .meta strong { color: white; }
+  .cover .meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px 18px; margin-top: 6px; }
+
+  h1 { font-size: 22pt; color: #1B3A57; border-bottom: 3px solid #B5472E; padding-bottom: 8px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #1B3A57; margin-top: 24px; margin-bottom: 10px; }
+  h3 { font-size: 12pt; color: #1B3A57; margin-top: 18px; margin-bottom: 6px; }
+  h4 { font-size: 10.5pt; color: #1B3A57; margin: 12px 0 4px 0; }
+
+  .section-banner { page-break-before: always; background: #1B3A57; color: white; padding: 14px 20px; margin: 0 -16mm 22px -16mm; display: flex; justify-content: space-between; align-items: center; }
+  .section-banner .num { font-size: 26pt; font-weight: 700; line-height: 1; color: #B5472E; }
+  .section-banner h1 { color: white; border: none; margin: 0; padding: 0; font-size: 19pt; }
+  .section-banner .subtitle { font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-top: 4px; }
+
+  .box { background: #f5f7fa; border-left: 4px solid #B5472E; padding: 12px 16px; margin: 12px 0; border-radius: 0 4px 4px 0; }
+  .box.info { border-left-color: #1B3A57; background: #eef4f9; }
+  .box.warn { border-left-color: #d9822b; background: #fdf6ed; }
+  .box.critical { border-left-color: #c0392b; background: #fce9e6; }
+  .box.success { border-left-color: #4a7c59; background: #ecf3ee; }
+  .box.tip { border-left-color: #5b21b6; background: #f3edff; }
+  .box .label { text-transform: uppercase; letter-spacing: 1.5px; font-size: 8.5pt; font-weight: 700; color: #B5472E; margin-bottom: 4px; }
+  .box.info .label { color: #1B3A57; }
+  .box.warn .label { color: #b56f1c; }
+  .box.critical .label { color: #c0392b; }
+  .box.success .label { color: #4a7c59; }
+  .box.tip .label { color: #5b21b6; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+  th { background: #1B3A57; color: white; padding: 7px 9px; text-align: left; font-weight: 600; border: 1px solid #1B3A57; }
+  td { padding: 6px 9px; border: 1px solid #d0d7de; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* MONTH CARD - 3-track */
+  .month-card { page-break-inside: avoid; border: 1px solid #d0d7de; border-radius: 6px; margin: 16px 0; overflow: hidden; }
+  .month-card .head { background: #1B3A57; color: white; padding: 11px 14px; display: grid; grid-template-columns: 80px 1fr auto; gap: 12px; align-items: center; }
+  .month-card .head .num { font-size: 22pt; font-weight: 700; line-height: 1; color: #ff9d6c; text-align: center; }
+  .month-card .head .num small { display: block; font-size: 7.5pt; color: #c8d4e0; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; margin-top: 2px; }
+  .month-card .head .title { font-size: 12pt; font-weight: 700; }
+  .month-card .head .subtitle { font-size: 8.5pt; color: #c8d4e0; margin-top: 2px; }
+  .month-card .head .total {
+    background: #B5472E; color: white; padding: 5px 10px; border-radius: 4px; text-align: center; min-width: 75px; font-size: 10pt; font-weight: 700;
+  }
+  .month-card .head .total small { display: block; font-size: 7pt; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* 3 TRACK BODY */
+  .track-body { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  .track-col { padding: 11px 13px; border-right: 1px solid #d0d7de; }
+  .track-col:last-child { border-right: none; }
+  .track-col .header { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid #d0d7de; margin-bottom: 8px; }
+  .track-col .header .icon { width: 22px; height: 22px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 11pt; }
+  .track-col.ads .header .icon { background: #B5472E; }
+  .track-col.cnt .header .icon { background: #1B3A57; }
+  .track-col.eml .header .icon { background: #4a7c59; }
+  .track-col .header .name { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a2332; }
+  .track-col .header .budget { margin-left: auto; font-size: 10pt; font-weight: 700; color: #B5472E; }
+  .track-col.cnt .header .budget { color: #1B3A57; }
+  .track-col.eml .header .budget { color: #4a7c59; }
+  .track-col .item { font-size: 9pt; margin-bottom: 5px; padding-left: 14px; position: relative; }
+  .track-col .item::before { content: '•'; position: absolute; left: 4px; color: #B5472E; font-weight: 700; }
+  .track-col.cnt .item::before { color: #1B3A57; }
+  .track-col.eml .item::before { color: #4a7c59; }
+  .track-col .item strong { color: #1a2332; }
+  .track-col .meta-row { font-size: 8pt; color: #6c7a89; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #d0d7de; }
+
+  .footnote { font-size: 8.5pt; color: #6c7a89; font-style: italic; margin-top: 4px; }
+  hr { border: none; border-top: 1px solid #d0d7de; margin: 20px 0; }
+
+  .tag { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 8pt; font-weight: 600; background: #1B3A57; color: white; margin-right: 3px; }
+  .tag.new { background: #4a7c59; }
+  .tag.scale { background: #d9822b; }
+  .tag.test { background: #5b21b6; }
+  .tag.org { background: #1B3A57; }
+
+  /* KPI strip in month card */
+  .kpi-strip { background: #fafafa; padding: 8px 13px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px solid #d0d7de; font-size: 8.5pt; }
+  .kpi-strip .kpi { text-align: center; }
+  .kpi-strip .kpi .v { font-size: 12pt; font-weight: 700; color: #1B3A57; line-height: 1; }
+  .kpi-strip .kpi .l { font-size: 7.5pt; text-transform: uppercase; letter-spacing: 1px; color: #6c7a89; margin-top: 2px; }
+
+  /* Content calendar */
+  .content-cal { background: #fafafa; padding: 12px; border-radius: 6px; margin: 12px 0; }
+  .content-cal h4 { color: #1a2332; margin-top: 0; }
+
+  /* Test budget */
+  .test-bar { display: grid; grid-template-columns: 60px 1fr 80px; gap: 8px; align-items: center; margin-bottom: 5px; font-size: 9pt; }
+  .test-bar .mlabel { font-weight: 700; color: #1B3A57; }
+  .test-bar .bar-wrap { background: #f0f0f0; height: 22px; border-radius: 3px; overflow: hidden; display: flex; }
+  .test-bar .bar-prov { background: #1B3A57; color: white; display: flex; align-items: center; padding: 0 6px; font-size: 7.5pt; }
+  .test-bar .bar-test { background: #5b21b6; color: white; display: flex; align-items: center; padding: 0 6px; font-size: 7.5pt; }
+  .test-bar .label-r { font-size: 8.5pt; color: #6c7a89; text-align: right; }
+
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+
+  .stat-card { background: #eef4f9; border: 1px solid #c8d4e0; border-radius: 4px; padding: 12px; text-align: center; }
+  .stat-card .v { font-size: 18pt; font-weight: 700; color: #1B3A57; line-height: 1; }
+  .stat-card .l { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1px; color: #6c7a89; margin-top: 6px; }
+
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li { padding-left: 22px; position: relative; margin-bottom: 4px; }
+  ul.check li::before { content: '☐'; position: absolute; left: 0; color: #1B3A57; font-size: 12pt; top: -2px; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="version">VERZIA 3.0 · INTEGRATED</div>
+  <div class="label">6-mesačná roadmap</div>
+  <h1>Google Ads<br>+ Content<br>+ Email</h1>
+  <h2>Strechy Partizánske · komplexný 3-track plán pre malý štartovací rozpočet</h2>
+
+  <div class="track-grid">
+    <div class="title">3-track aktívne mesiace</div>
+    <div class="track-row header">
+      <div></div>
+      <div class="cell">M1</div><div class="cell">M2</div><div class="cell">M3</div><div class="cell">M4</div><div class="cell">M5</div><div class="cell">M6</div>
+    </div>
+    <div class="track-row">
+      <div class="tname">ADS</div>
+      <div class="cell ads"><strong>150€</strong><br>2 kampane</div>
+      <div class="cell ads"><strong>250€</strong><br>4 kampane</div>
+      <div class="cell ads"><strong>400€</strong><br>8 kampaní</div>
+      <div class="cell ads"><strong>600€</strong><br>9 kampaní</div>
+      <div class="cell ads"><strong>850€</strong><br>10 kampaní</div>
+      <div class="cell ads"><strong>1100€</strong><br>11 kampaní</div>
+    </div>
+    <div class="track-row">
+      <div class="tname">OBSAH</div>
+      <div class="cell cnt"><strong>3 blog</strong><br>+ GBP setup</div>
+      <div class="cell cnt"><strong>2 blog</strong><br>+ 1 case</div>
+      <div class="cell cnt"><strong>2 blog</strong><br>+ video</div>
+      <div class="cell cnt"><strong>3 blog</strong><br>+ ebook</div>
+      <div class="cell cnt"><strong>3 blog</strong><br>+ video</div>
+      <div class="cell cnt"><strong>3 blog</strong><br>+ B2B</div>
+    </div>
+    <div class="track-row">
+      <div class="tname">EMAIL</div>
+      <div class="cell eml">setup</div>
+      <div class="cell eml"><strong>welcome</strong><br>seq. 3 mail</div>
+      <div class="cell eml"><strong>newsletter</strong><br>mesačný</div>
+      <div class="cell eml"><strong>automation</strong><br>cart</div>
+      <div class="cell eml"><strong>segmentácia</strong><br>B2C/B2B</div>
+      <div class="cell eml"><strong>B2B nurture</strong><br>sequence</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="meta-grid">
+      <div><strong>Klient</strong><br>Strechy Partizánske</div>
+      <div><strong>Stratégia</strong><br>3-track integrated</div>
+      <div><strong>Štart M1</strong><br>150 € Ads + content</div>
+      <div><strong>Cieľ M6</strong><br>1 100 € Ads + B2B</div>
+      <div><strong>Celkom Ads 6 mes.</strong><br>3 350 €</div>
+      <div><strong>Test budget 6 mes.</strong><br>637 € (z Ads)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ČASŤ 1 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1</div>
+    <h1>Prečo 3 paralelné kanály</h1>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<h2>Realita malého ads budgetu</h2>
+
+<div class="box critical">
+  <div class="label">Tvrdá pravda</div>
+  Pri rozpočte <strong>150 €/mesiac (5 €/deň)</strong> a SK roofing CPC 0,40-0,70 € získame max 9-12 klikov denne, t.j. ~270-360 klikov mesačne. Pri reálnom conversion rate eshopu 1-2 % to znamená <strong>3-6 reálnych konverzií za mesiac</strong>. Toto NESTAČÍ na štatisticky platné A/B testy ad copy alebo landing page (potrebujeme min. 30+ konverzií per variant).
+</div>
+
+<div class="box tip">
+  <div class="label">Riešenie: organický obsah ako "akcelerátor"</div>
+  <strong>Blog články, social posty, GBP, email</strong> nie sú "extra práca navyše" — sú PODMIENKOU funkcie Ads pri malom budgete. Dôvody:
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li><strong>Quality Score:</strong> Google dáva nižšie CPC ak má landing page kvalitný relevantný obsah → 1 dobrý blog článok = -20-30 % CPC</li>
+    <li><strong>Remarketing audience:</strong> Bez 1 000+ visitors nevieš spustiť remarketing. Organický traffic ich dodá</li>
+    <li><strong>Trust signály:</strong> Recenzie GBP + case studies blog = vyšší CR → menej kliknutí potrebných na konverziu</li>
+    <li><strong>Long-tail SEO:</strong> Článok "ako vybrať plechovú krytinu" zarobí dlhodobo bez ads</li>
+    <li><strong>Lead magnety:</strong> "Kalkulačka strechy" → email collection → email sequence → konverzia BEZ ads spend</li>
+  </ul>
+</div>
+
+<h2>3-track model — čo robí každý kanál</h2>
+
+<div class="three-col">
+  <div class="box" style="border-left-color: #B5472E;">
+    <div class="label" style="color: #B5472E;">Track 1 · Ads</div>
+    <strong>Bottom of funnel</strong> — ľudia s buying intent. Cieľ: okamžitá konverzia.<br><br>
+    <em>Pomer:</em> 100 % platený<br>
+    <em>ROI:</em> okamžitý<br>
+    <em>Mesačný overhead:</em> 8-10 h optimalizácie
+  </div>
+  <div class="box" style="border-left-color: #1B3A57;">
+    <div class="label" style="color: #1B3A57;">Track 2 · Obsah</div>
+    <strong>Top + middle funnel</strong> — informational hľadania, brand building.<br><br>
+    <em>Pomer:</em> 100 % organický<br>
+    <em>ROI:</em> 3-6 mesiacov<br>
+    <em>Mesačný overhead:</em> 12-20 h tvorby
+  </div>
+  <div class="box" style="border-left-color: #4a7c59;">
+    <div class="label" style="color: #4a7c59;">Track 3 · Email</div>
+    <strong>Conversion + retention</strong> — nurture warm leadov, opakovaný nákup.<br><br>
+    <em>Pomer:</em> 100 % owned (no fees)<br>
+    <em>ROI:</em> najvyšší (€42 / €1)<br>
+    <em>Mesačný overhead:</em> 2-4 h
+  </div>
+</div>
+
+<h2>Test budget — kedy testovať a koľko</h2>
+
+<div class="box info">
+  <div class="label">Pravidlo: A/B test = min. 30 konverzií per variant</div>
+  Pri menej ako 30 konverziách je výsledok testu štatistický šum. <strong>M1 a M2 NIE SÚ testovacia fáza, ale data collection.</strong> Učíme sa, čo ľudia hľadajú, koľko klikov treba na konverziu, ktorá kampaň konvertuje lepšie — bez explicitných variant.
+</div>
+
+<h3>Rozdelenie ads budgetu na "Proven" vs "Test"</h3>
+
+<div class="test-bar">
+  <div class="mlabel">M1</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:100%">100 % Proven · 150 €</div></div>
+  <div class="label-r">0 € test</div>
+</div>
+<div class="test-bar">
+  <div class="mlabel">M2</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:95%">95 % Proven · 238 €</div><div class="bar-test" style="width:5%">5 %</div></div>
+  <div class="label-r">12 € test</div>
+</div>
+<div class="test-bar">
+  <div class="mlabel">M3</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:85%">85 % Proven · 340 €</div><div class="bar-test" style="width:15%">15 %</div></div>
+  <div class="label-r">60 € test</div>
+</div>
+<div class="test-bar">
+  <div class="mlabel">M4</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:80%">80 % Proven · 480 €</div><div class="bar-test" style="width:20%">20 %</div></div>
+  <div class="label-r">120 € test</div>
+</div>
+<div class="test-bar">
+  <div class="mlabel">M5</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:80%">80 % Proven · 680 €</div><div class="bar-test" style="width:20%">20 %</div></div>
+  <div class="label-r">170 € test</div>
+</div>
+<div class="test-bar">
+  <div class="mlabel">M6</div>
+  <div class="bar-wrap"><div class="bar-prov" style="width:75%">75 % Proven · 825 €</div><div class="bar-test" style="width:25%">25 %</div></div>
+  <div class="label-r">275 € test</div>
+</div>
+
+<p class="footnote">Suma test budgetu za 6 mesiacov: <strong>637 €</strong>. M1-M2: žiadne A/B testy. M3+: A/B test ad copy. M4+: A/B test landing page. M5+: pokročilé (audience signals, bid strategies). M6+: multivariate (3+ variant).</p>
+
+<!-- ČASŤ 2 — Mesačné karty -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 2 · roadmap</div>
+    <h1>Mesiac po mesiaci</h1>
+  </div>
+  <div class="num">02</div>
+</div>
+
+<!-- M1 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M1<small>Setup</small></div>
+    <div>
+      <div class="title">Foundation — všetko trackovať, žiadne testy</div>
+      <div class="subtitle">Spustenie 2 ads kampaní + setup organického základu + email infraštruktúra</div>
+    </div>
+    <div class="total">150 €<small>Ads only</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">150 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 30 €/mes · Max Clicks max CPC 0,20 €</div>
+      <div class="item"><strong>SP-Krytiny-Plechove</strong> · 120 €/mes · Max Clicks max CPC 0,70 €</div>
+      <div class="item">Geo: Partizánske + 30 km</div>
+      <div class="item">Negative listy: irrelevant, DIY, work-seekers, competitor brands</div>
+      <div class="meta-row"><span class="tag">2 aktívne kampane</span> · žiadne testy · čistý data collection</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~16 h</div></div>
+      <div class="item"><strong>3 pillar články</strong> na blog:<br>1. "Plechová krytina 2026 — kompletný sprievodca"<br>2. "Koľko stojí nová strecha? Cenník + kalkulácia"<br>3. "Plech vs. škridla — porovnanie 2026"</div>
+      <div class="item"><strong>Google Business Profile</strong> setup (adresa, fotky, otváracie hodiny, 4 úvodné posty)</div>
+      <div class="item"><strong>Facebook stránka</strong> setup + 8 úvodných postov</div>
+      <div class="item"><strong>1 video</strong> YouTube: "Návšteva v showroome / sklade"</div>
+      <div class="meta-row"><span class="tag org">Organic foundation</span> — bez nej Ads QS bude nízky</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~3 h</div></div>
+      <div class="item"><strong>Setup ESP</strong> (MailerLite / Brevo / Smartemailing)</div>
+      <div class="item"><strong>Newsletter sign-up</strong> formulár na blog</div>
+      <div class="item"><strong>GDPR consent</strong> + double opt-in</div>
+      <div class="item"><strong>Pripraviť šablónu</strong> welcome email (zatiaľ neposielaná)</div>
+      <div class="meta-row">Žiadne send-outy v M1 — len zbieranie kontaktov</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥3</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">≤35€</div><div class="l">CPA</div></div>
+    <div class="kpi"><div class="v">≥500</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥30</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- M2 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M2<small>Expanzia</small></div>
+    <div>
+      <div class="title">Pridáme 2 kampane + první case study + welcome sequence</div>
+      <div class="subtitle">Začíname remarketing audience build-up cez organický + ads kontent</div>
+    </div>
+    <div class="total">250 €<small>+content +email</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">250 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 40 €</div>
+      <div class="item"><strong>SP-Krytiny-Plechove</strong> · 105 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Krytiny-Skridla</strong> · 55 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Klampiarske-RAL</strong> · 50 €</div>
+      <div class="item">Geo: + celý Trenčiansky kraj (baseline)</div>
+      <div class="meta-row"><span class="tag">4 aktívne kampane</span> · <span class="tag test">12 € test</span> A/B brand vs. USP headline</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~14 h</div></div>
+      <div class="item"><strong>2 blog články:</strong><br>1. "Najčastejšie chyby pri výbere krytiny"<br>2. "Záruky strešných krytín 2026 — čo si všímať"</div>
+      <div class="item"><span class="tag new">NEW</span><strong>1 case study</strong>: prvá realizovaná objednávka (foto pred/po + cena + referencia)</div>
+      <div class="item"><strong>GBP</strong>: 4 nové posty (akcie, novinky, FAQ)</div>
+      <div class="item"><strong>FB</strong>: 12 postov (mix produkt / blog / behind scenes)</div>
+      <div class="item"><span class="tag new">NEW</span><strong>Instagram</strong> založiť + 8 postov (vizuál: hotové strechy)</div>
+      <div class="meta-row">Case study → social → ads remarketing pool</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~4 h</div></div>
+      <div class="item"><span class="tag new">NEW</span><strong>Welcome sequence</strong> 3 emaily:<br>1. Vítam (0 min) — link na sprievodcu<br>2. Sprievodca (2 dni) — pillar článok + CTA<br>3. Ponuka (5 dní) — konzultácia zdarma</div>
+      <div class="item"><strong>Lead magnet</strong>: "PDF: 10 chýb pri výbere strechy" — pridať do welcome</div>
+      <div class="meta-row">Trigger: každý nový sign-up</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥8</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">≤30€</div><div class="l">CPA</div></div>
+    <div class="kpi"><div class="v">≥1200</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥80</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- M3 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M3<small>Diverzifikácia</small></div>
+    <div>
+      <div class="title">+ 4 kampane (Spojovák, MidIntent, Zvody, Remarketing) + video case study</div>
+      <div class="subtitle">Remarketing už máme dáta (1000+ visitors). Newsletter sa rozbieha. Prvé A/B testy.</div>
+    </div>
+    <div class="total">400 €<small>+content +email</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">400 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 50 €</div>
+      <div class="item"><strong>SP-Krytiny-Plechove</strong> · 140 €</div>
+      <div class="item"><strong>SP-Krytiny-Skridla</strong> · 70 €</div>
+      <div class="item"><strong>SP-Klampiarske-RAL</strong> · 55 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Klampiarske-Zvody</strong> · 35 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Spojovaci</strong> · 25 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-MidIntent-Rekonstrukcia</strong> · 20 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Remarketing-Dynamic</strong> · 10 €</div>
+      <div class="meta-row"><span class="tag">8 aktívnych kampaní</span> · <span class="tag test">60 € test</span> A/B 2 RSA varianty v top 2 ad groups</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~18 h</div></div>
+      <div class="item"><strong>2 blog články:</strong><br>1. "Rekonštrukcia strechy 2026 — od dopytu po hotovo"<br>2. "Klampiarstvo — RAL paleta + ako vybrať farbu"</div>
+      <div class="item"><span class="tag new">NEW</span><strong>1 video case study</strong> (3-5 min, YouTube + IG reels)</div>
+      <div class="item"><strong>GBP</strong>: 4 posty + odpovede na recenzie</div>
+      <div class="item"><strong>FB</strong>: 12 postov · <strong>IG</strong>: 12 postov</div>
+      <div class="item"><strong>SEO audit</strong>: meta tagy, schema, sitemap</div>
+      <div class="meta-row">Video → ads asset (M5 PMax) + IG reach</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~5 h</div></div>
+      <div class="item"><span class="tag new">NEW</span><strong>Mesačný newsletter</strong> launch (1× / mes)<br>Štruktúra: 1 article, 1 product, 1 case study, 1 tip</div>
+      <div class="item"><strong>Welcome sequence</strong> A/B test subject lines</div>
+      <div class="item"><strong>Segmentácia</strong>: B2C vs. B2B začať tagovať</div>
+      <div class="meta-row">Cieľ: open rate ≥25 %, CTR ≥3 %</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥15</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">≤28€</div><div class="l">CPA</div></div>
+    <div class="kpi"><div class="v">≥2500</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥200</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- M4 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M4<small>Plný launch</small></div>
+    <div>
+      <div class="title">+ Shopping · Smart Bidding · prvý ebook · cart abandonment automation</div>
+      <div class="subtitle">Eshop dostáva produktové reklamy. Email má prvú automatizáciu. Pokročilejšie testy.</div>
+    </div>
+    <div class="total">600 €<small>+content +email</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">600 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 60 €</div>
+      <div class="item"><strong>SP-Krytiny</strong> (Plech + Škridla) · 210 €</div>
+      <div class="item"><strong>SP-Klampiarske</strong> (RAL + Zvody) · 135 €</div>
+      <div class="item"><strong>SP-Spojovaci</strong> · 55 €</div>
+      <div class="item"><strong>SP-MidIntent</strong> · 55 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-Shopping-Standard</strong> · 55 €</div>
+      <div class="item"><strong>SP-Remarketing-Dynamic</strong> · 30 €</div>
+      <div class="meta-row"><span class="tag">9 aktívnych kampaní</span> · <span class="tag test">120 € test</span>: 2 LP variant test + RSA 3 varianty</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~22 h</div></div>
+      <div class="item"><strong>3 blog články:</strong><br>1. "Plochá strecha — riešenia a materiály"<br>2. "Snehové zábrany — kedy a aké"<br>3. "Energeticky úsporná strecha — izolácia"</div>
+      <div class="item"><span class="tag new">NEW</span><strong>1 ebook</strong> "Kompletný sprievodca rekonštrukciou strechy" (20-30 strán, PDF, lead magnet)</div>
+      <div class="item"><strong>GBP</strong>: 4 posty · <strong>FB</strong>: 14 postov · <strong>IG</strong>: 14 postov</div>
+      <div class="item"><strong>1 video</strong>: tutorial "Ako merať strechu"</div>
+      <div class="meta-row">Ebook = primary lead magnet od M4. Generuje hot leady do CRM.</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~7 h</div></div>
+      <div class="item"><span class="tag new">NEW</span><strong>Cart abandonment</strong> sequence (3 emails: 1h, 24h, 72h)</div>
+      <div class="item"><strong>Newsletter</strong> mesačný</div>
+      <div class="item"><span class="tag new">NEW</span><strong>Ebook delivery</strong> automation + follow-up (5 emailov × 3 týždne)</div>
+      <div class="item"><strong>Segmentácia</strong> by interest (Krytiny / Klampiarske / Rekonštrukcia)</div>
+      <div class="meta-row">Cart abandon recovery ~15-20 % konv. rate</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥25</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">≤25€</div><div class="l">CPA</div></div>
+    <div class="kpi"><div class="v">≥4500</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥400</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- M5 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M5<small>Scale</small></div>
+    <div>
+      <div class="title">+ Performance Max · video kampane · email B2C/B2B split</div>
+      <div class="subtitle">Audience signals z M1-M4 dát. Video kontent driver pre PMax + YouTube ads.</div>
+    </div>
+    <div class="total">850 €<small>+content +email</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">850 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 70 €</div>
+      <div class="item"><strong>SP-Krytiny</strong> · 285 €</div>
+      <div class="item"><strong>SP-Klampiarske</strong> · 165 €</div>
+      <div class="item"><strong>SP-Spojovaci</strong> · 75 €</div>
+      <div class="item"><strong>SP-MidIntent</strong> · 60 €</div>
+      <div class="item"><strong>SP-Shopping</strong> · 75 €</div>
+      <div class="item"><strong>SP-Remarketing</strong> · 45 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-PerformanceMax</strong> · 75 €</div>
+      <div class="meta-row"><span class="tag">10 aktívnych kampaní</span> · <span class="tag test">170 € test</span>: PMax audience signal experimenty</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~24 h</div></div>
+      <div class="item"><strong>3 blog články</strong> (sezónne — leto/jeseň podľa kalendára)</div>
+      <div class="item"><span class="tag new">NEW</span><strong>2 video</strong> (case studies + tutorial)</div>
+      <div class="item"><strong>GBP</strong> + <strong>FB</strong> (16) + <strong>IG</strong> (16) + <strong>YouTube</strong> 2 nové</div>
+      <div class="item"><span class="tag new">NEW</span><strong>LinkedIn</strong> founder profil (pre B2B preparation)</div>
+      <div class="item"><strong>SEO</strong>: link building, 3 host postov na partnerských weboch</div>
+      <div class="meta-row">Videos feed PMax asset library</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~10 h</div></div>
+      <div class="item"><span class="tag new">NEW</span><strong>B2C / B2B split</strong> — separate newsletter pre každý</div>
+      <div class="item"><strong>RFM segmentácia</strong> (recency, frequency, monetary)</div>
+      <div class="item"><span class="tag new">NEW</span><strong>Re-engagement</strong> kampaň pre neaktívne kontakty</div>
+      <div class="item"><strong>Cross-sell</strong> automation (krytina → klampiarske)</div>
+      <div class="meta-row">Predpoklad: 600+ kontaktov v zozname</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥40</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">ROAS 350%</div><div class="l">návratnosť</div></div>
+    <div class="kpi"><div class="v">≥7000</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥600</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- M6 -->
+<div class="month-card">
+  <div class="head">
+    <div class="num">M6<small>Maturita</small></div>
+    <div>
+      <div class="title">+ B2B vertikál · LinkedIn ads · quarterly report</div>
+      <div class="subtitle">Plne funkčná 3-track engine. B2B nurture sekvencia zarába vyšší ticket.</div>
+    </div>
+    <div class="total">1 100 €<small>+content +email</small></div>
+  </div>
+  <div class="track-body">
+    <div class="track-col ads">
+      <div class="header"><div class="icon">A</div><div class="name">Ads</div><div class="budget">1100 €</div></div>
+      <div class="item"><strong>SP-Brand</strong> · 75 €</div>
+      <div class="item"><strong>SP-Krytiny</strong> · 330 €</div>
+      <div class="item"><strong>SP-Klampiarske</strong> · 210 €</div>
+      <div class="item"><strong>SP-Spojovaci</strong> · 95 €</div>
+      <div class="item"><strong>SP-MidIntent</strong> · 80 €</div>
+      <div class="item"><strong>SP-Shopping</strong> · 95 €</div>
+      <div class="item"><strong>SP-Remarketing</strong> · 55 €</div>
+      <div class="item"><strong>SP-PerformanceMax</strong> · 105 €</div>
+      <div class="item"><span class="tag new">NEW</span><strong>SP-B2B-LeadForm</strong> · 55 €</div>
+      <div class="meta-row"><span class="tag">11 aktívnych kampaní</span> · <span class="tag test">275 € test</span>: multivariate landing + B2B LP test</div>
+    </div>
+    <div class="track-col cnt">
+      <div class="header"><div class="icon">O</div><div class="name">Obsah</div><div class="budget">~26 h</div></div>
+      <div class="item"><strong>3 blog články</strong> (1 B2C, 1 B2B, 1 sezónny)</div>
+      <div class="item"><span class="tag new">NEW</span><strong>B2B case studies</strong> (3 ks pre stavebné firmy)</div>
+      <div class="item"><strong>1 video</strong> + <strong>1 podcast</strong> guest appearance</div>
+      <div class="item"><strong>Social</strong>: full kalendár všetkých platforiem</div>
+      <div class="item"><span class="tag new">NEW</span><strong>Quarterly report</strong> (PDF pre web) "Strešný trh 2026 — analýza"</div>
+      <div class="meta-row">Quarterly report = link magnet + PR opportunity</div>
+    </div>
+    <div class="track-col eml">
+      <div class="header"><div class="icon">E</div><div class="name">Email</div><div class="budget">~12 h</div></div>
+      <div class="item"><span class="tag new">NEW</span><strong>B2B nurture sequence</strong> (7 emailov × 6 týždňov)</div>
+      <div class="item"><strong>B2C newsletter</strong> bi-weekly</div>
+      <div class="item"><strong>Win-back</strong> sequence pre purchasers (cross-sell)</div>
+      <div class="item"><span class="tag new">NEW</span><strong>Account scoring</strong> (CRM integration)</div>
+      <div class="meta-row">Predpoklad: 1000+ kontaktov, 200+ B2B</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">≥50</div><div class="l">primárne konv.</div></div>
+    <div class="kpi"><div class="v">ROAS 400%</div><div class="l">návratnosť</div></div>
+    <div class="kpi"><div class="v">≥10000</div><div class="l">visitors</div></div>
+    <div class="kpi"><div class="v">≥1000</div><div class="l">email subs</div></div>
+  </div>
+</div>
+
+<!-- ČASŤ 3 — Content kalendár + lead magnety -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 3 · obsahový plán</div>
+    <h1>Príspevky &amp; kalendár</h1>
+  </div>
+  <div class="num">03</div>
+</div>
+
+<h2>Sumár obsahových výstupov za 6 mesiacov</h2>
+
+<div class="three-col">
+  <div class="stat-card"><div class="v">16</div><div class="l">Blog článkov</div></div>
+  <div class="stat-card"><div class="v">~80</div><div class="l">FB postov</div></div>
+  <div class="stat-card"><div class="v">~62</div><div class="l">IG postov (od M2)</div></div>
+  <div class="stat-card"><div class="v">~24</div><div class="l">GBP postov</div></div>
+  <div class="stat-card"><div class="v">6+</div><div class="l">Videí YT</div></div>
+  <div class="stat-card"><div class="v">5</div><div class="l">Case studies</div></div>
+  <div class="stat-card"><div class="v">2</div><div class="l">Ebook + report</div></div>
+  <div class="stat-card"><div class="v">15+</div><div class="l">Email sequencií</div></div>
+</div>
+
+<h2>Pillar články — SEO clusters</h2>
+
+<table>
+  <thead><tr><th>Mes.</th><th>Pillar článok</th><th>Target keyword</th><th>Cieľová pozícia</th></tr></thead>
+  <tbody>
+    <tr><td>M1</td><td>Plechová krytina 2026 — kompletný sprievodca</td><td>plechová krytina cena</td><td>top 10 / 6 mes.</td></tr>
+    <tr><td>M1</td><td>Koľko stojí nová strecha? Cenník + kalkulácia</td><td>cena novej strechy</td><td>top 10 / 6 mes.</td></tr>
+    <tr><td>M1</td><td>Plech vs. škridla — porovnanie 2026</td><td>plech alebo škridla</td><td>top 5 / 4 mes.</td></tr>
+    <tr><td>M2</td><td>Najčastejšie chyby pri výbere krytiny</td><td>chyby výber krytiny</td><td>top 10 / 4 mes.</td></tr>
+    <tr><td>M2</td><td>Záruky strešných krytín 2026</td><td>záruka strecha</td><td>top 10 / 5 mes.</td></tr>
+    <tr><td>M3</td><td>Rekonštrukcia strechy 2026 — od dopytu po hotovo</td><td>rekonštrukcia strechy</td><td>top 5 / 5 mes.</td></tr>
+    <tr><td>M3</td><td>Klampiarstvo — RAL paleta + výber farby</td><td>klampiarske farby RAL</td><td>top 10 / 4 mes.</td></tr>
+    <tr><td>M4</td><td>Plochá strecha — riešenia a materiály</td><td>plochá strecha materiál</td><td>top 10 / 4 mes.</td></tr>
+    <tr><td>M4</td><td>Snehové zábrany — kedy a aké</td><td>snehové zábrany</td><td>top 5 / 3 mes.</td></tr>
+    <tr><td>M4</td><td>Energeticky úsporná strecha — izolácia</td><td>zateplenie strechy</td><td>top 10 / 5 mes.</td></tr>
+  </tbody>
+</table>
+
+<h2>Lead magnety — bezplatné výmenou za email</h2>
+
+<table>
+  <thead><tr><th>Mes.</th><th>Lead magnet</th><th>Cieľ</th><th>Odhadovaný CR</th></tr></thead>
+  <tbody>
+    <tr><td>M2</td><td>PDF "10 najčastejších chýb pri výbere strechy"</td><td>Top funnel awareness</td><td>5-8 %</td></tr>
+    <tr><td>M3</td><td>Interaktívna kalkulačka strechy (m² → cena)</td><td>Mid funnel intent</td><td>10-15 %</td></tr>
+    <tr><td>M4</td><td>Ebook 20-30 strán "Kompletný sprievodca rekonštrukciou"</td><td>Hot leady</td><td>3-5 %</td></tr>
+    <tr><td>M5</td><td>Video kurz 4 lekcie "Ako si nepoplést s krytinou"</td><td>Engaged audience</td><td>2-4 %</td></tr>
+    <tr><td>M6</td><td>Quarterly report "Strešný trh 2026 — analýza"</td><td>B2B + PR</td><td>1-2 %</td></tr>
+  </tbody>
+</table>
+
+<h2>Social media kalendár — týždenný rytmus</h2>
+
+<div class="two-col">
+  <div class="box info">
+    <div class="label">Facebook (od M1) · 2-3× / týž</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li><strong>Pondelok:</strong> blog repost / tip článok</li>
+      <li><strong>Streda:</strong> produkt / akcia / nový výrobok skladom</li>
+      <li><strong>Piatok:</strong> case study / behind the scenes</li>
+      <li><strong>Občas:</strong> user-generated (zákazník foto)</li>
+    </ul>
+  </div>
+  <div class="box info">
+    <div class="label">Instagram (od M2) · 3× / týž</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li><strong>Utorok:</strong> aesthetic shot (hotová strecha)</li>
+      <li><strong>Štvrtok:</strong> reels (proces / detail materiálu)</li>
+      <li><strong>Nedeľa:</strong> story poll / Q&amp;A / FAQ</li>
+      <li><strong>Občas:</strong> spolupráca s realizátormi</li>
+    </ul>
+  </div>
+  <div class="box info">
+    <div class="label">Google Business Profile · 1× / týž</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li>Novinka / akcia / produkt skladom</li>
+      <li>Odpovede na recenzie do 24 h</li>
+      <li>Fotky aktualizácia 2× / mes</li>
+      <li>Q&amp;A populácia (10 najčastejších otázok)</li>
+    </ul>
+  </div>
+  <div class="box info">
+    <div class="label">YouTube (od M1) · 1× / 1-2 mes</div>
+    <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 9pt;">
+      <li><strong>M1:</strong> Sklad / showroom tour (3-5 min)</li>
+      <li><strong>M3:</strong> Case study video (5-7 min)</li>
+      <li><strong>M4:</strong> Tutorial "Ako merať strechu"</li>
+      <li><strong>M5+:</strong> 1 case + 1 tutorial / mes</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ČASŤ 4 — Test budget + counters -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 4 · testing</div>
+    <h1>Čo a kedy testovať</h1>
+  </div>
+  <div class="num">04</div>
+</div>
+
+<h2>Test phasing — kedy je test štatisticky platný</h2>
+
+<table>
+  <thead><tr><th>Mesiac</th><th>Test budget</th><th>Aký test je možný</th><th>Aký test ešte NIE je</th></tr></thead>
+  <tbody>
+    <tr><td>M1</td><td>0 €</td><td>žiadne testy — len data collection</td><td>všetko</td></tr>
+    <tr><td>M2</td><td>12 €</td><td>Subject lines emailu (organic test)</td><td>Ad copy A/B, LP A/B</td></tr>
+    <tr><td>M3</td><td>60 €</td><td>Ad copy A/B (2 RSA varianty v 1 ad group)</td><td>LP A/B, audience, bidding</td></tr>
+    <tr><td>M4</td><td>120 €</td><td>Ad copy 3 varianty · LP A/B test (2 verzie)</td><td>Pokročilá segmentácia</td></tr>
+    <tr><td>M5</td><td>170 €</td><td>Audience signals · bidding strategy · ad extensions</td><td>—</td></tr>
+    <tr><td>M6</td><td>275 €</td><td>Multivariate (3+ varianty), B2B LP test, sezónny boost</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h2>Časový odhad práce per mesiac</h2>
+
+<table>
+  <thead><tr><th>Mes.</th><th>Ads</th><th>Obsah</th><th>Email</th><th>Spolu</th></tr></thead>
+  <tbody>
+    <tr><td>M1</td><td>10 h</td><td>16 h</td><td>3 h</td><td><strong>29 h</strong></td></tr>
+    <tr><td>M2</td><td>10 h</td><td>14 h</td><td>4 h</td><td><strong>28 h</strong></td></tr>
+    <tr><td>M3</td><td>12 h</td><td>18 h</td><td>5 h</td><td><strong>35 h</strong></td></tr>
+    <tr><td>M4</td><td>14 h</td><td>22 h</td><td>7 h</td><td><strong>43 h</strong></td></tr>
+    <tr><td>M5</td><td>14 h</td><td>24 h</td><td>10 h</td><td><strong>48 h</strong></td></tr>
+    <tr><td>M6</td><td>16 h</td><td>26 h</td><td>12 h</td><td><strong>54 h</strong></td></tr>
+    <tr><th>Spolu</th><th>76 h</th><th>120 h</th><th>41 h</th><th><strong>237 h</strong></th></tr>
+  </tbody>
+</table>
+
+<p class="footnote">~40 hodín/mes priemer = full-time 1 týždeň alebo part-time 1-2 dni/týž. Ak nemáš in-house, outsource cez SK content tvorcu (15-25 €/h) — full 6 mes. content cca 1 800-3 000 € navyše.</p>
+
+<h2>Cumulative projekcia — Ads + Organic kombinovaná</h2>
+
+<table>
+  <thead><tr><th>Metrika</th><th>Iba Ads (v1/v2)</th><th>3-track (v3)</th><th>Rozdiel</th></tr></thead>
+  <tbody>
+    <tr><td>Cumulative spend (6 mes.)</td><td>3 350 €</td><td>3 350 € Ads + ~2 400 € content outsource</td><td>+72 % cost (ak outsource)</td></tr>
+    <tr><td>Cumulative visitors</td><td>~6 000</td><td>~18 000-25 000</td><td><strong>3-4×</strong></td></tr>
+    <tr><td>Cumulative leads (zoznam)</td><td>~50-80</td><td>~800-1 200</td><td><strong>~15×</strong></td></tr>
+    <tr><td>Cumulative konverzie</td><td>~140</td><td>~180-220</td><td>+30-55 %</td></tr>
+    <tr><td>Organic SEO traffic (M6 monthly)</td><td>~200-400 / mes</td><td>~2 000-4 000 / mes</td><td><strong>~10×</strong></td></tr>
+    <tr><td>Brand awareness (mentions/social)</td><td>nízka</td><td>stredne vysoká</td><td>—</td></tr>
+    <tr><td>Závislosť na Google Ads</td><td>vysoká</td><td>nízka (organic 50 %+)</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<div class="box success">
+  <div class="label">Záver</div>
+  <strong>3-track model nie je drahší o veľa</strong> (ak content tvorí sám majiteľ alebo má lacný copywriter), ale <strong>dramaticky znižuje dlhodobú závislosť na platenej reklame</strong>. Po 6 mesiacoch organic SEO + email zoznam by mali pokrývať 40-60 % nových objednávok — Ads sa stanú "akcelerátor", nie "jediný kanál".
+</div>
+
+<hr>
+
+<div style="text-align: center; color: #6c7a89; font-size: 9pt; margin-top: 20px;">
+  Dokument vypracoval Michal Raffay · 28. máj 2026 · <strong>v3.0 (Integrated 3-Track Roadmap)</strong><br>
+  Strechy Partizánske — 6-mesačná multikanálová stratégia<br>
+  <em>Ads + Content + Email · 11 kampaní v M6 · 16 blog · 5 lead magnetov · 237 h práce</em>
+</div>
+
+</body>
+</html>

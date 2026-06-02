@@ -1,0 +1,18 @@
+/*
+Theme Name: Strechy Partizánske · Funnel
+Theme URI: https://strechy-partizanske.sk
+Author: Michal Raffay
+Author URI: https://raffay.sk
+Description: Single-purpose lead-gen landing page (kalkulačka strechy) pre Strechy Partizánske. Modrá + biela + červená paleta, sticky topbar, prebar s 24h denným cyklom (osobná zľava cez localStorage). 11 sekcií: hero · pain · promise · cases · calc form · bonuses · guarantee · reviews · FAQ · final CTA · sticky CTA. Bez WooCommerce závislosti — určené pre samostatný funnel sub-web (napr. web.raffay.sk). Postavené podľa demo z mixall11.github.io/strechy-partizanske-demo/funnel-v1/.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: strechy-partizanske-funnel
+Tags: landing-page, custom-colors, custom-logo, sticky-header, translation-ready
+*/
+
+/* Hlavné CSS je v assets/css/main.css (enqueued cez functions.php).
+   Tento súbor obsahuje len Theme header pre WP rozpoznanie. */

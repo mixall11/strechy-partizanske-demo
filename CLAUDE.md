@@ -61,3 +61,64 @@ strechy-partizanske/
 ```bash
 firefox /home/michal/claude_projects/strechy-partizanske/demo-v*/index.html
 ```
+
+---
+
+## Profi dev pravidlá (plain / greenfield / Astro / Next)
+
+> Univerzálny core je v `~/.claude/CLAUDE.md`. Toto je platform-specific addendum.
+
+### Stack default
+- HTML semantic (`header`/`main`/`article`/`section`/`footer`/`nav`). Žiadne `<div>` soup.
+- CSS: vanilla + custom properties > frameworks pre statiku. Tailwind ak je veľa UI komponentov.
+- JS: vanilla + ES modules. Framework len ak interaktivita > 30% stránky.
+- Build: **Vite** > Webpack. **Astro** pre content-heavy weby (default voľba). Next.js len pre SSR/auth.
+- Package manager: **pnpm** (rýchlejší, menej disk).
+
+### SEO baseline (na každej stránke)
+- 1× `<h1>` per page, hierarchia h2 → h3 → h4.
+- Meta `title` (50-60 ch), `description` (140-160 ch), `og:image` (1200x630), `og:type`.
+- Schema.org JSON-LD: minimum **Organization** + **WebSite** + **BreadcrumbList**. Article/Product/LocalBusiness kde relevantné.
+- `sitemap.xml` + `robots.txt` + `canonical` link na každej stránke.
+- `hreflang` ak multi-jazyčné.
+
+### Accessibility (a11y)
+- Kontrast ≥ 4.5:1 (text), ≥ 3:1 (UI komponenty). Test cez axe DevTools.
+- Keyboard nav: každý interaktívny element dostupný cez Tab, viditeľný focus.
+- ARIA labels na ikony bez textu. `alt` na images (alebo `alt=""` pre čisto dekoratívne).
+- Focus visible: nikdy nemaž `outline` bez náhrady (`:focus-visible` style).
+- Form labels: každý `<input>` má `<label for>` alebo `aria-label`.
+
+### Performance
+- Critical CSS inline, zvyšok async. JS `defer` / `type="module"`.
+- Fonts: `font-display: swap`, preload kritické, max 2 weights.
+- Images: WebP/AVIF, responsive `srcset`, `width`+`height` (anti-CLS).
+- Preconnect na 3rd-party domény (GA, fonts, CDN).
+- Target: LCP < 2.5s, INP < 200ms, CLS < 0.1.
+
+### Deploy
+- **Static** → Cloudflare Pages (preferované) / Netlify.
+- **SSR** → Coolify (ccx13) / Vercel.
+- Cloudflare baseline: Full strict SSL, HTTP/3, Bot Fight, DNSSEC, security headers transform rules.
+- Post-deploy check: 2 prehliadače (Chrome+FF), mobile+desktop, Lighthouse run.
+
+### Repo štruktúra
+```
+/src         — zdrojový kód
+/public      — statické assety servované 1:1
+/content     — markdown/MDX (Astro)
+/scripts     — build/deploy helpery
+.env.example — committed template (nie real .env)
+README.md    — len ak má zmysel (nie placeholder)
+```
+
+### Forms / API
+- Server-side validation VŽDY (klient validation len UX).
+- Rate limit na public endpoints (CF rate limiting alebo middleware).
+- Honeypot field proti botom (lepšie ako CAPTCHA pre UX).
+- CSRF token pre state-changing POSTy.
+
+### Analytics
+- **Plausible** (self-hosted na `stats.raffay.sk`) > GA4 pre väčšinu webov.
+- GTM len ak je viac tagov / conversion tracking.
+- Cookie banner len ak používaš tracking ktorý ho vyžaduje (Plausible nie).

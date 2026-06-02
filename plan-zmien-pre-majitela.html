@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plán zmien a vylepšení webu — Strechy Partizánske</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2127; --ink2:#2b323b; --accent:#b5472e; --accent2:#c85a40;
+    --ok:#2f7d4f; --warn:#b8862b; --bad:#bb3b32;
+    --paper:#ffffff; --soft:#f6f5f2; --line:#e4e0d8; --muted:#6a7079; --text:#23272d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:#eceae5;line-height:1.62;font-size:16px}
+  .page{max-width:840px;margin:32px auto;background:var(--paper);box-shadow:0 4px 30px -10px rgba(0,0,0,.15)}
+  .pad{padding:48px 56px}
+  h1{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.5px;line-height:1.15}
+  h2{font-size:21px;font-weight:700;color:var(--ink);margin:38px 0 14px;padding-top:22px;border-top:2px solid var(--line)}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:16.5px;font-weight:700;color:var(--ink2);margin:18px 0 6px}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0 10px 22px}
+  li{margin:6px 0}
+  strong{color:var(--ink)}
+  .cover{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padding:54px 56px}
+  .cover .kicker{text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;color:#d7a08e;font-weight:700;margin-bottom:18px}
+  .cover h1{color:#fff}
+  .cover .sub{color:#c9ccd1;font-size:17px;margin-top:14px;max-width:620px}
+  .cover .meta{margin-top:26px;font-size:13.5px;color:#9aa0a8;border-top:1px solid #3a424c;padding-top:16px}
+  .lead{font-size:17px;background:var(--soft);border-left:4px solid var(--accent);padding:18px 22px;border-radius:0 8px 8px 0;margin:8px 0 4px}
+  .muted{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);font-weight:700;color:var(--ink2);font-size:13px;text-transform:uppercase;letter-spacing:.03em}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap}
+  .t-bad{background:#f7e3e1;color:var(--bad)}
+  .t-warn{background:#f6ecd5;color:var(--warn)}
+  .t-ok{background:#dcefe2;color:var(--ok)}
+  .card{border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:12px 0;background:#fff}
+  .card .why{color:var(--muted);font-size:14.5px;margin-top:4px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:16px 0}
+  .flow .node{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .flow .node b{display:block;color:var(--ink);font-size:14.5px}
+  .flow .node span{font-size:13px;color:var(--muted)}
+  .phase{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .phase .n{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700}
+  .phase .t{font-size:13px;color:var(--muted);white-space:nowrap;margin-left:auto;align-self:center}
+  .note{background:#eef4ee;border:1px solid #cfe3d3;border-radius:10px;padding:16px 20px;margin:16px 0}
+  .note b{color:var(--ok)}
+  .foot{padding:26px 56px;background:var(--soft);font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+  @media(max-width:680px){.pad,.cover,.foot{padding:30px 24px}.grid2{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.page{box-shadow:none;margin:0;max-width:none}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <p class="kicker">Návrh pre majiteľa · Strechy Partizánske</p>
+    <h1>Plán zmien a vylepšení webu</h1>
+    <p class="sub">Prečo presunúť prezentačný web na WordPress, ponechať eshop na Shoptete a čo tým získate — viac zákazníkov z Googlu a prehľad o tom, čo funguje.</p>
+    <p class="meta">Pripravil: Michal Raffay · Jún 2026 · Strechy Partizánske (strechy-partizanske.sk + eshop)</p>
+  </div>
+
+  <div class="pad">
+
+    <h2>Zhrnutie na jednu stranu</h2>
+    <p class="lead">Dnes máte dve oddelené stránky — prezentačný web a eshop — ktoré vyzerajú inak a navzájom si nepomáhajú. Web navyše <strong>vôbec nemeria návštevnosť</strong> a nemá blog, takže vás Google nenachádza na otázky, ktoré zákazníci hľadajú. Navrhujem prezentačný web prerobiť na <strong>WordPress (so zachovaním vášho vzhľadu)</strong>, pridať <strong>blog a meranie</strong>, a eshop <strong>ponechať na Shoptete</strong>. Výsledok: jeden zladený web, ktorý privádza zákazníkov z Googlu a posiela ich do eshopu — a vy konečne vidíte, čo funguje.</p>
+
+    <h2>Čo máte dnes</h2>
+    <table>
+      <tr><th>Časť</th><th>Na čom beží</th><th>Stav</th></tr>
+      <tr><td><strong>Prezentačný web</strong><br>strechy-partizanske.sk</td><td>Mobirise (jednoduchý „poskladaný" web)</td><td><span class="tag t-warn">treba zlepšiť</span></td></tr>
+      <tr><td><strong>Eshop</strong><br>eshop.strechy-partizanske.sk</td><td>Shoptet</td><td><span class="tag t-ok">ponechať</span></td></tr>
+    </table>
+    <p class="muted">Eshop na Shoptete <strong>nemeníme</strong>. Shoptet sa stará o jeho prevádzku, bezpečnosť a opravy chýb — to je jeho výhoda a nie je dôvod do toho zasahovať.</p>
+
+    <h2>V čom má pôvodný web chyby</h2>
+    <p>Nejde o to, že je „škaredý" — problém je, že <strong>nepracuje pre vás</strong>. Konkrétne:</p>
+
+    <div class="card">
+      <h3>1. Web a eshop sú dva odlišné svety <span class="tag t-bad">vysoká priorita</span></h3>
+      <p>Web vyzerá inak ako eshop a sú na dvoch adresách. Zákazník klikne zo „Sortimentu" do eshopu a ocitne sa v inom prostredí — časť ľudí sa tu stratí a odíde. Cesta od „pozerám" k „kupujem" je prerušená.</p>
+    </div>
+
+    <div class="card">
+      <h3>2. Web nič nemeria <span class="tag t-bad">vysoká priorita</span></h3>
+      <p>Na webe nie je nainštalované žiadne meranie návštevnosti (Google Analytics ani iné). Znamená to, že <strong>neviete</strong>, koľko ľudí web navštívi, odkiaľ prišli, čo ich zaujíma ani koľko z nich skončí v eshope. Bez merania sa nedá rozumne investovať do reklamy — platili by ste naslepo.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Chýba blog a obsah pre Google <span class="tag t-bad">vysoká priorita</span></h3>
+      <p>Zákazníci pred kúpou hľadajú odpovede: „akú krytinu na strechu so sklonom 30°", „koľko stojí strecha na dom", „ktorá farba vydrží najdlhšie". Na tieto otázky dnes web neodpovedá, takže vás Google na ne neukáže — a zákazník nájde konkurenciu. V stavebninách tvorí takýto obsah veľkú časť bezplatnej návštevnosti.</p>
+    </div>
+
+    <div class="card">
+      <h3>4. Web sa ťažko aktualizuje</h3>
+      <p>Súčasný web je „poskladaný" nástrojom, kde každá zmena znamená prerábku a opätovné nahranie. Pridať článok, akciu či novú stránku je zdĺhavé. WordPress toto rieši — píšete články ako v textovom editore.</p>
+    </div>
+
+    <div class="card">
+      <h3>5. Eshop neukazuje celý sortiment</h3>
+      <p>V eshope sú dnes hlavne klampiarske výrobky (oplechovania, lišty, hrebenáče). <strong>Strešné krytiny, ktoré sú na webe hlavným lákadlom, v eshope chýbajú.</strong> Zákazník, ktorý hľadá krytinu, ju v eshope nenájde a nemá ju ako kúpiť ani dopytovať jasným spôsobom.</p>
+    </div>
+
+    <div class="card">
+      <h3>6. Slabá viditeľnosť v okolí (lokálne vyhľadávanie)</h3>
+      <p>Pri „strechy Partizánske" a okolitých obciach by ste mali byť vidieť na prvých miestach vrátane mapy. Na to treba prepojenie s Google profilom firmy a správne údaje na webe — dnes to nie je nastavené.</p>
+    </div>
+
+    <div class="card">
+      <h3>7. E-maily sa nevyužívajú</h3>
+      <p>Na webe je prihlásenie na novinky, ale neposiela sa nič automaticky. Zákazník, ktorý prejaví záujem, neskôr nedostane pripomenutie ani ponuku — záujem vyhasne.</p>
+    </div>
+
+    <h2>Čo navrhujem zmeniť — a prečo</h2>
+    <p>Každá zmena má jasný dôvod a prínos pre vás:</p>
+
+    <table>
+      <tr><th>Zmena</th><th>Prečo / čo tým získate</th></tr>
+      <tr><td><strong>Web prerobiť na WordPress</strong> (váš vzhľad zachováme)</td><td>Ľahká správa, blog, akcie a stránky pridáte sami. Základ pre meranie a reklamu.</td></tr>
+      <tr><td><strong>Eshop ponechať na Shoptete</strong></td><td>Funguje, má platby a porovnávače cien. Prevádzku a bezpečnosť rieši Shoptet — netreba meniť, čo beží.</td></tr>
+      <tr><td><strong>Pridať blog s radami</strong></td><td>Dlhodobý bezplatný prísun zákazníkov z Googlu, ktorí hľadajú odpovede. Buduje dôveru a odbornosť.</td></tr>
+      <tr><td><strong>Nasadiť meranie návštevnosti</strong></td><td>Konečne uvidíte, koľko ľudí príde, odkiaľ a koľko skončí v eshope. Podklad pre rozumnú reklamu.</td></tr>
+      <tr><td><strong>Zladiť vzhľad webu a eshopu</strong></td><td>Zákazník cíti jednu firmu, neodíde pri prechode web → eshop. Vyššia dôvera = viac objednávok.</td></tr>
+      <tr><td><strong>Doriešiť krytiny v eshope</strong></td><td>Buď doplniť krytiny do eshopu, alebo jasné tlačidlo „Cenová ponuka na krytinu". Zákazník vždy vie, ako kúpiť.</td></tr>
+      <tr><td><strong>Lokálne SEO + Google profil firmy</strong></td><td>Lepšia viditeľnosť pri hľadaní „strechy Partizánske" a v mape. Zákazníci z okolia vás nájdu skôr.</td></tr>
+      <tr><td><strong>Automatické e-maily</strong></td><td>Záujemca dostane uvítací e-mail, rady a pripomenutie — záujem sa premení na objednávku.</td></tr>
+    </table>
+
+    <h2>Ako web a eshop budú spolupracovať</h2>
+    <p>Web bude „výkladná skriňa a poradca", eshop „pokladňa". Cesta zákazníka:</p>
+    <div class="flow">
+      <div class="node"><b>1. Nájde vás</b><span>Google, blog, mapa, reklama</span></div>
+      <div class="node"><b>2. Web presvedčí</b><span>sortiment, rady, kalkulačka, dôvera</span></div>
+      <div class="node"><b>3. Eshop predá</b><span>Shoptet: košík, platba</span></div>
+      <div class="node"><b>4. E-mail udrží</b><span>rady, ponuky, ďalší nákup</span></div>
+    </div>
+    <p class="muted">Vďaka meraniu naprieč webom aj eshopom uvidíte celú túto cestu — kde zákazníci pribúdajú a kde odpadávajú.</p>
+
+    <h2>Sezónny marketing — čo propagovať a kedy</h2>
+    <p>Strešný tovar sa po celý rok nepredáva rovnako. <strong>Jedna celoročná reklama na „strechy" je drahá a neúčinná</strong> — v zime nikto nepokrýva strechu, no pred zimou zúfalo hľadá snehové zábrany. Preto namiesto jednej kampane navrhujem <strong>striedať témy podľa sezóny</strong> a vždy propagovať to, čo ľudia práve v danom období hľadajú. Čísla nižšie sú z nášho prieskumu hľadanosti na Slovensku.</p>
+
+    <table>
+      <tr><th>Obdobie</th><th>Čo propagovať</th><th>Prečo práve vtedy</th></tr>
+      <tr>
+        <td><strong>🌱 Jar</strong><br><span class="muted">marec–máj</span></td>
+        <td>Strešné krytiny (plechové, škridla), odkvapové systémy a žľaby, strešné fólie a laty, strešné okná</td>
+        <td>Štart stavebnej sezóny — ľudia plánujú rekonštrukcie a nakupujú materiál pred letnou montážou. Hľadanosť <strong>„plechová krytina cena" (~480×/mes)</strong> aj <strong>„odkvapy cena" (~590×/mes)</strong> vrcholí.</td>
+      </tr>
+      <tr>
+        <td><strong>☀️ Leto</strong><br><span class="muted">jún–august</span></td>
+        <td>Klampiarske výrobky (oplechovania, lemovania, úžľabia, oplechovanie komína), spojovací materiál, tmely a tesnenia, strešné okná</td>
+        <td>Vrchol montáží — suché počasie, firmy aj svojpomocníci realizujú. Dopyt po doplnkovom a spojovacom materiáli k bežiacim stavbám.</td>
+      </tr>
+      <tr>
+        <td><strong>🍂 Jeseň</strong><br><span class="muted">september–november</span></td>
+        <td>Snehové zábrany a háky, odkvapy (čistenie a výmena), tmely a tesnenia, oprava lemovaní a oplechovania komína, záveterné lišty</td>
+        <td>„Príprava strechy na zimu" — posledné práce pred mrazom. Snehové zábrany sa kupujú práve teraz, kým je čas na montáž.</td>
+      </tr>
+      <tr>
+        <td><strong>❄️ Zima</strong><br><span class="muted">december–február</span></td>
+        <td>Snehové zábrany (po prvom snežení), klampiarske náradie, predsezónne objednávky pre firmy; cenové ponuky a zber dopytov na jar</td>
+        <td>Montáže stoja, ale po snežení skokovo rastie dopyt po snehových zábranách (padajúci sneh = riziko), klampiari dopĺňajú náradie a web zbiera dopyty na jarné realizácie.</td>
+      </tr>
+    </table>
+    <p><strong>Celoročný základ:</strong> krytiny a eshop bežia po celý rok ako stála ponuka — sezónne kampane sa naň len <strong>navrstvujú</strong> podľa kalendára vyššie. Rovnaký rytmus dodržíme aj na blogu (jar: „ako vybrať krytinu", jeseň: „priprav strechu na zimu") a v e-mailoch. Detailný rozpis reklamných kampaní podľa kategórií je spracovaný samostatne.</p>
+
+    <h2>Otázka dizajnu</h2>
+    <p>Dôležité na upokojenie: <strong>nemusíte meniť vzhľad, na ktorý ste zvyknutý.</strong> Súčasný dizajn sa dá preniesť na WordPress takmer jeden k jednému. Máte dve možnosti:</p>
+    <div class="grid2">
+      <div class="card"><h3>A · Zachovať súčasný vzhľad</h3><p class="why">Prenesieme dnešný dizajn na WordPress 1:1, len ho zrýchlime a doplníme blog. Najlacnejšie a najrýchlejšie. Web vyzerá rovnako, len lepšie funguje.</p></div>
+      <div class="card"><h3>B · Osviežiť vzhľad</h3><p class="why">Pri prerábke web aj vizuálne zmodernizujeme a zladíme s eshopom. Viac práce, ale silnejší prvý dojem a väčšia dôvera.</p></div>
+    </div>
+    <p><strong>Odporúčanie:</strong> začať možnosťou <strong>A</strong> — rýchlo presunúť na WordPress so zachovaním vzhľadu a zapnúť blog + meranie. Osvieženie vzhľadu (B) sa dá spraviť kedykoľvek neskôr, keď už web bude prinášať dáta.</p>
+
+    <h2>Postup po krokoch</h2>
+    <div class="phase"><span class="n">1</span><div><strong>Príprava na WordPress</strong><div class="muted">Hosting, WordPress, prenos súčasného dizajnu, štruktúra stránok.</div></div><span class="t">~1 týždeň</span></div>
+    <div class="phase"><span class="n">2</span><div><strong>Obsah a blog</strong><div class="muted">Prenos textov, spustenie blogu, prvé články na hľadané otázky.</div></div><span class="t">priebežne</span></div>
+    <div class="phase"><span class="n">3</span><div><strong>Meranie a prepojenie s eshopom</strong><div class="muted">Analytika naprieč webom aj Shoptetom, zladenie vzhľadu, prepojenie odkazov.</div></div><span class="t">~1 týždeň</span></div>
+    <div class="phase"><span class="n">4</span><div><strong>Lokálne SEO + e-maily</strong><div class="muted">Google profil firmy, údaje na webe, automatické uvítacie e-maily.</div></div><span class="t">~1 týždeň</span></div>
+    <div class="phase"><span class="n">5</span><div><strong>Spustenie a presmerovania</strong><div class="muted">Nahradenie starého webu, presmerovanie adries (bez straty pozícií v Googli), test.</div></div><span class="t">1–2 dni</span></div>
+
+    <div class="note">
+      <p><b>Čo sa NEdeje:</b> eshop sa neruší ani neprerába, žiadne dáta ani objednávky sa nestrácajú, doména zostáva rovnaká a vzhľad webu si zachováte. Mení sa „motor" pod webom a pribúdajú nástroje, ktoré dnes chýbajú.</p>
+    </div>
+
+    <h2>Čo potrebujem od vás na ďalší krok</h2>
+    <ul>
+      <li>Súhlas s prístupom A alebo B (zachovať / osviežiť vzhľad)</li>
+      <li>Rozhodnutie ku krytinám v eshope: doplniť ich do Shoptetu, alebo riešiť cez cenovú ponuku</li>
+      <li>Reálne údaje do textov: roky pôsobenia, počet realizácií, hranica dopravy zdarma, adresa skladu</li>
+      <li>Prístupy: doména/hosting, Shoptet administrácia, Google profil firmy (ak existuje)</li>
+    </ul>
+
+  </div>
+
+  <div class="foot">
+    Strechy Partizánske — návrh zmien webu · pripravil Michal Raffay · jún 2026. Dokument je návrh na odsúhlasenie, nie záväzná objednávka.
+  </div>
+
+</div>
+</body>
+</html>

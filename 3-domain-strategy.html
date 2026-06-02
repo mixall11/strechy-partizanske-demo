@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>3-Domain Strategy — Strešný funnel network</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm;
+    @bottom-center { content: "Strana " counter(page) " / " counter(pages); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9pt; color: #999; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Arial', sans-serif; color: #1a2332; font-size: 10.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .cover { page-break-after: always; min-height: 250mm; padding: 45mm 10mm 10mm 10mm; background: linear-gradient(135deg, #1B3A57 0%, #2c4f70 100%); color: white; margin: -18mm -16mm; padding-left: 26mm; padding-right: 26mm; }
+  .cover .label { text-transform: uppercase; letter-spacing: 4px; font-size: 10pt; color: #c8d4e0; font-weight: 600; margin-bottom: 12px; }
+  .cover h1 { font-size: 32pt; line-height: 1.05; margin: 0 0 8px 0; font-weight: 700; letter-spacing: -1px; }
+  .cover h2 { font-size: 15pt; font-weight: 300; color: #c8d4e0; margin: 0 0 36px 0; }
+
+  .domains-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 28px 0; }
+  .dcard { background: rgba(255,255,255,0.08); border-radius: 6px; padding: 16px; border-top: 4px solid; }
+  .dcard.top { border-top-color: #4a7c59; }
+  .dcard.mid { border-top-color: #d9822b; }
+  .dcard.niche { border-top-color: #5b21b6; }
+  .dcard .tier { font-size: 8pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-bottom: 6px; }
+  .dcard .name { font-size: 13pt; font-weight: 700; color: white; margin-bottom: 4px; word-break: break-all; }
+  .dcard .v { font-size: 18pt; font-weight: 700; color: #ff9d6c; line-height: 1; margin-top: 8px; }
+  .dcard .l { font-size: 7.5pt; text-transform: uppercase; letter-spacing: 1px; color: #c8d4e0; margin-top: 4px; }
+
+  .cover .meta { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px; margin-top: 24px; font-size: 9.5pt; color: #c8d4e0; }
+  .cover .meta strong { color: white; }
+  .cover .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-top: 8px; }
+
+  h1 { font-size: 22pt; color: #1B3A57; border-bottom: 3px solid #B5472E; padding-bottom: 8px; margin-top: 0; }
+  h2 { font-size: 15pt; color: #1B3A57; margin-top: 24px; margin-bottom: 10px; }
+  h3 { font-size: 12pt; color: #1B3A57; margin-top: 18px; margin-bottom: 6px; }
+  h4 { font-size: 10.5pt; color: #1B3A57; margin: 12px 0 4px 0; }
+
+  .section-banner { page-break-before: always; background: #1B3A57; color: white; padding: 14px 20px; margin: 0 -16mm 22px -16mm; display: flex; justify-content: space-between; align-items: center; }
+  .section-banner .num { font-size: 26pt; font-weight: 700; line-height: 1; color: #B5472E; }
+  .section-banner h1 { color: white; border: none; margin: 0; padding: 0; font-size: 19pt; }
+  .section-banner .subtitle { font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #c8d4e0; margin-top: 4px; }
+
+  .box { background: #f5f7fa; border-left: 4px solid #B5472E; padding: 12px 16px; margin: 12px 0; border-radius: 0 4px 4px 0; }
+  .box.success { border-left-color: #4a7c59; background: #ecf3ee; }
+  .box.warn { border-left-color: #d9822b; background: #fdf6ed; }
+  .box.critical { border-left-color: #c0392b; background: #fce9e6; }
+  .box.info { border-left-color: #1B3A57; background: #eef4f9; }
+  .box.tip { border-left-color: #5b21b6; background: #f3edff; }
+  .box .label { text-transform: uppercase; letter-spacing: 1.5px; font-size: 8.5pt; font-weight: 700; color: #B5472E; margin-bottom: 4px; }
+  .box.success .label { color: #4a7c59; }
+  .box.warn .label { color: #b56f1c; }
+  .box.critical .label { color: #c0392b; }
+  .box.info .label { color: #1B3A57; }
+  .box.tip .label { color: #5b21b6; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+  th { background: #1B3A57; color: white; padding: 7px 9px; text-align: left; font-weight: 600; border: 1px solid #1B3A57; }
+  td { padding: 6px 9px; border: 1px solid #d0d7de; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* DOMAIN CARDS in body */
+  .domain-card { page-break-inside: avoid; border: 1px solid #d0d7de; border-radius: 6px; margin: 16px 0; overflow: hidden; }
+  .domain-card .head { color: white; padding: 12px 16px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+  .domain-card.top .head { background: #4a7c59; }
+  .domain-card.mid .head { background: #d9822b; }
+  .domain-card.niche .head { background: #5b21b6; }
+  .domain-card .head .domain { font-size: 16pt; font-weight: 700; }
+  .domain-card .head .role { font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; opacity: 0.85; margin-top: 2px; }
+  .domain-card .head .volume { background: rgba(255,255,255,0.2); padding: 8px 14px; border-radius: 4px; font-size: 13pt; font-weight: 700; text-align: center; }
+  .domain-card .head .volume small { display: block; font-size: 7.5pt; font-weight: 400; opacity: 0.85; margin-top: 2px; }
+  .domain-card .body { padding: 14px 16px; background: white; }
+  .domain-card .body .row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; margin-bottom: 8px; font-size: 9.5pt; }
+  .domain-card .body .row .k { font-weight: 700; color: #1B3A57; text-transform: uppercase; letter-spacing: 0.5px; font-size: 8.5pt; padding-top: 2px; }
+
+  /* OPTION CARDS */
+  .option { background: #fafafa; border: 1px solid #d0d7de; border-radius: 6px; padding: 16px; margin: 14px 0; }
+  .option .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .option .name { font-size: 13pt; font-weight: 700; color: #1B3A57; }
+  .option .recom { background: #4a7c59; color: white; padding: 3px 10px; border-radius: 3px; font-size: 8.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .option .recom.not { background: #c0392b; }
+  .option .recom.maybe { background: #d9822b; }
+  .option .pro-con { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .option .pro-con .col { padding: 8px 12px; border-radius: 4px; }
+  .option .pro-con .pro { background: #ecf3ee; }
+  .option .pro-con .con { background: #fce9e6; }
+  .option .pro-con .col .h { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px; }
+  .option .pro-con .pro .h { color: #4a7c59; }
+  .option .pro-con .con .h { color: #c0392b; }
+  .option .pro-con ul { margin: 0; padding-left: 16px; font-size: 9pt; }
+
+  /* FUNNEL DIAGRAM */
+  .funnel { background: #fafafa; padding: 16px; border-radius: 6px; margin: 14px 0; }
+  .funnel .layer { padding: 10px 14px; margin: 4px 0; border-radius: 4px; color: white; }
+  .funnel .l1 { background: #4a7c59; width: 100%; }
+  .funnel .l2 { background: #d9822b; width: 88%; margin-left: 6%; }
+  .funnel .l3 { background: #5b21b6; width: 60%; margin-left: 20%; }
+  .funnel .l4 { background: #1B3A57; width: 40%; margin-left: 30%; text-align: center; }
+  .funnel .layer .name { font-weight: 700; font-size: 10pt; }
+  .funnel .layer .desc { font-size: 8.5pt; opacity: 0.9; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; }
+  .stat { background: #eef4f9; border: 1px solid #c8d4e0; border-radius: 4px; padding: 10px; text-align: center; }
+  .stat .v { font-size: 16pt; font-weight: 700; color: #1B3A57; line-height: 1; }
+  .stat .l { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; color: #6c7a89; margin-top: 4px; }
+
+  ul.check { list-style: none; padding-left: 0; }
+  ul.check li { padding-left: 22px; position: relative; margin-bottom: 5px; }
+  ul.check li::before { content: '☐'; position: absolute; left: 0; color: #1B3A57; font-size: 12pt; top: -2px; }
+
+  .footnote { font-size: 8.5pt; color: #6c7a89; font-style: italic; margin-top: 4px; }
+  hr { border: none; border-top: 1px solid #d0d7de; margin: 20px 0; }
+
+  .tag { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 8pt; font-weight: 600; background: #1B3A57; color: white; margin-right: 3px; }
+  .tag.p0 { background: #4a7c59; }
+  .tag.p1 { background: #d9822b; }
+  .tag.p2 { background: #5b21b6; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="label">Strategic Report · 3 domains</div>
+  <h1>3 strešné domény<br>— ako ich využiť</h1>
+  <h2>Funnel network strategy · realistické revenue projekcie · 12-mesačný plán</h2>
+
+  <div class="domains-grid">
+    <div class="dcard top">
+      <div class="tier">Tier 1 · Buying intent</div>
+      <div class="name">cenastrechy.com</div>
+      <div class="v">500-900</div>
+      <div class="l">hľadaní /mes</div>
+    </div>
+    <div class="dcard mid">
+      <div class="tier">Tier 1 · Planning intent</div>
+      <div class="name">rekonstrukciastrechy.com</div>
+      <div class="v">500-900</div>
+      <div class="l">hľadaní /mes</div>
+    </div>
+    <div class="dcard niche">
+      <div class="tier">Tier 3 · Niche B2B</div>
+      <div class="name">zelenastrecha.online</div>
+      <div class="v">50-150</div>
+      <div class="l">hľadaní /mes</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="meta-grid">
+      <div><strong>Spolu volume</strong><br>1 050-1 950 hľadaní /mes</div>
+      <div><strong>Combined buying intent</strong><br>HIGH (2 z 3 sú decision-phase)</div>
+      <div><strong>Y1 realistický revenue</strong><br>2 000-8 000 € (combined)</div>
+      <div><strong>Y2 potenciál</strong><br>10 000-30 000 €</div>
+      <div><strong>Renewal cost Y2 (warning)</strong><br>~ 90 € (.online jump z 3 na 36 €)</div>
+      <div><strong>Dátum</strong><br>28. máj 2026 · v1.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ČASŤ 1 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 1</div>
+    <h1>Analýza domén</h1>
+  </div>
+  <div class="num">01</div>
+</div>
+
+<h2>Individuálny potenciál každej domény</h2>
+
+<div class="domain-card top">
+  <div class="head">
+    <div>
+      <div class="role">Tier 1 · Highest buying intent</div>
+      <div class="domain">cenastrechy.com</div>
+    </div>
+    <div class="volume">500-900<small>hľadaní / mes</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Intent</div><div>Ľudia hľadajúci <strong>cenu</strong> = rozhodovacia fáza. Najvyšší commercial intent zo všetkých strešných queries.</div></div>
+    <div class="row"><div class="k">Cieľovka</div><div>Majitelia rodinných domov 35-65, plánujú výmenu/rekonštrukciu, porovnávajú dodávateľov</div></div>
+    <div class="row"><div class="k">Best play</div><div><strong>Lead-gen funnel + price calculator</strong> — interaktívna kalkulačka m² × materiál → lead form "Cenová ponuka do 24 h"</div></div>
+    <div class="row"><div class="k">Konkurencia</div><div>Stredná. Žiadny dominantný hráč v SK (na rozdiel od .sk verzie)</div></div>
+    <div class="row"><div class="k">Monetizácia</div><div>Lead sale 30-80 € / lead (B2C) · multi-realizator network · vlastný service biznis</div></div>
+    <div class="row"><div class="k">Časový horizont</div><div>3-6 mes. na first leads · 6-12 mes. na stable traffic</div></div>
+    <div class="row"><div class="k">Renewal</div><div>17,90 €/rok (.com stabilná cena, žiadny trap)</div></div>
+  </div>
+</div>
+
+<div class="domain-card mid">
+  <div class="head">
+    <div>
+      <div class="role">Tier 1 · Planning intent</div>
+      <div class="domain">rekonstrukciastrechy.com</div>
+    </div>
+    <div class="volume">500-900<small>hľadaní / mes</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Intent</div><div>Ľudia v <strong>plánovacej fáze</strong> rekonštrukcie. Long sales cycle (3-12 mesiacov od search po realizáciu)</div></div>
+    <div class="row"><div class="k">Cieľovka</div><div>Majitelia 30-70 r. starých domov, väčší ticket (3 000-15 000 € realizácia)</div></div>
+    <div class="row"><div class="k">Best play</div><div><strong>Content hub + lead nurture</strong> — sprievodca rekonštrukciou, checklist, nákladová kalkulácia → 6-týždňová email sequence pred dopytom</div></div>
+    <div class="row"><div class="k">Konkurencia</div><div>Stredne-vysoká. Veľa info článkov, ale málo dedikovaných service-stránok</div></div>
+    <div class="row"><div class="k">Monetizácia</div><div>Vyšší lead value (50-150 €/lead pre realizátorov) · affiliate s materiálmi · vlastné služby</div></div>
+    <div class="row"><div class="k">Časový horizont</div><div>6-12 mes. na first qualified leady (dlhší sales cycle)</div></div>
+    <div class="row"><div class="k">Renewal</div><div>17,90 €/rok (.com stabilná)</div></div>
+  </div>
+</div>
+
+<div class="domain-card niche">
+  <div class="head">
+    <div>
+      <div class="role">Tier 3 · Niche B2B · ⚠ renewal trap</div>
+      <div class="domain">zelenastrecha.online</div>
+    </div>
+    <div class="volume">50-150<small>hľadaní / mes</small></div>
+  </div>
+  <div class="body">
+    <div class="row"><div class="k">Intent</div><div>Mixed — info aj buying. <strong>Niche eko segment</strong> (vegetačné/zelené strechy)</div></div>
+    <div class="row"><div class="k">Cieľovka</div><div>Architekti, eko developeri, stavebné firmy, mestá (verejné budovy s EU Green Deal požiadavkami)</div></div>
+    <div class="row"><div class="k">Best play</div><div><strong>Authority niche site B2B</strong> — technické guides, case studies, EU regulácie, dotácie. Premium B2B leady</div></div>
+    <div class="row"><div class="k">Konkurencia</div><div>Veľmi nízka v SK. Príležitosť stať sa autoritou v segmente</div></div>
+    <div class="row"><div class="k">Monetizácia</div><div>B2B leady 100-300 €/lead · sponzoring eko materiálových producentov · konzultácie</div></div>
+    <div class="row"><div class="k">Časový horizont</div><div>12-18 mes. (low volume = slow ramp), ale vysoká marža</div></div>
+    <div class="row"><div class="k">⚠ Renewal trap</div><div><strong>Y2 cena ~36 €/rok</strong> (4,99 € pre prvý rok, potom skok). Ak nezarobí Y1, NEOBNOVOVAŤ</div></div>
+  </div>
+</div>
+
+<!-- ČASŤ 2 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 2</div>
+    <h1>3 stratégie</h1>
+  </div>
+  <div class="num">02</div>
+</div>
+
+<h2>Ktorú cestu vybrať pre tieto 3 domény</h2>
+
+<div class="option">
+  <div class="header">
+    <div class="name">Option A · Funnel Network (integrated)</div>
+    <div class="recom">ODPORÚČAM</div>
+  </div>
+  <p>Všetky 3 domény fungujú ako <strong>nezávislé top-funnel landing pages</strong>, ktoré privádzajú lead do <strong>jedného centrálneho CRM</strong>. Každá doména má vlastný brand, vlastné SEO, ale share-uje lead processing.</p>
+  <div class="pro-con">
+    <div class="col pro">
+      <div class="h">Pro</div>
+      <ul>
+        <li>3× SEO surface (3 weby konkurujú v Google)</li>
+        <li>Každá doména exact-match keyword</li>
+        <li>Jedno CRM + email = nízka operational complexity</li>
+        <li>Lead arbitráž: predáš leady viacerým realizátorom</li>
+        <li>Možnosť postupne vyradiť slabú doménu (zelenastrecha)</li>
+      </ul>
+    </div>
+    <div class="col con">
+      <div class="h">Con</div>
+      <ul>
+        <li>3× content effort (28-40 článkov za 12 mes.)</li>
+        <li>3× hosting + analytics setup</li>
+        <li>3× link building (časovo náročné)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="option">
+  <div class="header">
+    <div class="name">Option B · Hub &amp; Spoke (autorita + satelity)</div>
+    <div class="recom maybe">DRUHÁ VOĽBA</div>
+  </div>
+  <p><strong>cenastrechy.com</strong> ako hlavný autoritatívny hub. <strong>rekonstrukciastrechy.com</strong> a <strong>zelenastrecha.online</strong> ako satellites s topic-specific obsahom, link-ujú do hub-u pre konverziu.</p>
+  <div class="pro-con">
+    <div class="col pro">
+      <div class="h">Pro</div>
+      <ul>
+        <li>Koncentrovaný link equity do hub-u</li>
+        <li>Jasná lead capture LP (cenastrechy.com)</li>
+        <li>Menej content per satellite (6-10 článkov)</li>
+      </ul>
+    </div>
+    <div class="col con">
+      <div class="h">Con</div>
+      <ul>
+        <li>Satellites sa nedostanú do top rank (slabší backlink profile)</li>
+        <li>Google deteguje PBN (private blog network) — risk penalty</li>
+        <li>Renewal trap zelenastrecha sa nezaplatí (low traffic)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="option">
+  <div class="header">
+    <div class="name">Option C · Independent brands (3 weby ako biznisy)</div>
+    <div class="recom not">NEODPORÚČAM</div>
+  </div>
+  <p>Každú doménu vybuduješ ako <strong>nezávislý biznis</strong> s vlastným brandom, vlastnou ponukou, vlastnou tímom. Cieľ: predaj/exit po 18-24 mes.</p>
+  <div class="pro-con">
+    <div class="col pro">
+      <div class="h">Pro</div>
+      <ul>
+        <li>Vyššia exit value (independent biznis = vyššia valuácia)</li>
+        <li>Žiadne PBN risk</li>
+      </ul>
+    </div>
+    <div class="col con">
+      <div class="h">Con</div>
+      <ul>
+        <li>3× operational complexity (3 biznis ID, 3 účtovníctvo)</li>
+        <li>3× brand budovanie nákladné</li>
+        <li>Zelenastrecha NEVYBUDUJE ako standalone biznis (volume príliš nízky)</li>
+        <li>Cashflow problém prvé 18 mes.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<h2>Odporúčaná architektúra (Option A · Funnel Network)</h2>
+
+<div class="funnel">
+  <div class="layer l1">
+    <div class="name">cenastrechy.com</div>
+    <div class="desc">Top funnel · cenová kalkulačka + porovnanie materiálov · 500-900 hľadaní/mes</div>
+  </div>
+  <div class="layer l2">
+    <div class="name">rekonstrukciastrechy.com</div>
+    <div class="desc">Mid funnel · planning hub + 6-týž email sequence · 500-900 hľadaní/mes</div>
+  </div>
+  <div class="layer l3">
+    <div class="name">zelenastrecha.online</div>
+    <div class="desc">Niche B2B funnel · architekti + eko developeri · 50-150 hľadaní/mes</div>
+  </div>
+  <div class="layer l4">
+    <div class="name">Centrálne CRM + lead distribution</div>
+  </div>
+</div>
+
+<!-- ČASŤ 3 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 3</div>
+    <h1>12-mesačný plán</h1>
+  </div>
+  <div class="num">03</div>
+</div>
+
+<h2>Fáza 1 — Setup (Mesiac 1)</h2>
+
+<ul class="check">
+  <li><strong>Domain redirect / parking</strong> všetky 3 domény → simple Cloudflare Pages landing page s lead form (kým budujeme finálne weby)</li>
+  <li><strong>Cloudflare</strong> setup pre všetky 3 (free, SSL, DNS, security)</li>
+  <li><strong>Tech stack rozhodnutie:</strong>
+    <ul style="margin: 4px 0 0 18px;">
+      <li>Statika (Astro / Hugo) → najlepšie pre SEO + perf · hosting free na Pages</li>
+      <li>WordPress → ak chceš jednoduchšiu content editáciu (Coolify na ccx13 alebo Websupport)</li>
+    </ul>
+  </li>
+  <li><strong>Centrálne CRM</strong>: HubSpot free tier alebo Brevo · lead source tracking per doménu</li>
+  <li><strong>Email service</strong>: MailerLite (free do 1 000 subs) na všetky 3 domény</li>
+  <li><strong>GA4 + GTM</strong> per doména · cross-domain tracking</li>
+  <li><strong>Lead capture form</strong> centrálny komponent (vložiš do každého webu)</li>
+</ul>
+
+<h2>Fáza 2 — Content launch (Mesiac 2-4)</h2>
+
+<table>
+  <thead><tr><th>Doména</th><th>M2</th><th>M3</th><th>M4</th><th>Spolu Fáza 2</th></tr></thead>
+  <tbody>
+    <tr><td>cenastrechy.com</td><td>3 pillar + kalkulačka</td><td>2 články</td><td>2 články</td><td><strong>7 článkov + tool</strong></td></tr>
+    <tr><td>rekonstrukciastrechy.com</td><td>3 pillar + checklist</td><td>2 články + ebook</td><td>2 články</td><td><strong>7 článkov + 2 lead magnety</strong></td></tr>
+    <tr><td>zelenastrecha.online</td><td>2 pillar B2B</td><td>1 case study + dotácie</td><td>1 článok</td><td><strong>4 články</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Pillar články — konkrétne tituly</h3>
+
+<table>
+  <thead><tr><th>Doména</th><th>Pillar články (top priority)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>cenastrechy.com</strong></td><td>
+      • "Koľko stojí nová strecha 2026 — kompletný cenník"<br>
+      • "Cena plechovej strechy za m² — porovnanie značiek"<br>
+      • "Cena betónovej škridly vs keramickej škridly"
+    </td></tr>
+    <tr><td><strong>rekonstrukciastrechy.com</strong></td><td>
+      • "Rekonštrukcia strechy 2026 — od dopytu po hotovo"<br>
+      • "Kedy obnoviť strechu — 7 znakov že je čas"<br>
+      • "Rekonštrukcia vs nová strecha — čo sa vyplatí"
+    </td></tr>
+    <tr><td><strong>zelenastrecha.online</strong></td><td>
+      • "Zelená strecha 2026 — extenzívna vs intenzívna"<br>
+      • "Zelené strechy a EU Green Deal — povinnosti developera"
+    </td></tr>
+  </tbody>
+</table>
+
+<h2>Fáza 3 — Optimization (Mesiac 5-8)</h2>
+
+<ul class="check">
+  <li>SEO audit po 3 mesiacoch indexácie · re-write podľa SERP analýzy</li>
+  <li>Link building: outreach na 5-10 strešných blogov / fór mesačne (3 backlinks na doménu / mes)</li>
+  <li>A/B test lead capture forms (1 vs 4 polia · sticky vs inline)</li>
+  <li>Email sequence build (welcome 3-mail + nurture 6-mail pre rekonstrukciastrechy)</li>
+  <li>First Google Ads testovacie kampane na top KW (50 €/mes/doména)</li>
+  <li>Rozhodovací bod M6 pre zelenastrecha.online: ak <strong>&lt; 10 leadov/mes</strong>, plánuj NEOBNOVOVAŤ Y2</li>
+</ul>
+
+<h2>Fáza 4 — Scale (Mesiac 9-12)</h2>
+
+<ul class="check">
+  <li>Top performing doména získava 60-70 % obsahového efortu</li>
+  <li>Lead distribution network: 3-5 partnerských realizátorov s pevnou cenou za lead</li>
+  <li>Affiliate launch (Lindab, Bramac, Topdach materiálové affiliate programy)</li>
+  <li>Google Ads scale: 150-300 €/mes/doména</li>
+  <li>Quarterly report PR pitch (Forbes, Trend, Hospodárske noviny)</li>
+  <li>Rozhodnutie o Y2: pokračovať / pivot / sell</li>
+</ul>
+
+<!-- ČASŤ 4 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 4</div>
+    <h1>Revenue + náklady</h1>
+  </div>
+  <div class="num">04</div>
+</div>
+
+<h2>Realistická revenue projekcia · per doména</h2>
+
+<h3>cenastrechy.com — top performer</h3>
+<table>
+  <thead><tr><th>Mes.</th><th>Organic traffic</th><th>Konv. na lead</th><th>Leady /mes</th><th>Lead value</th><th>Revenue</th></tr></thead>
+  <tbody>
+    <tr><td>M1-M3</td><td>20-100</td><td>2 %</td><td>0-2</td><td>50 €</td><td>0-100 €</td></tr>
+    <tr><td>M4-M6</td><td>100-300</td><td>3 %</td><td>3-9</td><td>50 €</td><td>150-450 €</td></tr>
+    <tr><td>M7-M9</td><td>300-600</td><td>3-4 %</td><td>9-24</td><td>60 €</td><td>540-1 440 €</td></tr>
+    <tr><td>M10-M12</td><td>600-1 200</td><td>3-4 %</td><td>18-48</td><td>70 €</td><td>1 260-3 360 €</td></tr>
+    <tr><th colspan="5">Y1 cumulative</th><th>5 850-15 600 €</th></tr>
+  </tbody>
+</table>
+
+<h3>rekonstrukciastrechy.com — slower ramp, vyšší AOV lead</h3>
+<table>
+  <thead><tr><th>Mes.</th><th>Organic traffic</th><th>Konv. na lead</th><th>Leady /mes</th><th>Lead value</th><th>Revenue</th></tr></thead>
+  <tbody>
+    <tr><td>M1-M3</td><td>10-50</td><td>1,5 %</td><td>0-1</td><td>100 €</td><td>0-100 €</td></tr>
+    <tr><td>M4-M6</td><td>50-200</td><td>2 %</td><td>1-4</td><td>100 €</td><td>100-400 €</td></tr>
+    <tr><td>M7-M9</td><td>200-500</td><td>2-3 %</td><td>4-15</td><td>120 €</td><td>480-1 800 €</td></tr>
+    <tr><td>M10-M12</td><td>500-1 000</td><td>3 %</td><td>15-30</td><td>120 €</td><td>1 800-3 600 €</td></tr>
+    <tr><th colspan="5">Y1 cumulative</th><th>4 600-12 000 €</th></tr>
+  </tbody>
+</table>
+
+<h3>zelenastrecha.online — niche, slow but premium</h3>
+<table>
+  <thead><tr><th>Mes.</th><th>Organic traffic</th><th>Konv. na B2B lead</th><th>Leady /mes</th><th>Lead value</th><th>Revenue</th></tr></thead>
+  <tbody>
+    <tr><td>M1-M6</td><td>5-50</td><td>1 %</td><td>0-1</td><td>200 €</td><td>0-200 €</td></tr>
+    <tr><td>M7-M12</td><td>50-150</td><td>2 %</td><td>1-3</td><td>200 €</td><td>200-600 €</td></tr>
+    <tr><th colspan="5">Y1 cumulative</th><th>1 200-3 600 €</th></tr>
+  </tbody>
+</table>
+
+<h2>Total Y1 — kombinovaný outlook</h2>
+
+<div class="stat-row">
+  <div class="stat"><div class="v">11,7-31,2k €</div><div class="l">Y1 revenue (range)</div></div>
+  <div class="stat"><div class="v">~20k €</div><div class="l">Y1 mid-point</div></div>
+  <div class="stat"><div class="v">1,5-5k €</div><div class="l">Y1 náklady</div></div>
+  <div class="stat"><div class="v">~15k €</div><div class="l">Y1 net profit (mid)</div></div>
+</div>
+
+<h2>Náklady Y1</h2>
+
+<table>
+  <thead><tr><th>Položka</th><th>Cena</th><th>Pozn.</th></tr></thead>
+  <tbody>
+    <tr><td>Domain renewals Y2 (Y1 už zaplatené)</td><td>~ 90 €</td><td>2× .com (35 €) + 1× .online (36 €) — pozri trap!</td></tr>
+    <tr><td>Hosting (Cloudflare Pages + Coolify)</td><td>0-60 €</td><td>Free ak statika · 5 €/mes ak WP na shared</td></tr>
+    <tr><td>Email service (MailerLite free → growth)</td><td>0-200 €</td><td>Free do 1 000 subs · potom 15-30 €/mes</td></tr>
+    <tr><td>CRM (HubSpot free)</td><td>0 €</td><td>Free tier postačí Y1</td></tr>
+    <tr><td>Content (sám alebo freelance)</td><td>0-2 400 €</td><td>Sám = 0 · 18-25 článkov × 50-80 € = 900-1 500 €</td></tr>
+    <tr><td>Google Ads testovanie (M5+)</td><td>900-2 000 €</td><td>Voliteľné, len ak organic nedosiahne cieľ</td></tr>
+    <tr><td>Link building outreach tools</td><td>0-300 €</td><td>Manuálne free · Hunter.io 50 €/mes voliteľné</td></tr>
+    <tr><th>Spolu Y1</th><th>1 000-5 050 €</th><td>Sám = ~ 100 € · plne outsource = 5 000 €</td></tr>
+  </tbody>
+</table>
+
+<h2>⚠ Critical decision point — Mesiac 6</h2>
+
+<div class="box critical">
+  <div class="label">zelenastrecha.online renewal trap</div>
+  Renewal cena z 4,99 € (Y1 promo) na <strong>~36 €/rok</strong> v Y2. Pred koncom Y1 vyhodnotenie:
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li><strong>≥ 5 kvalifikovaných B2B leadov v M6-M12</strong> → obnoviť, pokračovať</li>
+    <li><strong>&lt; 5 leadov / Q4</strong> → NEOBNOVOVAŤ, presunúť content na rekonstrukciastrechy.com (sekcia "zelené strechy")</li>
+    <li><strong>0-2 leady</strong> → niche jednoducho nie je na SK trhu, prijať loss 4,99 € z Y1</li>
+  </ul>
+</div>
+
+<!-- ČASŤ 5 -->
+<div class="section-banner">
+  <div>
+    <div class="subtitle">Časť 5</div>
+    <h1>Konkrétne akcie</h1>
+  </div>
+  <div class="num">05</div>
+</div>
+
+<h2>Týždeň 1 — Setup foundation</h2>
+
+<ul class="check">
+  <li>Cloudflare účet · pridať všetky 3 domény (free)</li>
+  <li>DNS smerovať na Cloudflare Pages alebo Coolify (ccx13)</li>
+  <li>Simple landing page per doména (1 stránka, H1 + form + benefits)</li>
+  <li>Lead form: Meno, Telefón, Lokalita, Typ projektu (4 polia max)</li>
+  <li>Form submit → email forward na obchod@(klient) alebo do HubSpot</li>
+  <li>GA4 property per doména · cross-domain tracking</li>
+  <li>Search Console verifikácia per doména</li>
+</ul>
+
+<h2>Týždeň 2-4 — Content production</h2>
+
+<ul class="check">
+  <li>Brand identity per doména (logo · farby · písmo) — môže byť jednoduchý wordmark</li>
+  <li>3 pillar články pre cenastrechy.com (priority #1)</li>
+  <li>Cenová kalkulačka tool (vstup: typ krytiny + m² + kraj → odhad ceny)</li>
+  <li>3 pillar články pre rekonstrukciastrechy.com</li>
+  <li>2 pillar články + 1 dotácie article pre zelenastrecha.online</li>
+  <li>Setup MailerLite welcome email · pripojiť na lead forms</li>
+</ul>
+
+<h2>Tech stack — odporúčaný</h2>
+
+<table>
+  <thead><tr><th>Komponent</th><th>Voľba</th><th>Cena Y1</th></tr></thead>
+  <tbody>
+    <tr><td>CMS</td><td>Astro (statika) · Coolify deploy na ccx13</td><td>0 €</td></tr>
+    <tr><td>Hosting</td><td>Cloudflare Pages alebo Coolify na ccx13</td><td>0 €</td></tr>
+    <tr><td>DNS + SSL + CDN</td><td>Cloudflare free</td><td>0 €</td></tr>
+    <tr><td>Forms</td><td>Cloudflare Workers + email forward</td><td>0 €</td></tr>
+    <tr><td>CRM</td><td>HubSpot Free tier</td><td>0 €</td></tr>
+    <tr><td>Email</td><td>MailerLite Free (do 1k subs)</td><td>0 €</td></tr>
+    <tr><td>Analytics</td><td>Plausible (self-hosted ccx13) + GA4 free</td><td>0 €</td></tr>
+    <tr><td>Search Console + Bing Webmaster</td><td>Free</td><td>0 €</td></tr>
+    <tr><td>Calculator widget</td><td>Vanilla JS (custom)</td><td>0 €</td></tr>
+    <tr><th>Spolu Y1 tech</th><th></th><th>0 €</th></tr>
+  </tbody>
+</table>
+
+<p class="footnote">Plne self-hosted alebo free tier setup. Single dev (Michal) môže celé spustiť za 2-3 týždne práce.</p>
+
+<h2>Decision matrix — ktorá doména získa najviac tvojho času</h2>
+
+<table>
+  <thead><tr><th>Doména</th><th>Volume × Intent</th><th>ROI / hodina práce</th><th>Allocation</th></tr></thead>
+  <tbody>
+    <tr><td>cenastrechy.com</td><td>★★★★★</td><td>★★★★★ vysoký</td><td><strong>50 %</strong></td></tr>
+    <tr><td>rekonstrukciastrechy.com</td><td>★★★★</td><td>★★★★ vysoký (vyšší AOV)</td><td><strong>35 %</strong></td></tr>
+    <tr><td>zelenastrecha.online</td><td>★★</td><td>★★ nízky (slow ramp)</td><td><strong>15 %</strong></td></tr>
+  </tbody>
+</table>
+
+<h2>Bonus: ako využiť domény ako asset pre klientov</h2>
+
+<div class="box tip">
+  <div class="label">Pre teba ako consultanta</div>
+  Tieto 3 domény môžu slúžiť aj ako <strong>portfolio/sales pitch</strong> pre tvojich strešných klientov (Strechy Partizánske, prípadne ďalší):
+  <ul style="margin: 6px 0 0 18px; padding: 0;">
+    <li>Demonštruj v praxi ako fungujú lead funnely (real case study pre sales pitch)</li>
+    <li>Predaj klientom kvalifikované leady z tvojich domén (revenue stream)</li>
+    <li>Použi traffic data ako "proof of concept" pri ponuke konzultantského servisu</li>
+    <li>Build authority — keď máš 3 strešné weby s organic trafficom, klient ti viac dôveruje</li>
+  </ul>
+</div>
+
+<hr>
+
+<div style="text-align: center; color: #6c7a89; font-size: 9pt; margin-top: 20px;">
+  Strategic report vypracoval Michal Raffay · 28. máj 2026 · v1.0<br>
+  3-domain network strategy pre strešný segment SK<br>
+  <em>Option A · Funnel Network · 12-mesačný plán · realistický Y1 outlook 11-31k €</em>
+</div>
+
+</body>
+</html>

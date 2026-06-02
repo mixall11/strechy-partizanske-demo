@@ -155,3 +155,118 @@ function sp_cart_fragment( $fragments ) {
     return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'sp_cart_fragment' );
+
+/* ============================================================
+ * Customizer — telefón a kontaktný email
+ * ============================================================ */
+function sp_customize_register( $wp_customize ) {
+    $wp_customize->add_section( 'sp_contact', [
+        'title'    => __( 'Kontakt — Strechy Partizánske', 'strechy-partizanske' ),
+        'priority' => 35,
+    ] );
+    $wp_customize->add_setting( 'sp_phone', [
+        'default'           => '+421 38 749 12 34',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'sp_phone', [
+        'label'    => __( 'Telefón', 'strechy-partizanske' ),
+        'section'  => 'sp_contact',
+        'type'     => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'sp_email', [
+        'default'           => 'info@strechy-partizanske.sk',
+        'sanitize_callback' => 'sanitize_email',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'sp_email', [
+        'label'    => __( 'Email pre kalkulácie', 'strechy-partizanske' ),
+        'section'  => 'sp_contact',
+        'type'     => 'email',
+    ] );
+}
+add_action( 'customize_register', 'sp_customize_register' );
+
+/* ============================================================
+ * Calc form — admin-post.php?action=sp_calc
+ * Zachytí lead z funnel stránky, pošle email a presmeruje späť s ?sp_calc=ok|error.
+ * V produkcii rozšíriť o napojenie na CRM (HubSpot/Brevo/Resend).
+ * ============================================================ */
+function sp_handle_calc_submit() {
+    $referer = wp_get_referer() ?: home_url( '/' );
+
+    // Honeypot: bot vyplnil skryté pole sp_hp
+    if ( ! empty( $_POST['sp_hp'] ) ) {
+        wp_safe_redirect( add_query_arg( 'sp_calc', 'ok', $referer ) . '#kalkulacka' );
+        exit;
+    }
+
+    if ( empty( $_POST['sp_calc_nonce'] ) || ! wp_verify_nonce( $_POST['sp_calc_nonce'], 'sp_calc' ) ) {
+        wp_safe_redirect( add_query_arg( 'sp_calc', 'error', $referer ) . '#kalkulacka' );
+        exit;
+    }
+
+    $email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
+    if ( ! is_email( $email ) ) {
+        wp_safe_redirect( add_query_arg( 'sp_calc', 'error', $referer ) . '#kalkulacka' );
+        exit;
+    }
+
+    $data = [
+        'plocha'   => absint( $_POST['plocha'] ?? 0 ),
+        'typ'      => sanitize_text_field( wp_unslash( $_POST['typ'] ?? '' ) ),
+        'krytina'  => sanitize_text_field( wp_unslash( $_POST['krytina'] ?? '' ) ),
+        'okna'     => sanitize_text_field( wp_unslash( $_POST['okna'] ?? '' ) ),
+        'email'    => $email,
+        'telefon'  => sanitize_text_field( wp_unslash( $_POST['telefon'] ?? '' ) ),
+        'gdpr'     => ! empty( $_POST['gdpr'] ),
+        'ip'       => $_SERVER['REMOTE_ADDR'] ?? '',
+        'referer'  => esc_url_raw( $referer ),
+        'time'     => current_time( 'mysql' ),
+    ];
+
+    // Email pre obchod (always)
+    $admin_email = get_theme_mod( 'sp_email', get_option( 'admin_email' ) );
+    $body = "Nová kalkulačná požiadavka:\n\n";
+    foreach ( $data as $k => $v ) $body .= sprintf( "%-10s : %s\n", $k, is_bool( $v ) ? ( $v ? 'áno' : 'nie' ) : $v );
+    $subject = sprintf( '[Kalkulačka] %s m² · %s · %s', $data['plocha'], $data['typ'], $email );
+    wp_mail( $admin_email, $subject, $body );
+
+    // Voliteľné: confirmation email zákazníkovi
+    $thank = sprintf(
+        "Ďakujeme za požiadavku. Do 24 hodín ti pošleme kompletný rozpočet.\n\n— Strechy Partizánske\n%s",
+        $admin_email
+    );
+    wp_mail( $email, 'Tvoja kalkulácia strechy', $thank );
+
+    // Hook pre integráciu (HubSpot/Brevo/Resend) — `do_action('sp_calc_submitted', $data)`
+    do_action( 'sp_calc_submitted', $data );
+
+    wp_safe_redirect( add_query_arg( 'sp_calc', 'ok', $referer ) . '#kalkulacka' );
+    exit;
+}
+add_action( 'admin_post_nopriv_sp_calc', 'sp_handle_calc_submit' );
+add_action( 'admin_post_sp_calc',         'sp_handle_calc_submit' );
+
+/* ============================================================
+ * WooCommerce — drobné UX vylepšenia
+ * ============================================================ */
+// Posunieme "result count" do našej toolbar, presunieme breadcrumb hore
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+// Zmenši default thumbnail na 1:1 a obrázok produktu na nepatrne vyšší ratio
+add_filter( 'woocommerce_get_image_size_thumbnail', function () {
+    return [ 'width' => 320, 'height' => 320, 'crop' => 1 ];
+} );
+
+// Pridaj „SKLADOM N ks" badge do single product summary
+add_action( 'woocommerce_single_product_summary', function () {
+    global $product;
+    if ( $product && $product->managing_stock() ) {
+        $qty = $product->get_stock_quantity();
+        if ( $qty > 0 ) {
+            echo '<p class="woo-stock-badge">📦 <b>' . esc_html( number_format_i18n( $qty, 0 ) ) . '</b> ' . esc_html__( 'ks skladom · expedícia 24 h', 'strechy-partizanske' ) . '</p>';
+        }
+    }
+}, 25 );
