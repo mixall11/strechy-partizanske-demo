@@ -12,11 +12,6 @@
 </head>
 <body>
 
-<!-- ====== CELEBRATE TICKER — meniny SK + narodeniny zákazníkov, sprava doľava ====== -->
-<div class="celeb-bar" aria-label="Meniny a narodeniny dnes">
-  <div class="celeb-track" id="celebTrack"></div>
-</div>
-
 <!-- ====== PREBAR — časová os: cutoff 8:00 → 14:00 (rovnaké ako funnel) ====== -->
 <div class="prebar-wrap">
   <div class="prebar">
@@ -33,6 +28,11 @@
       <b>Zachytiť cenu →</b>
     </span>
   </a>
+</div>
+
+<!-- ====== CELEBRATE TICKER — meniny SK + narodeniny zákazníkov, sprava doľava ====== -->
+<div class="celeb-bar" aria-label="Meniny a narodeniny dnes">
+  <div class="celeb-track" id="celebTrack"></div>
 </div>
 
 <header class="topbar">
@@ -565,53 +565,22 @@ function renderCelebTicker() {
 
   const meninyToday = SK_MENINY[todayK];
   if (meninyToday) {
-    items.push(`<span class="celeb-item">📅 Dnes meniny: <b>${escHtml(meninyToday)}</b> · oslávenec dostane <b>−10 %</b> s kódom <code>MENINY10</code></span>`);
+    items.push(`<span class="celeb-item">📅 Dnes <b>${escHtml(meninyToday)}</b> · −10 % <code>MENINY10</code></span>`);
   }
 
   const meninyTomorrow = SK_MENINY[tomorrowK];
   if (meninyTomorrow) {
-    items.push(`<span class="celeb-item">📆 Zajtra meniny: <b>${escHtml(meninyTomorrow)}</b></span>`);
-  }
-
-  const upcomingMeniny = [];
-  for (let i = 2; i <= 7 && upcomingMeniny.length < 3; i++) {
-    const k = mmdd(addDays(now, i));
-    if (SK_MENINY[k]) {
-      const d = addDays(now, i);
-      upcomingMeniny.push(`${SK_MENINY[k]} (${d.getDate()}.${d.getMonth() + 1}.)`);
-    }
-  }
-  if (upcomingMeniny.length) {
-    items.push(`<span class="celeb-item">🗓️ Tento týždeň: ${escHtml(upcomingMeniny.join(' · '))}</span>`);
+    items.push(`<span class="celeb-item">Zajtra: <b>${escHtml(meninyTomorrow)}</b></span>`);
   }
 
   const bdays = getBdays();
   const bToday = bdays.filter(b => b.date === todayK);
   const bTomorrow = bdays.filter(b => b.date === tomorrowK);
-  const bWeek = [];
-  for (let i = 2; i <= 14; i++) {
-    const k = mmdd(addDays(now, i));
-    bdays.filter(b => b.date === k).forEach(b => {
-      const d = addDays(now, i);
-      bWeek.push(`${b.name} (${d.getDate()}.${d.getMonth() + 1}.)`);
-    });
-  }
 
-  bToday.forEach(b => items.push(`<span class="celeb-item">🎂 Dnes oslavuje <b>${escHtml(b.name)}</b> · narodeninový darček <b>−15 %</b> s kódom <code>NAROD15</code></span>`));
-  bTomorrow.forEach(b => items.push(`<span class="celeb-item">🎁 Zajtra narodeniny: <b>${escHtml(b.name)}</b> · pripravte prekvapenie</span>`));
-  if (bWeek.length) {
-    items.push(`<span class="celeb-item">🎉 Do 2 týždňov oslavujú: ${escHtml(bWeek.join(' · '))}</span>`);
-  }
+  bToday.forEach(b => items.push(`<span class="celeb-item">🎂 <b>${escHtml(b.name)}</b> · −15 % <code>NAROD15</code></span>`));
+  bTomorrow.forEach(b => items.push(`<span class="celeb-item">🎁 Zajtra: <b>${escHtml(b.name)}</b></span>`));
 
-  if (!bdays.length) {
-    items.push(`<span class="celeb-item">💡 Pridajte zákazníkov do kalendára — pripomenieme vám ich narodeniny aj meniny</span>`);
-  }
-
-  items.push(`<span class="celeb-item">➕ <a href="#" class="celeb-add" id="bdayAdd">Pridať narodeniny do kalendára</a></span>`);
-
-  if (bdays.length) {
-    items.push(`<span class="celeb-item">🗂️ <a href="#" class="celeb-add" id="bdayList">Zobraziť uložených (${bdays.length})</a></span>`);
-  }
+  items.push(`<span class="celeb-item"><a href="#" class="celeb-add" id="bdayAdd">+ pridať narodeniny</a>${bdays.length ? ` · <a href="#" class="celeb-add" id="bdayList">${bdays.length} uložených</a>` : ''}</span>`);
 
   const html = items.join('');
   trackEl.innerHTML = html + html;

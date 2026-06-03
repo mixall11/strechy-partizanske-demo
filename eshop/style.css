@@ -813,16 +813,16 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
 }
 
 /* ============================================================
-   CELEBRATE TICKER — meniny + narodeniny, sprava doľava
+   CELEBRATE TICKER — meniny + narodeniny, sprava doľava (subtle)
    ============================================================ */
 .celeb-bar {
-  background: linear-gradient(90deg, #FBC02D 0%, #FFD54F 50%, #FBC02D 100%);
-  color: #1c1300;
-  font-size: 13.5px;
-  font-weight: 600;
+  background: #FFF8E1;
+  color: #4a3a00;
+  font-size: 12px;
+  font-weight: 500;
   overflow: hidden;
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #FFE082;
   line-height: 1;
 }
 .celeb-bar::before,
@@ -831,46 +831,46 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 50px;
+  width: 40px;
   z-index: 2;
   pointer-events: none;
 }
-.celeb-bar::before { left: 0;  background: linear-gradient(90deg,  #FBC02D 0%, rgba(251,192,45,0) 100%); }
-.celeb-bar::after  { right: 0; background: linear-gradient(270deg, #FBC02D 0%, rgba(251,192,45,0) 100%); }
+.celeb-bar::before { left: 0;  background: linear-gradient(90deg,  #FFF8E1 0%, rgba(255,248,225,0) 100%); }
+.celeb-bar::after  { right: 0; background: linear-gradient(270deg, #FFF8E1 0%, rgba(255,248,225,0) 100%); }
 
 .celeb-track {
   display: inline-flex;
   white-space: nowrap;
-  padding: 11px 0;
-  animation: celeb-scroll 60s linear infinite;
+  padding: 6px 0;
+  animation: celeb-scroll 55s linear infinite;
   will-change: transform;
 }
 .celeb-track:hover { animation-play-state: paused; }
 
 .celeb-item {
-  padding: 0 26px;
+  padding: 0 18px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  border-right: 1px solid rgba(0, 0, 0, 0.18);
+  gap: 5px;
+  border-right: 1px solid #FFE082;
 }
-.celeb-item b { font-weight: 800; }
+.celeb-item b { font-weight: 700; color: #1c1300; }
 .celeb-item code {
   background: #1c1300;
   color: #FBC02D;
-  padding: 3px 7px;
-  border-radius: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
   font-family: 'Inter', monospace;
-  font-weight: 800;
-  font-size: 12px;
-  margin-left: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  margin-left: 2px;
   letter-spacing: 0.05em;
 }
 .celeb-add {
   color: #b71c1c;
   text-decoration: underline;
   cursor: pointer;
-  font-weight: 800;
+  font-weight: 700;
 }
 .celeb-add:hover { color: #7f0000; }
 
@@ -880,12 +880,12 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
 }
 
 @media (max-width: 720px) {
-  .celeb-bar    { font-size: 12px; }
-  .celeb-track  { animation-duration: 45s; padding: 9px 0; }
-  .celeb-item   { padding: 0 18px; }
-  .celeb-item code { font-size: 11px; padding: 2px 6px; }
+  .celeb-bar    { font-size: 11.5px; }
+  .celeb-track  { animation-duration: 40s; padding: 5px 0; }
+  .celeb-item   { padding: 0 14px; }
+  .celeb-item code { font-size: 10.5px; padding: 2px 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .celeb-track { animation: none; transform: none; padding-left: 20px; }
+  .celeb-track { animation: none; transform: none; padding-left: 16px; }
 }
