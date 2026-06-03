@@ -37,7 +37,7 @@
   <!-- Brand tag -->
   <text x="500" y="225" fill="#4a5560" font-weight="800" font-size="30" letter-spacing="6">OD 2012 · KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
 
-  <!-- ===== HERO — Euromat odkvap (280–1040mm = 38%) ===== -->
+  <!-- ===== HERO — Evromat odkvap (280–1040mm = 38%) ===== -->
   <!-- Eyebrow pill -->
   <g transform="translate(120, 360)">
     <rect x="0" y="0" width="700" height="74" rx="37" fill="#FBC02D"/>
@@ -47,7 +47,7 @@
 
   <!-- Main headline -->
   <text x="120" y="630" fill="#15191f" font-weight="900" font-size="150" letter-spacing="-4">Odkvapový systém</text>
-  <text x="120" y="830" fill="#EE1C23" font-weight="900" font-size="260" letter-spacing="-9">EUROMAT</text>
+  <text x="120" y="830" fill="#EE1C23" font-weight="900" font-size="260" letter-spacing="-9">EVROMAT</text>
 
   <!-- Sub -->
   <text x="120" y="940" fill="#4a5560" font-weight="600" font-size="44">Kompletný pozinkovaný + farebný systém</text>
