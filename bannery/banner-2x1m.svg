@@ -37,7 +37,7 @@
   <!-- Brand tag (right-aligned, smaller, dark) -->
   <text x="1960" y="84" text-anchor="end" fill="#4a5560" font-weight="800" font-size="28" letter-spacing="6">KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
 
-  <!-- ===== HERO (left 58%) — Euromat odkvap ===== -->
+  <!-- ===== HERO (left 58%) — Evromat odkvap ===== -->
   <!-- Eyebrow pill — SKLADOM · IHNEĎ K ODBERU -->
   <g transform="translate(70, 230)">
     <rect x="0" y="0" width="540" height="58" rx="29" fill="#FBC02D"/>
@@ -47,7 +47,7 @@
 
   <!-- Main headline -->
   <text x="70"  y="430" fill="#15191f" font-weight="900" font-size="120" letter-spacing="-3">Odkvapový systém</text>
-  <text x="70"  y="570" fill="#EE1C23" font-weight="900" font-size="170" letter-spacing="-5">EUROMAT</text>
+  <text x="70"  y="570" fill="#EE1C23" font-weight="900" font-size="170" letter-spacing="-5">EVROMAT</text>
 
   <!-- Sub line -->
   <text x="70"  y="680" fill="#4a5560" font-weight="600" font-size="40">Kompletný pozinkovaný + farebný systém pre rodinné domy.</text>
