@@ -113,21 +113,7 @@
 </div>
 
 <script>
-// 1) Force-save: každý odkaz s atribútom download sa uloží (blob), aj SVG/PDF (inak ich prehliadač otvorí)
-document.addEventListener('click', function(e){
-  var a = e.target.closest('a[download]');
-  if(!a) return;
-  e.preventDefault();
-  var url = a.getAttribute('href');
-  var name = a.getAttribute('download') || url.split('/').pop();
-  fetch(url).then(function(r){ if(!r.ok) throw 0; return r.blob(); }).then(function(b){
-    var u = URL.createObjectURL(b), t = document.createElement('a');
-    t.href = u; t.download = name; document.body.appendChild(t); t.click();
-    t.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
-  }).catch(function(){ window.open(url, '_blank'); });
-});
-
-// 2) Každý obrázok v karte = klikateľný na uloženie (použije download odkaz danej karty)
+// Každý obrázok v karte = klikateľný na uloženie (natívny download atribút)
 document.querySelectorAll('.card').forEach(function(card){
   var img = card.querySelector('img');
   if(!img || img.closest('a[download]')) return;        // bez obrázka / už zabalený
