@@ -811,3 +811,81 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
   .sticky-inner span { display: none; }
   .sticky-inner { justify-content: center; }
 }
+
+/* ============================================================
+   CELEBRATE TICKER — meniny + narodeniny, sprava doľava
+   ============================================================ */
+.celeb-bar {
+  background: linear-gradient(90deg, #FBC02D 0%, #FFD54F 50%, #FBC02D 100%);
+  color: #1c1300;
+  font-size: 13.5px;
+  font-weight: 600;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  line-height: 1;
+}
+.celeb-bar::before,
+.celeb-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  z-index: 2;
+  pointer-events: none;
+}
+.celeb-bar::before { left: 0;  background: linear-gradient(90deg,  #FBC02D 0%, rgba(251,192,45,0) 100%); }
+.celeb-bar::after  { right: 0; background: linear-gradient(270deg, #FBC02D 0%, rgba(251,192,45,0) 100%); }
+
+.celeb-track {
+  display: inline-flex;
+  white-space: nowrap;
+  padding: 11px 0;
+  animation: celeb-scroll 60s linear infinite;
+  will-change: transform;
+}
+.celeb-track:hover { animation-play-state: paused; }
+
+.celeb-item {
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-right: 1px solid rgba(0, 0, 0, 0.18);
+}
+.celeb-item b { font-weight: 800; }
+.celeb-item code {
+  background: #1c1300;
+  color: #FBC02D;
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-family: 'Inter', monospace;
+  font-weight: 800;
+  font-size: 12px;
+  margin-left: 4px;
+  letter-spacing: 0.05em;
+}
+.celeb-add {
+  color: #b71c1c;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 800;
+}
+.celeb-add:hover { color: #7f0000; }
+
+@keyframes celeb-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 720px) {
+  .celeb-bar    { font-size: 12px; }
+  .celeb-track  { animation-duration: 45s; padding: 9px 0; }
+  .celeb-item   { padding: 0 18px; }
+  .celeb-item code { font-size: 11px; padding: 2px 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celeb-track { animation: none; transform: none; padding-left: 20px; }
+}
