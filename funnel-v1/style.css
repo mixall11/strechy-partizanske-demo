@@ -79,7 +79,7 @@ h1, h2, h3, h4 { margin: 0 0 12px; line-height: 1.15; font-weight: 800; letter-s
   gap: 14px;
 }
 .brand img {
-  width: 67px; height: 55px;
+  width: 96px; height: 55px;
   display: block;
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }

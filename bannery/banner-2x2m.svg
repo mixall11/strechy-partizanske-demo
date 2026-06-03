@@ -5,7 +5,7 @@
   Font: Inter (https://fonts.google.com/specimen/Inter)
   V Illustratore: Type → Create Outlines (Shift+Ctrl+O) ak chceš font ponechať bez závislosti.
 -->
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 2000 2000"
      width="2000mm" height="2000mm"
      font-family="Inter, 'Helvetica Neue', Arial, sans-serif"
@@ -22,21 +22,18 @@
   <!-- ===== Banner background ===== -->
   <rect x="0" y="0" width="2000" height="2000" fill="#ffffff"/>
 
-  <!-- ===== HEADER STRIP (top 280mm = 14%) ===== -->
-  <rect x="0" y="0" width="2000" height="280" fill="#0a3578"/>
+  <!-- ===== HEADER STRIP (top 280mm) — biele pre transparentný logo ===== -->
+  <rect x="0" y="0" width="2000" height="276" fill="#ffffff"/>
+  <rect x="0" y="276" width="2000" height="4" fill="#EE1C23"/>
 
-  <!-- Logo — red brand, clean white chevrons -->
-  <g transform="translate(80, 55) scale(0.95)">
-    <rect width="220" height="180" fill="#EE1C23"/>
-    <path d="M30 78 L110 28 L190 78 L172 92 L110 52 L48 92 Z" fill="#FFFFFF"/>
-    <path d="M30 108 L110 58 L190 108 L172 122 L110 82 L48 122 Z" fill="#FFFFFF"/>
-    <text x="110" y="148" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
-    <text x="110" y="170" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
-  </g>
+  <!-- Real brand logo (loaded from strechy-partizanske.sk; transparent bg) -->
+  <image x="80" y="40" width="420" height="240"
+         href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"
+         xlink:href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"/>
 
-  <!-- Brand text -->
-  <text x="320" y="172" fill="#ffffff" font-weight="900" font-size="90" letter-spacing="2">STRECHY PARTIZÁNSKE</text>
-  <text x="320" y="220" fill="#FBC02D" font-weight="700" font-size="32" letter-spacing="6">OD 2012  ·  KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
+  <!-- Brand tag (right) -->
+  <text x="1960" y="165" text-anchor="end" fill="#4a5560" font-weight="800" font-size="36" letter-spacing="7">KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
+  <text x="1960" y="215" text-anchor="end" fill="#EE1C23" font-weight="900" font-size="28" letter-spacing="5">OD 2012</text>
 
   <!-- ===== HERO — Euromat odkvap (280–1040mm = 38%) ===== -->
   <!-- Eyebrow pill -->
