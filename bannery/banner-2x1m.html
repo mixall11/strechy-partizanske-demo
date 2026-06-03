@@ -132,15 +132,30 @@
     position: relative;
     overflow: hidden;
   }
-  .side::after {
-    content: '';
+  .side-regamet {
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 80% 20%, rgba(255,255,255,.08) 0 12cqw, transparent 12.5cqw),
-      radial-gradient(circle at 20% 90%, rgba(255,255,255,.05) 0 18cqw, transparent 18.5cqw);
-    pointer-events: none;
+    top: 2cqw;
+    right: 2.5cqw;
+    height: 3cqw;
+    width: auto;
+    z-index: 3;
+    background: #fff;
+    padding: .5cqw .8cqw;
+    border-radius: 4px;
   }
+  .side-product {
+    position: absolute;
+    bottom: -3cqw;
+    right: -4cqw;
+    width: 24cqw;
+    height: auto;
+    border-radius: 8px;
+    z-index: 1;
+    opacity: 0.65;
+    box-shadow: 0 6px 30px rgba(0,0,0,.4);
+    transform: rotate(-3deg);
+  }
+  .side > *:not(img) { position: relative; z-index: 2; }
   .side-eyebrow {
     font-size: 1.3cqw;
     font-weight: 800;
@@ -293,6 +308,8 @@
     </div>
 
     <div class="side">
+      <img class="side-product" src="https://www.regamet.pl/wp-content/webp-express/webp-images/uploads/2020/09/Liwia-PRO.jpg.webp" alt="Liwia PRO 2">
+      <img class="side-regamet" src="https://www.regamet.pl/wp-content/webp-express/webp-images/uploads/2021/05/regamet_logo_bez_hasla-e16207381088561.png.webp" alt="Regamet">
       <div class="side-eyebrow">Aj na mieru</div>
       <h2>Modulové<br>krytiny</h2>
       <div class="side-stock">
