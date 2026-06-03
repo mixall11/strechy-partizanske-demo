@@ -25,13 +25,11 @@
   <!-- ===== HEADER STRIP (top 140mm) ===== -->
   <rect x="0" y="0" width="2000" height="140" fill="#0a3578"/>
 
-  <!-- Logo — red brand bevel -->
+  <!-- Logo — red brand, clean white chevrons -->
   <g transform="translate(40, 25) scale(0.6)">
     <rect width="220" height="180" fill="#EE1C23"/>
-    <path d="M30 78 L110 28 L110 52 L48 92 Z" fill="#FFFFFF"/>
-    <path d="M110 28 L190 78 L172 92 L110 52 Z" fill="#9D0D13"/>
-    <path d="M30 108 L110 58 L110 82 L48 122 Z" fill="#FFFFFF"/>
-    <path d="M110 58 L190 108 L172 122 L110 82 Z" fill="#9D0D13"/>
+    <path d="M30 78 L110 28 L190 78 L172 92 L110 52 L48 92 Z" fill="#FFFFFF"/>
+    <path d="M30 108 L110 58 L190 108 L172 122 L110 82 L48 122 Z" fill="#FFFFFF"/>
     <text x="110" y="148" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
     <text x="110" y="170" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
   </g>
