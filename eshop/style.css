@@ -813,79 +813,44 @@ h1,h2,h3,h4,h5 { margin: 0 0 10px; line-height: 1.18; font-weight: 800; letter-s
 }
 
 /* ============================================================
-   CELEBRATE TICKER — meniny + narodeniny, sprava doľava (subtle)
+   CELEBRATE — inline segment v prebar-pille (meniny + narodeniny)
    ============================================================ */
-.celeb-bar {
-  background: #FFF8E1;
-  color: #4a3a00;
-  font-size: 12px;
-  font-weight: 500;
-  overflow: hidden;
-  position: relative;
-  border-bottom: 1px solid #FFE082;
-  line-height: 1;
-}
-.celeb-bar::before,
-.celeb-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  z-index: 2;
-  pointer-events: none;
-}
-.celeb-bar::before { left: 0;  background: linear-gradient(90deg,  #FFF8E1 0%, rgba(255,248,225,0) 100%); }
-.celeb-bar::after  { right: 0; background: linear-gradient(270deg, #FFF8E1 0%, rgba(255,248,225,0) 100%); }
-
-.celeb-track {
-  display: inline-flex;
-  white-space: nowrap;
-  padding: 6px 0;
-  animation: celeb-scroll 55s linear infinite;
-  will-change: transform;
-}
-.celeb-track:hover { animation-play-state: paused; }
-
-.celeb-item {
-  padding: 0 18px;
+.prebar-pill .celeb-seg {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  border-right: 1px solid #FFE082;
+  gap: 4px;
+  padding: 1px 8px;
+  background: rgba(251, 192, 45, 0.18);
+  border-radius: 99px;
+  color: #FFF8E1;
+  white-space: nowrap;
 }
-.celeb-item b { font-weight: 700; color: #1c1300; }
-.celeb-item code {
+.prebar-pill .celeb-seg b { color: #FBC02D; font-weight: 700; }
+.prebar-pill .celeb-seg code {
   background: #1c1300;
   color: #FBC02D;
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: 3px;
   font-family: 'Inter', monospace;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 10.5px;
   margin-left: 2px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
-.celeb-add {
-  color: #b71c1c;
-  text-decoration: underline;
-  cursor: pointer;
+.prebar-pill .bday-link {
+  color: #FBC02D;
+  text-decoration: none;
   font-weight: 700;
+  padding-left: 2px;
+  opacity: 0.75;
+  transition: opacity 0.15s;
 }
-.celeb-add:hover { color: #7f0000; }
+.prebar-pill .bday-link:hover { opacity: 1; text-decoration: underline; }
 
-@keyframes celeb-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+@media (max-width: 820px) {
+  .prebar-pill .celeb-seg { font-size: 11px; padding: 1px 6px; }
+  .prebar-pill .celeb-seg code { font-size: 10px; padding: 1px 4px; }
 }
-
-@media (max-width: 720px) {
-  .celeb-bar    { font-size: 11.5px; }
-  .celeb-track  { animation-duration: 40s; padding: 5px 0; }
-  .celeb-item   { padding: 0 14px; }
-  .celeb-item code { font-size: 10.5px; padding: 2px 5px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .celeb-track { animation: none; transform: none; padding-left: 16px; }
+@media (max-width: 640px) {
+  .prebar-pill .celeb-seg code { display: none; }
 }

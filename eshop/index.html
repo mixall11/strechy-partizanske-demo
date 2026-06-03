@@ -30,11 +30,6 @@
   </a>
 </div>
 
-<!-- ====== CELEBRATE TICKER — meniny SK + narodeniny zákazníkov, sprava doľava ====== -->
-<div class="celeb-bar" aria-label="Meniny a narodeniny dnes">
-  <div class="celeb-track" id="celebTrack"></div>
-</div>
-
 <header class="topbar">
   <div class="container topbar-inner">
     <a href="./" class="brand">
@@ -479,6 +474,22 @@ function setName(n) {
 function escHtml(s) { return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function pad2(n) { return String(n).padStart(2,'0'); }
 
+function celebSegment() {
+  const now = new Date();
+  const todayK = pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
+  let bdays = [];
+  try { bdays = JSON.parse(localStorage.getItem('sp_birthdays') || '[]'); } catch {}
+  const bToday = bdays.filter(b => b.date === todayK);
+  if (bToday.length) {
+    return ` · <span class="celeb-seg">🎂 <b>${escHtml(bToday[0].name)}</b> −15 % <code>NAROD15</code></span>`;
+  }
+  const meniny = (typeof SK_MENINY !== 'undefined') ? SK_MENINY[todayK] : null;
+  if (meniny) {
+    return ` · <span class="celeb-seg">📅 <b>${escHtml(meniny)}</b> −10 % <code>MENINY10</code></span>`;
+  }
+  return '';
+}
+
 function tick() {
   const now = new Date();
   const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
@@ -488,14 +499,16 @@ function tick() {
   const isWeekend = dow === 0 || dow === 6;
   const name = getName();
   const time = `${pad2(h)}:${pad2(m)}`;
+  const celeb = celebSegment();
+  const bdayCta = ` · <a href="#" id="bdayAdd" class="bday-link" title="Pridať narodeniny zákazníka">🎂+</a>`;
 
   if (pillEl) {
     if (isWeekend) {
-      pillEl.innerHTML = `🎉 <b>VÍKENDOVÁ AKCIA</b> · pre všetkých · 🕐 ${time}`;
+      pillEl.innerHTML = `🎉 <b>VÍKENDOVÁ AKCIA</b> · 🕐 ${time}${celeb}${bdayCta}`;
     } else if (name) {
-      pillEl.innerHTML = `👤 Akcia pre <b>${escHtml(name)}</b> · 🕐 ${time} · <a href="#" id="namebtn" class="name-edit">zmeniť meno</a>`;
+      pillEl.innerHTML = `👤 Akcia pre <b>${escHtml(name)}</b> · 🕐 ${time} · <a href="#" id="namebtn" class="name-edit">zmeniť meno</a>${celeb}${bdayCta}`;
     } else {
-      pillEl.innerHTML = `🕐 ${time} · Akcia DNES · <a href="#" id="namebtn" class="name-cta">👋 pridaj meno pre osobnú zľavu</a>`;
+      pillEl.innerHTML = `🕐 ${time} · Akcia DNES · <a href="#" id="namebtn" class="name-cta">👋 pridaj meno</a>${celeb}${bdayCta}`;
     }
   }
 
@@ -554,82 +567,50 @@ function addDays(base, n) { const d = new Date(base); d.setDate(d.getDate() + n)
 function getBdays() { try { return JSON.parse(localStorage.getItem(BDAY_KEY) || '[]'); } catch { return []; } }
 function setBdays(arr) { localStorage.setItem(BDAY_KEY, JSON.stringify(arr)); }
 
-function renderCelebTicker() {
-  const trackEl = document.getElementById('celebTrack');
-  if (!trackEl) return;
-
-  const now = new Date();
-  const todayK = mmdd(now);
-  const tomorrowK = mmdd(addDays(now, 1));
-  const items = [];
-
-  const meninyToday = SK_MENINY[todayK];
-  if (meninyToday) {
-    items.push(`<span class="celeb-item">📅 Dnes <b>${escHtml(meninyToday)}</b> · −10 % <code>MENINY10</code></span>`);
-  }
-
-  const meninyTomorrow = SK_MENINY[tomorrowK];
-  if (meninyTomorrow) {
-    items.push(`<span class="celeb-item">Zajtra: <b>${escHtml(meninyTomorrow)}</b></span>`);
-  }
-
-  const bdays = getBdays();
-  const bToday = bdays.filter(b => b.date === todayK);
-  const bTomorrow = bdays.filter(b => b.date === tomorrowK);
-
-  bToday.forEach(b => items.push(`<span class="celeb-item">🎂 <b>${escHtml(b.name)}</b> · −15 % <code>NAROD15</code></span>`));
-  bTomorrow.forEach(b => items.push(`<span class="celeb-item">🎁 Zajtra: <b>${escHtml(b.name)}</b></span>`));
-
-  items.push(`<span class="celeb-item"><a href="#" class="celeb-add" id="bdayAdd">+ pridať narodeniny</a>${bdays.length ? ` · <a href="#" class="celeb-add" id="bdayList">${bdays.length} uložených</a>` : ''}</span>`);
-
-  const html = items.join('');
-  trackEl.innerHTML = html + html;
-}
-
 document.addEventListener('click', e => {
   if (e.target && e.target.id === 'bdayAdd') {
     e.preventDefault();
-    const name = prompt('Meno oslávenca (napr. Janka Nováková):');
-    if (!name || !name.trim()) return;
-    const ds = prompt('Dátum narodenia (DD.MM, napr. 24.06):');
-    if (!ds) return;
-    const m = ds.match(/^(\d{1,2})[.\/\- ](\d{1,2})/);
-    if (!m) { alert('Neplatný formát. Použi DD.MM, napr. 24.06'); return; }
-    const day = parseInt(m[1], 10);
-    const month = parseInt(m[2], 10);
-    if (day < 1 || day > 31 || month < 1 || month > 12) { alert('Neplatný dátum.'); return; }
-    const key = pad2(month) + '-' + pad2(day);
     const list = getBdays();
-    list.push({ name: name.trim(), date: key, added: Date.now() });
-    setBdays(list);
-    renderCelebTicker();
-    alert(`✅ Pridané: ${name.trim()} (${day}.${month}.)`);
-  }
-  if (e.target && e.target.id === 'bdayList') {
-    e.preventDefault();
-    const list = getBdays();
-    if (!list.length) { alert('Zatiaľ nie sú pridané žiadne narodeniny.'); return; }
-    const sorted = list.slice().sort((a, b) => a.date.localeCompare(b.date));
-    const lines = sorted.map((b, i) => {
-      const [mm, dd] = b.date.split('-');
-      return `${i + 1}. ${b.name} — ${parseInt(dd, 10)}.${parseInt(mm, 10)}.`;
-    }).join('\n');
-    const action = prompt(`Uložené narodeniny (${list.length}):\n\n${lines}\n\nZadaj číslo na vymazanie, alebo nechaj prázdne pre zatvorenie:`);
-    if (action && /^\d+$/.test(action)) {
-      const idx = parseInt(action, 10) - 1;
-      if (idx >= 0 && idx < sorted.length) {
-        const target = sorted[idx];
-        const newList = list.filter(b => !(b.name === target.name && b.date === target.date && b.added === target.added));
-        setBdays(newList);
-        renderCelebTicker();
-        alert(`🗑️ Zmazané: ${target.name}`);
+    const tomorrow = mmdd(addDays(new Date(), 1));
+    const bTom = list.filter(b => b.date === tomorrow);
+    const tomorrowMsg = bTom.length ? `\nZajtra oslavuje: ${bTom.map(b => b.name).join(', ')}\n` : '';
+    const choice = prompt(`🎂 Narodeniny zákazníkov (${list.length} uložených)${tomorrowMsg}\n\n1 = Pridať nového\n2 = Zobraziť všetkých\n`, '1');
+    if (choice === '1') {
+      const name = prompt('Meno oslávenca (napr. Janka Nováková):');
+      if (!name || !name.trim()) return;
+      const ds = prompt('Dátum narodenia (DD.MM, napr. 24.06):');
+      if (!ds) return;
+      const m = ds.match(/^(\d{1,2})[.\/\- ](\d{1,2})/);
+      if (!m) { alert('Neplatný formát. Použi DD.MM, napr. 24.06'); return; }
+      const day = parseInt(m[1], 10);
+      const month = parseInt(m[2], 10);
+      if (day < 1 || day > 31 || month < 1 || month > 12) { alert('Neplatný dátum.'); return; }
+      const key = pad2(month) + '-' + pad2(day);
+      list.push({ name: name.trim(), date: key, added: Date.now() });
+      setBdays(list);
+      tick();
+      alert(`✅ Pridané: ${name.trim()} (${day}.${month}.)`);
+    } else if (choice === '2') {
+      if (!list.length) { alert('Zatiaľ nie sú pridané žiadne narodeniny.'); return; }
+      const sorted = list.slice().sort((a, b) => a.date.localeCompare(b.date));
+      const lines = sorted.map((b, i) => {
+        const [mm, dd] = b.date.split('-');
+        return `${i + 1}. ${b.name} — ${parseInt(dd, 10)}.${parseInt(mm, 10)}.`;
+      }).join('\n');
+      const action = prompt(`Uložené narodeniny (${list.length}):\n\n${lines}\n\nZadaj číslo na vymazanie, alebo nechaj prázdne pre zatvorenie:`);
+      if (action && /^\d+$/.test(action)) {
+        const idx = parseInt(action, 10) - 1;
+        if (idx >= 0 && idx < sorted.length) {
+          const target = sorted[idx];
+          const newList = list.filter(b => !(b.name === target.name && b.date === target.date && b.added === target.added));
+          setBdays(newList);
+          tick();
+          alert(`🗑️ Zmazané: ${target.name}`);
+        }
       }
     }
   }
 });
-
-renderCelebTicker();
-setInterval(renderCelebTicker, 60 * 60 * 1000);
 </script>
 
 </body>
