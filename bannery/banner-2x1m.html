@@ -46,7 +46,7 @@
     padding: 0 4cqw;
     gap: 2cqw;
   }
-  .head img { height: 70%; width: auto; filter: invert(1) brightness(2.5); }
+  .head img { height: 80%; width: auto; border-radius: 3px; }
   .head .brand-name {
     font-weight: 900;
     font-size: 3.2cqw;
@@ -179,10 +179,10 @@
     background: #15191f;
     color: #fff;
     display: grid;
-    grid-template-columns: 1.6fr 1.4fr 1.2fr;
+    grid-template-columns: 1.5fr 1.4fr 1.5fr;
     align-items: center;
-    padding: 0 4cqw;
-    gap: 3cqw;
+    padding: 0 3.5cqw;
+    gap: 2.5cqw;
   }
   .c-phone {
     display: flex;
@@ -190,7 +190,7 @@
     gap: 1.4cqw;
   }
   .c-phone .ico {
-    background: #D32F2F;
+    background: #EE1C23;
     width: 4.5cqw; height: 4.5cqw;
     border-radius: 50%;
     display: grid;
@@ -199,31 +199,44 @@
     flex-shrink: 0;
   }
   .c-phone .num {
-    font-size: 3.6cqw;
+    font-size: 3.4cqw;
     font-weight: 900;
     letter-spacing: -.01em;
     line-height: 1;
   }
   .c-addr {
-    font-size: 1.4cqw;
-    font-weight: 600;
+    font-size: 1.8cqw;
+    font-weight: 700;
     line-height: 1.4;
   }
-  .c-addr b { color: #FBC02D; }
+  .c-addr .label {
+    display: block;
+    color: #FBC02D;
+    font-size: 1.1cqw;
+    font-weight: 800;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin-bottom: .4cqw;
+  }
+  .c-addr b { color: #fff; font-weight: 900; }
   .c-web {
     text-align: right;
-    font-size: 2.2cqw;
+    font-size: 2.8cqw;
     font-weight: 900;
     color: #FBC02D;
-    letter-spacing: -.005em;
+    letter-spacing: -.015em;
+    line-height: 1.05;
+    white-space: nowrap;
+    border-left: 2px solid rgba(255,255,255,.15);
+    padding-left: 2.5cqw;
   }
   .c-web small {
     display: block;
-    font-size: 1.1cqw;
-    color: rgba(255,255,255,.7);
-    font-weight: 600;
-    margin-top: .3cqw;
-    letter-spacing: .15em;
+    font-size: 1.2cqw;
+    color: rgba(255,255,255,.75);
+    font-weight: 700;
+    margin-top: .5cqw;
+    letter-spacing: .18em;
     text-transform: uppercase;
   }
 
@@ -291,7 +304,7 @@
       <span class="num">+421&nbsp;915&nbsp;589&nbsp;009</span>
     </div>
     <div class="c-addr">
-      <span style="color:#FBC02D;font-size:1.1cqw;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.4cqw">Prevádzka</span>
+      <span class="label">Prevádzka</span>
       <b>Víťazná 181/10</b><br>
       958 04 Partizánske
     </div>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Strechy Partizánske — print banner 1 × 2 m (portrait)
+  Units: millimetres. viewBox = 1000 × 2000 mm.
+  Font: Inter
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1000 2000"
+     width="1000mm" height="2000mm"
+     font-family="Inter, 'Helvetica Neue', Arial, sans-serif"
+     shape-rendering="geometricPrecision"
+     text-rendering="geometricPrecision">
+
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#1565C0"/>
+      <stop offset="100%" stop-color="#0a3578"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Banner bg -->
+  <rect x="0" y="0" width="1000" height="2000" fill="#ffffff"/>
+
+  <!-- ===== HEADER STRIP (top 200mm = 10%) ===== -->
+  <rect x="0" y="0" width="1000" height="200" fill="#0a3578"/>
+
+  <!-- Logo (red brand, scaled to ~150×120mm) -->
+  <g transform="translate(50, 35) scale(0.72)">
+    <rect width="220" height="180" fill="#EE1C23"/>
+    <!-- top chevron bevel -->
+    <path d="M30 78 L110 28 L110 52 L48 92 Z" fill="#FFFFFF"/>
+    <path d="M110 28 L190 78 L172 92 L110 52 Z" fill="#9D0D13"/>
+    <!-- bottom chevron bevel -->
+    <path d="M30 108 L110 58 L110 82 L48 122 Z" fill="#FFFFFF"/>
+    <path d="M110 58 L190 108 L172 122 L110 82 Z" fill="#9D0D13"/>
+    <text x="110" y="148" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
+    <text x="110" y="170" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
+  </g>
+
+  <text x="240" y="105" fill="#ffffff" font-weight="900" font-size="70" letter-spacing="1.5">STRECHY</text>
+  <text x="240" y="180" fill="#ffffff" font-weight="900" font-size="70" letter-spacing="1.5">PARTIZÁNSKE</text>
+
+  <!-- ===== HERO — Euromat (200–920mm = 36%) ===== -->
+  <g transform="translate(60, 280)">
+    <rect x="0" y="0" width="540" height="78" rx="39" fill="#FBC02D"/>
+    <circle cx="42" cy="39" r="14" fill="#15191f"/>
+    <text x="70" y="53" fill="#15191f" font-weight="900" font-size="30" letter-spacing="5">SKLADOM</text>
+  </g>
+
+  <text x="60" y="500" fill="#15191f" font-weight="900" font-size="120" letter-spacing="-3">Odkvapový</text>
+  <text x="60" y="620" fill="#15191f" font-weight="900" font-size="120" letter-spacing="-3">systém</text>
+  <text x="60" y="780" fill="#EE1C23" font-weight="900" font-size="180" letter-spacing="-6">EUROMAT</text>
+
+  <text x="60" y="870" fill="#4a5560" font-weight="600" font-size="40">Pozink + farebný systém pre rodinné</text>
+  <text x="60" y="915" fill="#4a5560" font-weight="600" font-size="40">domy. Dovoz po okolí zdarma.</text>
+
+  <!-- ===== SIDE — Modulové krytiny (920–1520mm = 30%) ===== -->
+  <rect x="0" y="920" width="1000" height="600" fill="url(#blueGrad)"/>
+
+  <text x="60" y="1020" fill="#FBC02D" font-weight="800" font-size="32" letter-spacing="6">AJ NA MIERU</text>
+  <text x="60" y="1170" fill="#ffffff" font-weight="900" font-size="120" letter-spacing="-3">Modulové</text>
+  <text x="60" y="1300" fill="#ffffff" font-weight="900" font-size="120" letter-spacing="-3">krytiny</text>
+
+  <g font-weight="700" fill="#ffffff" font-size="42">
+    <g transform="translate(60, 1370)">
+      <circle cx="25" cy="18" r="25" fill="#EE1C23"/>
+      <text x="16" y="30" font-size="30" font-weight="900">✓</text>
+      <text x="70" y="32">Skladom 12 farieb RAL</text>
+    </g>
+    <g transform="translate(60, 1430)">
+      <circle cx="25" cy="18" r="25" fill="#EE1C23"/>
+      <text x="16" y="30" font-size="30" font-weight="900">✓</text>
+      <text x="70" y="32">Objednávka na rozmer</text>
+    </g>
+    <g transform="translate(60, 1490)">
+      <circle cx="25" cy="18" r="25" fill="#EE1C23"/>
+      <text x="16" y="30" font-size="30" font-weight="900">✓</text>
+      <text x="70" y="32">Dodanie do 5 dní</text>
+    </g>
+  </g>
+
+  <!-- ===== CONTACT (bottom 480mm = 24%) ===== -->
+  <rect x="0" y="1520" width="1000" height="480" fill="#15191f"/>
+
+  <!-- Phone -->
+  <g transform="translate(60, 1580)">
+    <circle cx="60" cy="60" r="60" fill="#EE1C23"/>
+    <text x="60" y="80" text-anchor="middle" font-size="64" fill="#ffffff">📞</text>
+  </g>
+  <text x="200" y="1670" fill="#ffffff" font-weight="900" font-size="86" letter-spacing="-2">+421 915 589 009</text>
+
+  <!-- Address -->
+  <text x="60" y="1780" fill="#FBC02D" font-weight="800" font-size="28" letter-spacing="6">PREVÁDZKA</text>
+  <text x="60" y="1840" fill="#ffffff" font-weight="900" font-size="42">Víťazná 181/10 · 958 04 Partizánske</text>
+
+  <!-- Divider line -->
+  <line x1="60" y1="1880" x2="940" y2="1880" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+
+  <!-- Web -->
+  <text x="500" y="1950" text-anchor="middle" fill="#FBC02D" font-weight="900" font-size="64" letter-spacing="-1">strechy-partizanske.sk</text>
+  <text x="500" y="1985" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-weight="700" font-size="22" letter-spacing="5">ONLINE CENOVÁ PONUKA</text>
+
+</svg>

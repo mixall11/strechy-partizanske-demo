@@ -2,11 +2,11 @@
 <html lang="sk">
 <head>
 <meta charset="utf-8">
-<title>Reklamný baner 2×2 m — Euromat odkvapy + Modulové krytiny | Strechy Partizánske</title>
-<meta name="description" content="Print-ready square banner 2×2 metre. Euromat odkvapový systém skladom, modulové krytiny skladom + na mieru.">
+<title>Reklamný baner 1×2 m (portrait) — Euromat odkvapy + Modulové krytiny | Strechy Partizánske</title>
+<meta name="description" content="Print-ready portrait banner 1×2 metre. Euromat odkvapový systém skladom, modulové krytiny skladom + na mieru.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
 <style>
-  @page { size: 200cm 200cm; margin: 0; }
+  @page { size: 100cm 200cm; margin: 0; }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,14 +20,14 @@
     padding: 20px;
   }
 
-  /* ====== Banner — 1:1 ratio (2 m × 2 m) ====== */
+  /* ====== Banner — 1:2 ratio (1 m × 2 m, portrait) ====== */
   .banner {
-    width: min(92vmin, 1000px);
-    aspect-ratio: 1 / 1;
+    width: min(50vh, 540px);
+    aspect-ratio: 1 / 2;
     background: #fff;
     color: #15191f;
     display: grid;
-    grid-template-rows: 14% 38% 30% 18%;
+    grid-template-rows: 10% 36% 30% 24%;
     overflow: hidden;
     box-shadow: 0 30px 80px rgba(0,0,0,.4);
     container-type: inline-size;
@@ -39,27 +39,20 @@
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 0 5cqw;
-    gap: 2.5cqw;
+    padding: 0 6cqw;
+    gap: 4cqw;
   }
-  .head img { height: 78%; width: auto; border-radius: 4px; }
+  .head img { height: 80%; width: auto; border-radius: 3px; }
   .head .brand-name {
     font-weight: 900;
-    font-size: 4cqw;
-    letter-spacing: .03em;
-  }
-  .head .brand-tag {
-    margin-left: auto;
-    font-size: 1.6cqw;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .25em;
-    color: #FBC02D;
+    font-size: 5.6cqw;
+    line-height: 1;
+    letter-spacing: .02em;
   }
 
-  /* ===== Hero — Euromat odkvap ===== */
+  /* ===== Hero — Euromat ===== */
   .hero {
-    padding: 4cqw 5cqw;
+    padding: 8cqw 6cqw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,21 +63,21 @@
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 1.2cqw;
+    gap: 2cqw;
     background: #FBC02D;
     color: #15191f;
     font-weight: 900;
-    font-size: 1.7cqw;
-    letter-spacing: .22em;
+    font-size: 3.3cqw;
+    letter-spacing: .15em;
     text-transform: uppercase;
-    padding: 1cqw 2cqw;
+    padding: 2cqw 4cqw;
     border-radius: 999px;
     align-self: flex-start;
-    margin-bottom: 2cqw;
+    margin-bottom: 5cqw;
   }
   .eyebrow::before {
     content: '';
-    width: 1.3cqw; height: 1.3cqw;
+    width: 2.6cqw; height: 2.6cqw;
     border-radius: 50%;
     background: #15191f;
     animation: pulse 1.8s infinite;
@@ -92,31 +85,29 @@
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
 
   .hero h1 {
-    font-size: 8.5cqw;
+    font-size: 13cqw;
     font-weight: 900;
-    line-height: .92;
-    letter-spacing: -.03em;
-    margin-bottom: 2cqw;
+    line-height: .94;
+    letter-spacing: -.04em;
+    margin-bottom: 4cqw;
   }
-  .hero h1 .accent { color: #D32F2F; }
+  .hero h1 .accent { color: #EE1C23; }
 
   .hero .sub {
-    font-size: 2.2cqw;
+    font-size: 4.2cqw;
     font-weight: 600;
     color: #4a5560;
     line-height: 1.3;
-    max-width: 80%;
   }
 
   /* ===== Side — Modulové krytiny ===== */
   .side {
     background: linear-gradient(150deg, #1565C0 0%, #0a3578 100%);
     color: #fff;
-    padding: 4cqw 5cqw;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 4cqw;
-    align-items: center;
+    padding: 8cqw 6cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     overflow: hidden;
   }
@@ -125,121 +116,113 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 90% 20%, rgba(255,255,255,.08) 0 14cqw, transparent 14.5cqw),
-      radial-gradient(circle at 10% 80%, rgba(255,255,255,.05) 0 20cqw, transparent 20.5cqw);
+      radial-gradient(circle at 90% 15%, rgba(255,255,255,.09) 0 24cqw, transparent 24.5cqw),
+      radial-gradient(circle at 10% 90%, rgba(255,255,255,.05) 0 32cqw, transparent 32.5cqw);
     pointer-events: none;
   }
-  .side-left { position: relative; }
   .side-eyebrow {
-    font-size: 1.6cqw;
+    font-size: 3.3cqw;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: .25em;
+    letter-spacing: .22em;
     color: #FBC02D;
-    margin-bottom: 1.5cqw;
+    margin-bottom: 3cqw;
+    position: relative;
   }
-  .side-left h2 {
-    font-size: 5.6cqw;
+  .side h2 {
+    font-size: 10cqw;
     font-weight: 900;
     line-height: .95;
     letter-spacing: -.02em;
+    margin-bottom: 5cqw;
+    position: relative;
   }
   .side-stock {
     display: flex;
     flex-direction: column;
-    gap: 1.2cqw;
-    font-size: 1.9cqw;
+    gap: 2.4cqw;
+    font-size: 3.8cqw;
     font-weight: 700;
     position: relative;
   }
-  .side-stock span { display: flex; align-items: center; gap: 1.2cqw; }
+  .side-stock span { display: flex; align-items: center; gap: 2.2cqw; }
   .side-stock span::before {
     content: '✓';
-    width: 2.6cqw; height: 2.6cqw;
-    background: #D32F2F;
+    width: 5cqw; height: 5cqw;
+    background: #EE1C23;
     color: #fff;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    font-size: 1.5cqw;
+    font-size: 3cqw;
     flex-shrink: 0;
   }
 
-  /* ===== Contact strip ===== */
+  /* ===== Contact ===== */
   .contact {
     background: #15191f;
     color: #fff;
-    display: grid;
-    grid-template-columns: 1.45fr 1.55fr;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "phone web"
-      "addr  web";
-    align-items: center;
-    padding: 2.5cqw 4cqw;
-    gap: .5cqw 3cqw;
+    padding: 6cqw 6cqw 5cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3cqw;
   }
   .c-phone {
-    grid-area: phone;
     display: flex;
     align-items: center;
-    gap: 1.6cqw;
+    gap: 3cqw;
   }
   .c-phone .ico {
     background: #EE1C23;
-    width: 5.4cqw; height: 5.4cqw;
+    width: 11cqw; height: 11cqw;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 2.8cqw;
+    font-size: 6cqw;
     flex-shrink: 0;
   }
   .c-phone .num {
-    font-size: 4.2cqw;
+    font-size: 8cqw;
     font-weight: 900;
-    letter-spacing: -.015em;
+    letter-spacing: -.02em;
     line-height: 1;
   }
   .c-addr {
-    grid-area: addr;
-    font-size: 2.1cqw;
+    font-size: 3.6cqw;
     font-weight: 700;
     line-height: 1.4;
-    padding-left: 7cqw;
   }
   .c-addr .label {
     color: #FBC02D;
-    font-size: 1.4cqw;
+    font-size: 2.4cqw;
     font-weight: 800;
-    letter-spacing: .22em;
+    letter-spacing: .25em;
     text-transform: uppercase;
-    margin-right: .8cqw;
+    margin-right: 1.5cqw;
   }
-  .c-addr b { color: #ffffff; font-weight: 900; }
+  .c-addr b { color: #fff; font-weight: 900; }
   .c-web {
-    grid-area: web;
-    text-align: right;
-    font-size: 3.4cqw;
+    text-align: center;
+    font-size: 6cqw;
     font-weight: 900;
     color: #FBC02D;
     letter-spacing: -.015em;
-    border-left: 2px solid rgba(255,255,255,.18);
-    padding-left: 3.5cqw;
-    align-self: center;
     line-height: 1.05;
-    white-space: nowrap;
+    border-top: 2px solid rgba(255,255,255,.15);
+    padding-top: 3cqw;
+    margin-top: 1cqw;
   }
   .c-web small {
     display: block;
-    font-size: 1.4cqw;
-    color: rgba(255,255,255,.78);
+    font-size: 2.4cqw;
+    color: rgba(255,255,255,.75);
     font-weight: 700;
-    margin-top: .7cqw;
-    letter-spacing: .18em;
+    margin-top: 1cqw;
+    letter-spacing: .25em;
     text-transform: uppercase;
   }
 
-  /* ===== Print info ===== */
   .print-info {
     position: fixed;
     top: 12px; left: 12px;
@@ -252,55 +235,42 @@
   }
   @media print {
     body { background: #fff; padding: 0; }
-    .banner {
-      width: 100vw;
-      height: 100vh;
-      box-shadow: none;
-      max-width: none;
-    }
+    .banner { width: 100vw; height: 100vh; box-shadow: none; max-width: none; }
     .print-info { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="print-info">📐 2×2 m banner · Ctrl+P → Print to PDF · "Print: 200×200 cm"</div>
+<div class="print-info">📐 1×2 m portrait banner · Ctrl+P → Print to PDF · "Print: 100×200 cm"</div>
 
 <div class="banner">
 
-  <!-- ===== HEADER ===== -->
   <div class="head">
     <img src="../funnel-v1/logo.svg?v=3" alt="Strechy Partizánske">
-    <span class="brand-name">STRECHY PARTIZÁNSKE</span>
-    <span class="brand-tag">Od 2012</span>
+    <span class="brand-name">STRECHY<br>PARTIZÁNSKE</span>
   </div>
 
-  <!-- ===== HERO — Euromat ===== -->
   <div class="hero">
-    <span class="eyebrow">Skladom · ihneď k odberu</span>
-    <h1>Odkvapový systém<br><span class="accent">EUROMAT</span></h1>
-    <p class="sub">Kompletný pozinkovaný + farebný systém pre rodinné domy. Dovoz po okolí Partizánskeho zdarma.</p>
+    <span class="eyebrow">Skladom</span>
+    <h1>Odkvapový<br>systém<br><span class="accent">EUROMAT</span></h1>
+    <p class="sub">Pozink + farebný systém pre rodinné domy. Dovoz po okolí Partizánskeho zdarma.</p>
   </div>
 
-  <!-- ===== SIDE — Modulové krytiny ===== -->
   <div class="side">
-    <div class="side-left">
-      <div class="side-eyebrow">Aj na mieru</div>
-      <h2>Modulové<br>krytiny</h2>
-    </div>
+    <div class="side-eyebrow">Aj na mieru</div>
+    <h2>Modulové<br>krytiny</h2>
     <div class="side-stock">
       <span>Skladom 12 farieb RAL</span>
       <span>Objednávka na rozmer</span>
       <span>Dodanie do 5 dní</span>
-      <span>30 rokov záruka</span>
     </div>
   </div>
 
-  <!-- ===== CONTACT STRIP ===== -->
   <div class="contact">
     <div class="c-phone">
       <span class="ico">📞</span>
-      <span class="num">+421&nbsp;915&nbsp;589&nbsp;009</span>
+      <span class="num">+421 915 589 009</span>
     </div>
     <div class="c-addr">
       <span class="label">Prevádzka:</span><b>Víťazná 181/10</b> · 958 04 Partizánske

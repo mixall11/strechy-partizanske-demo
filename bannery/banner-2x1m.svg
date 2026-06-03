@@ -25,13 +25,13 @@
   <!-- ===== HEADER STRIP (top 140mm) ===== -->
   <rect x="0" y="0" width="2000" height="140" fill="#0a3578"/>
 
-  <!-- Logo (inlined, scaled to 100×82mm, padding 25mm from edges) -->
+  <!-- Logo — red brand bevel -->
   <g transform="translate(40, 25) scale(0.6)">
-    <!-- top arrow (red) -->
-    <path d="M30 78 L110 28 L190 78 L172 92 L110 52 L48 92 Z" fill="#D32F2F"/>
-    <!-- bottom arrow (red) -->
-    <path d="M30 108 L110 58 L190 108 L172 122 L110 82 L48 122 Z" fill="#D32F2F"/>
-    <!-- text inside logo — white on header (overriding the funnel-v1 black variant) -->
+    <rect width="220" height="180" fill="#EE1C23"/>
+    <path d="M30 78 L110 28 L110 52 L48 92 Z" fill="#FFFFFF"/>
+    <path d="M110 28 L190 78 L172 92 L110 52 Z" fill="#9D0D13"/>
+    <path d="M30 108 L110 58 L110 82 L48 122 Z" fill="#FFFFFF"/>
+    <path d="M110 58 L190 108 L172 122 L110 82 Z" fill="#9D0D13"/>
     <text x="110" y="148" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
     <text x="110" y="170" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
   </g>
@@ -52,7 +52,7 @@
 
   <!-- Main headline -->
   <text x="70"  y="430" fill="#15191f" font-weight="900" font-size="120" letter-spacing="-3">Odkvapový systém</text>
-  <text x="70"  y="570" fill="#D32F2F" font-weight="900" font-size="170" letter-spacing="-5">EUROMAT</text>
+  <text x="70"  y="570" fill="#EE1C23" font-weight="900" font-size="170" letter-spacing="-5">EUROMAT</text>
 
   <!-- Sub line -->
   <text x="70"  y="680" fill="#4a5560" font-weight="600" font-size="40">Kompletný pozinkovaný + farebný systém pre rodinné domy.</text>
@@ -69,17 +69,17 @@
   <!-- Stock list (3 items with red check bullets) -->
   <g font-size="38" font-weight="700" fill="#ffffff">
     <g transform="translate(1210, 560)">
-      <circle cx="22" cy="14" r="22" fill="#D32F2F"/>
+      <circle cx="22" cy="14" r="22" fill="#EE1C23"/>
       <text x="14" y="24" font-size="26" font-weight="900" fill="#ffffff">✓</text>
       <text x="65" y="26">Skladom 12 farieb RAL</text>
     </g>
     <g transform="translate(1210, 630)">
-      <circle cx="22" cy="14" r="22" fill="#D32F2F"/>
+      <circle cx="22" cy="14" r="22" fill="#EE1C23"/>
       <text x="14" y="24" font-size="26" font-weight="900" fill="#ffffff">✓</text>
       <text x="65" y="26">Objednávka na rozmer</text>
     </g>
     <g transform="translate(1210, 700)">
-      <circle cx="22" cy="14" r="22" fill="#D32F2F"/>
+      <circle cx="22" cy="14" r="22" fill="#EE1C23"/>
       <text x="14" y="24" font-size="26" font-weight="900" fill="#ffffff">✓</text>
       <text x="65" y="26">Dodanie do 5 dní</text>
     </g>
@@ -89,20 +89,20 @@
   <rect x="0" y="820" width="2000" height="180" fill="#15191f"/>
 
   <!-- Phone — red circle + huge number -->
-  <g transform="translate(80, 855)">
-    <circle cx="55" cy="55" r="55" fill="#D32F2F"/>
-    <text x="55" y="73" text-anchor="middle" font-size="56" fill="#ffffff">📞</text>
+  <g transform="translate(80, 858)">
+    <circle cx="50" cy="50" r="50" fill="#EE1C23"/>
+    <text x="50" y="68" text-anchor="middle" font-size="52" fill="#ffffff">📞</text>
   </g>
-  <text x="220" y="945" fill="#ffffff" font-weight="900" font-size="92" letter-spacing="-2">+421 915 589 009</text>
+  <text x="200" y="935" fill="#ffffff" font-weight="900" font-size="86" letter-spacing="-2">+421 915 589 009</text>
 
-  <!-- Address (middle) -->
-  <text x="1050" y="880" fill="#FBC02D" font-weight="700" font-size="22" letter-spacing="4">PREVÁDZKA</text>
-  <text x="1050" y="925" fill="#ffffff" font-weight="800" font-size="34">Víťazná 181/10</text>
-  <text x="1050" y="965" fill="#ffffff" font-weight="600" font-size="30">958 04 Partizánske</text>
+  <!-- Address (middle, bigger) -->
+  <text x="990" y="880" fill="#FBC02D" font-weight="800" font-size="24" letter-spacing="5">PREVÁDZKA</text>
+  <text x="990" y="922" fill="#ffffff" font-weight="900" font-size="42">Víťazná 181/10</text>
+  <text x="990" y="965" fill="#ffffff" font-weight="700" font-size="36">958 04 Partizánske</text>
 
-  <!-- Web (right) -->
-  <line x1="1500" y1="850" x2="1500" y2="970" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
-  <text x="1960" y="910" text-anchor="end" fill="#FBC02D" font-weight="900" font-size="58">strechy-partizanske.sk</text>
-  <text x="1960" y="950" text-anchor="end" fill="rgba(255,255,255,0.7)" font-weight="600" font-size="22" letter-spacing="4">ONLINE CENOVÁ PONUKA</text>
+  <!-- Web (right, bigger + non-wrapping) -->
+  <line x1="1440" y1="850" x2="1440" y2="975" stroke="rgba(255,255,255,0.18)" stroke-width="3"/>
+  <text x="1960" y="908" text-anchor="end" fill="#FBC02D" font-weight="900" font-size="72" letter-spacing="-1">strechy-partizanske.sk</text>
+  <text x="1960" y="950" text-anchor="end" fill="rgba(255,255,255,0.78)" font-weight="700" font-size="26" letter-spacing="5">ONLINE CENOVÁ PONUKA</text>
 
 </svg>

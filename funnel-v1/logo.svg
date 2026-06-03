@@ -1,9 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" role="img" aria-label="Strechy Partizánske">
-  <!-- horný šíp -->
-  <path d="M30 78 L110 28 L190 78 L172 92 L110 52 L48 92 Z" fill="#D32F2F"/>
-  <!-- spodný šíp -->
-  <path d="M30 108 L110 58 L190 108 L172 122 L110 82 L48 122 Z" fill="#D32F2F"/>
-  <!-- text -->
-  <text x="110" y="148" text-anchor="middle" fill="#000000" font-family="'Inter',sans-serif" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
-  <text x="110" y="170" text-anchor="middle" fill="#000000" font-family="'Inter',sans-serif" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
+  <!-- background — hlavná značková červená -->
+  <rect width="220" height="180" fill="#EE1C23"/>
+  <!-- horný šíp — ľavá polovica (svetlejšia, biela ako face) + pravá polovica (tmavšia, shadow) -->
+  <path d="M30 78 L110 28 L110 52 L48 92 Z" fill="#FFFFFF"/>
+  <path d="M110 28 L190 78 L172 92 L110 52 Z" fill="#9D0D13"/>
+  <!-- spodný šíp — rovnaký bevel -->
+  <path d="M30 108 L110 58 L110 82 L48 122 Z" fill="#FFFFFF"/>
+  <path d="M110 58 L190 108 L172 122 L110 82 Z" fill="#9D0D13"/>
+  <!-- text (biely na červenom) -->
+  <text x="110" y="148" text-anchor="middle" fill="#FFFFFF" font-family="'Inter',sans-serif" font-weight="800" font-size="20" letter-spacing="1">STRECHY</text>
+  <text x="110" y="170" text-anchor="middle" fill="#FFFFFF" font-family="'Inter',sans-serif" font-weight="800" font-size="16" letter-spacing="1.5">PARTIZÁNSKE</text>
 </svg>
