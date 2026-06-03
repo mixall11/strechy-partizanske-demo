@@ -44,20 +44,25 @@
     gap: 2.5cqw;
   }
   .head img { height: 88%; width: auto; display: block; }
+  .head-brand {
+    display: flex;
+    flex-direction: column;
+    gap: .5cqw;
+    line-height: 1;
+  }
   .head .brand-name {
     font-weight: 900;
-    font-size: 2.8cqw;
+    font-size: 4cqw;
     line-height: 1;
     letter-spacing: .02em;
     color: #15191f;
     white-space: nowrap;
   }
   .head .brand-tag {
-    margin-left: auto;
-    font-size: 1.15cqw;
+    font-size: 1.2cqw;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: .18em;
+    letter-spacing: .22em;
     color: #4a5560;
     white-space: nowrap;
   }
@@ -276,8 +281,10 @@
   <!-- ===== HEADER ===== -->
   <div class="head">
     <img src="../funnel-v1/logo.svg?v=8" alt="Strechy Partizánske">
-    <span class="brand-name">STRECHY PARTIZÁNSKE</span>
-    <span class="brand-tag">Od 2012 · Krytiny · Klampiarstvo · Montáž</span>
+    <div class="head-brand">
+      <span class="brand-name">STRECHY PARTIZÁNSKE</span>
+      <span class="brand-tag">Od 2012 · Krytiny · Klampiarstvo · Montáž</span>
+    </div>
   </div>
 
   <!-- ===== HERO — Evromat ===== -->
