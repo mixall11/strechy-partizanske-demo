@@ -25,10 +25,14 @@
   <rect x="0" y="0" width="1000" height="196" fill="#ffffff"/>
   <rect x="0" y="196" width="1000" height="4" fill="#EE1C23"/>
 
-  <!-- Real brand logo — centered (transparent bg) -->
-  <image x="200" y="30" width="600" height="155"
+  <!-- Real brand logo (transparent bg) -->
+  <image x="40" y="30" width="280" height="155"
          href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"
          xlink:href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"/>
+
+  <!-- Brand name (dark, vedľa loga) -->
+  <text x="340" y="100" fill="#15191f" font-weight="900" font-size="70" letter-spacing="1.5">STRECHY</text>
+  <text x="340" y="170" fill="#15191f" font-weight="900" font-size="70" letter-spacing="1.5">PARTIZÁNSKE</text>
 
   <!-- ===== HERO — Euromat (200–920mm = 36%) ===== -->
   <g transform="translate(60, 280)">

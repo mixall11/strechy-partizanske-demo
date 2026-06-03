@@ -31,8 +31,11 @@
          href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"
          xlink:href="https://strechy-partizanske.sk/assets/img/SP3_bez_pozadia.svg"/>
 
-  <!-- Brand tag (right-aligned, dark) -->
-  <text x="1960" y="84" text-anchor="end" fill="#4a5560" font-weight="800" font-size="30" letter-spacing="7">KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
+  <!-- Brand name (dark, vedľa loga) -->
+  <text x="290" y="92" fill="#15191f" font-weight="900" font-size="64" letter-spacing="1.5">STRECHY PARTIZÁNSKE</text>
+
+  <!-- Brand tag (right-aligned, smaller, dark) -->
+  <text x="1960" y="84" text-anchor="end" fill="#4a5560" font-weight="800" font-size="28" letter-spacing="6">KRYTINY · KLAMPIARSTVO · MONTÁŽ</text>
 
   <!-- ===== HERO (left 58%) — Euromat odkvap ===== -->
   <!-- Eyebrow pill — SKLADOM · IHNEĎ K ODBERU -->
