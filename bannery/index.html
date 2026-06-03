@@ -18,6 +18,10 @@
   .meta a{color:#b5472e;text-decoration:none}
   .meta a:hover{text-decoration:underline}
   .muted{color:#6a7079;font-weight:600}
+  .card>a[download]{display:block;position:relative;cursor:pointer;line-height:0}
+  .card>a[download]::after{content:"💾 Uložiť";position:absolute;top:10px;right:10px;background:rgba(15,25,35,.82);color:#fff;font-size:12px;font-weight:800;padding:6px 11px;border-radius:8px;opacity:0;transition:opacity .15s;line-height:1.2}
+  .card>a[download]:hover::after{opacity:1}
+  .card>a[download]:hover img{filter:brightness(.93)}
 </style>
 </head>
 <body>
@@ -28,7 +32,7 @@
   <h2>⭐ Najnovšie — foto bannery 2 × 1 m (EVROMAT + REGAMET)</h2>
 
   <div class="card">
-    <img src="banner-2x1m-biely-preview.png" alt="Baner 2×1 m biely — EVROMAT + REGAMET">
+    <a href="exports/banner-2x1m-biely-8000px.png" download="banner-2x1m-biely.png" title="Klikni pre uloženie obrázka (PNG 8000px)"><img src="banner-2x1m-biely-preview.png" alt="Baner 2×1 m biely — EVROMAT + REGAMET"></a>
     <div class="meta"><span>📐 2 × 1 m · <b>biely</b> dizajn (foto · EVROMAT + REGAMET)</span><a href="banner-2x1m-biely.svg" target="_blank">Otvoriť SVG →</a></div>
     <div class="meta" style="border-top:1px solid #f0ebe5"><span>🎨 <b>SVG</b> pre Illustrator (vektor, krivky)</span><a href="banner-2x1m-biely.svg" download>Stiahnuť SVG ↓</a></div>
     <div class="meta" style="border-top:1px solid #f0ebe5"><span>🖨️ <b>PDF</b> 200 × 100 cm (print master)</span><a href="exports/banner-2x1m-biely.pdf" download>Stiahnuť PDF ↓</a></div>
@@ -36,7 +40,7 @@
   </div>
 
   <div class="card">
-    <img src="banner-2x1m-foto-preview.png" alt="Baner 2×1 m modrý — EVROMAT + REGAMET">
+    <a href="exports/banner-2x1m-foto-4000px.png" download="banner-2x1m-modry.png" title="Klikni pre uloženie obrázka (PNG 4252px)"><img src="banner-2x1m-foto-preview.png" alt="Baner 2×1 m modrý — EVROMAT + REGAMET"></a>
     <div class="meta"><span>📐 2 × 1 m · <b>modrý</b> dizajn (web/foto · EVROMAT + REGAMET)</span><a href="banner-2x1m-foto.html" target="_blank">Otvoriť preview →</a></div>
     <div class="meta" style="border-top:1px solid #f0ebe5"><span>🖨️ <b>PDF</b> 200 × 100 cm</span><a href="exports/banner-2x1m-foto.pdf" download>Stiahnuť PDF ↓</a></div>
     <div class="meta" style="border-top:1px solid #f0ebe5"><span>🖼️ <b>PNG</b> 4252 × 2126 px</span><a href="exports/banner-2x1m-foto-4000px.png" download>Stiahnuť PNG ↓</a></div>
@@ -107,5 +111,35 @@
   <div class="card"><img src="mesiac-11-november.png" alt="November"><div class="meta"><span>11 · November <span class="muted">· jeseň · opravy</span></span><a href="mesiac-11-november.png" download>Stiahnuť PNG ↓</a></div></div>
   <div class="card"><img src="mesiac-12-december.png" alt="December"><div class="meta"><span>12 · December <span class="muted">· zima · sneh, náradie</span></span><a href="mesiac-12-december.png" download>Stiahnuť PNG ↓</a></div></div>
 </div>
+
+<script>
+// 1) Force-save: každý odkaz s atribútom download sa uloží (blob), aj SVG/PDF (inak ich prehliadač otvorí)
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[download]');
+  if(!a) return;
+  e.preventDefault();
+  var url = a.getAttribute('href');
+  var name = a.getAttribute('download') || url.split('/').pop();
+  fetch(url).then(function(r){ if(!r.ok) throw 0; return r.blob(); }).then(function(b){
+    var u = URL.createObjectURL(b), t = document.createElement('a');
+    t.href = u; t.download = name; document.body.appendChild(t); t.click();
+    t.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
+  }).catch(function(){ window.open(url, '_blank'); });
+});
+
+// 2) Každý obrázok v karte = klikateľný na uloženie (použije download odkaz danej karty)
+document.querySelectorAll('.card').forEach(function(card){
+  var img = card.querySelector('img');
+  if(!img || img.closest('a[download]')) return;        // bez obrázka / už zabalený
+  var dl = card.querySelector('.meta a[download]');
+  if(!dl) return;
+  var a = document.createElement('a');
+  a.href = dl.getAttribute('href');
+  a.setAttribute('download', dl.getAttribute('download') || a.href.split('/').pop());
+  a.title = 'Klikni pre uloženie obrázka';
+  img.parentNode.insertBefore(a, img);
+  a.appendChild(img);
+});
+</script>
 </body>
 </html>
